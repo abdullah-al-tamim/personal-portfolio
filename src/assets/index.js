@@ -49,7 +49,7 @@ export const downloadIcon = <DownloadLineIcon />
 export const arrowLeftIcon = <ArrowLeftSFillIcon />
 
 export const aboutText =
-  " Hi, I'm Nick, a web developer & designer. I blend the technical  skills of web development with the creative aspects of web design. I code in HTML, CSS, JavaScript, React, NextJS... to build functional and responsive websites, while also using design tools like Photoshop and Figma to create visually appealing and user-friendly  interfaces. My role allows me to ensure that websites not only work well but also look great and provide an excellent user experience."
+  " Hi, I’m an enthusiastic recent graduate with a Bachelor's degree in Computer Science and Engineering. I enjoy working with Python and Java, and I specialize in developing web applications using Django. I am also passionate about learning the latest advancements in AI. Throughout my academic journey, I have cultivated strong discipline, punctuality, and a commitment to hard work. I've developed the ability to perform well under pressure and consistently prioritize quality over quantity. I thrive in environments that challenge me and allow me to demonstrate my skills through competitive assessments."
 // End of AboutMe icons
 
 // Skills
