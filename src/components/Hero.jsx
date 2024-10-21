@@ -50,10 +50,10 @@ const Hero = () => {
             transition: '0.1s' 
             }}>
             <Image
-              src={'/person.png'}
+              src={'/avatar.png'}
               alt="Tamim's image"
-              width={400}
-              height={400}
+              width={500}
+              height={500}
               priority={true}
               className="h-auto w-[150px]"
             />
@@ -72,11 +72,32 @@ const Hero = () => {
 
 
         <div className="mt-8 flex justify-center gap-x-10 text-3xl text-yellow-600 sm:text-2xl">
-          {heroIcons.map((icon, i) => (
-            <a href="#" key={i} className=" hover:text-red-700 hover:font-extrabold transition-colors">{icon}</a>
-          ))}
+  {heroIcons.map((icon, i) => {
+    let url = ""; 
 
-        </div>
+    if (i === 0) {
+      url = "https://www.facebook.com/tamim.977";
+    } else if (i === 1) {
+      url = "https://twitter.com/yourprofile"; 
+    } else if (i === 2) {
+      url = "https://www.linkedin.com/in/yourprofile"; 
+    } else if (i === 3) {
+      url = "https://www.instagram.com/yourprofile"; 
+    }
+
+    return (
+      <a
+        href={url}
+        key={i}
+        target="_blank"  // Opens in a new tab
+        rel="noopener noreferrer"  // Prevents security issues
+        className="hover:text-red-700 hover:font-extrabold transition-colors"
+      >
+        {icon}
+      </a>
+    );
+  })}
+</div>
 
 
         <a href="#" className="mx-auto mt-7 block w-max rounded-lg bg-red-400 px-3 py-1 font-light capitalize tracking-wider text-white hover:bg-red-500 hover:font-bold transition-colors" 
