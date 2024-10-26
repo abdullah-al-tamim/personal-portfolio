@@ -52,8 +52,8 @@ const Hero = () => {
             <Image
               src={'/avatar.png'}
               alt="Tamim's image"
-              width={500}
-              height={500}
+              width={800}
+              height={800}
               priority={true}
               className="h-auto w-[150px]"
             />
