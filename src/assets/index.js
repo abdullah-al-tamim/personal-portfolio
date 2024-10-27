@@ -379,7 +379,7 @@ export const questions = [
 ]
 
 import ArrowDropDownLineIcon from 'remixicon-react/ArrowDropDownLineIcon'
-export const QuestionArrow = <ArrowDropDownLineIcon />
+export const questionArrow = <ArrowDropDownLineIcon />
 
 // Reviews
 
