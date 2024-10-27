@@ -36,6 +36,7 @@ const Projects = () => {
                         }}
                         ref={(el) => buttonsRef.current.push(el)}
                         onClick={() => {
+                            setTech(text)
                             setIndex(i)
                         }}
                         className="border border-yellow-500 rounded-xl px-2 py-1 text-sm font-light tracking-wider text-gray-400">{text}</motion.button>
@@ -43,10 +44,11 @@ const Projects = () => {
 
             </div>
             <div className="flex flex-wrap items-center justify-center gap-5">
-                {projectsData.map((data, i) => (
-                    <div key={`id-${i}`}>
+                {projectsData.filter((project) => {return project.tech.some((item) => (tech === "All" ? true : item === tech))})
+                .map((data, i) => (
+                    <motion.div key={`id-${i}`} layout>
                         <Project data={data} index={i} />
-                    </div>
+                    </motion.div>
                 ))}
 
             </div>
