@@ -9,12 +9,12 @@ const Experience = () => {
     const date = new Date().getFullYear()
 
     const containerRef = useRef(null)
-    const { scrollYProgress } = useRef({
+    const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ['start 95%', 'end end'],
     })
 
-    const scrollY = useSpring(scrollYProgress, {stiffness:200, damping:20})
+    const scrollY = useSpring(scrollYProgress, {stiffness:100, damping:20})
 
     return (
         <div className="relative py-20 px-96">
@@ -52,7 +52,7 @@ const Experience = () => {
                     </div>
                 ))}
 
-                <motion.div initial={{scaleY:0}} style={{scaleY: scrollY}} className="absolute w-1 h-full rounded-full bg-gray-600 origin-top"></motion.div>
+                <motion.div initial={{scaleY:0}} style={{scaleY: scrollY}} className="absolute w-1 h-full rounded-full bg-gray-400 origin-top"></motion.div>
             </div>
 
         </div>
