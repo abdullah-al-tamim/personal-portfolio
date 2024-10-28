@@ -36,9 +36,9 @@ export default function Home() {
 
   return (
     <>
-      {/* <Toggle> */}
+      <Toggle>
         <Navbar id={id} />
-        <div ref={compsRef}>
+        <div className="w-min" ref={compsRef}>
           <Hero />
           <About />
           <Experience />
@@ -47,7 +47,7 @@ export default function Home() {
           <Contact />
           <Questions />
         </div>
-      {/* </Toggle> */}
+      </Toggle>
     </>
   )
 }

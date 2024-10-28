@@ -5,7 +5,7 @@ import {motion} from "framer-motion"
 
 const Contact = () => {
   return (
-    <div id='contact' className='h-screen py-20 px-96'>
+    <div id='contact' className='h-screen py-20 '>
         <Heading text={'Get in Touch'}/>
         <div className='w-full h-full my-auto flex lg:flex-col items-center justify-between lg:justify-center gap-x-20 lg:gap-x-0 gap-y-20'>
             <motion.div initial={{opacity:0, y:150}} whileInView={{opacity: 1, y:0}} transition={{duration:.4}} viewport={{once:true}}>
