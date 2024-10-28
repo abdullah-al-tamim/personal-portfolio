@@ -46,7 +46,7 @@ const Toggle = ({ children }) => {
               removeDarkTheme()
               reactLocalStorage.set('darkTheme', false) 
             }
-          }} className="fixed right-14 sm:10 top-10 text-yellow-600 hover:text-yellow-500">
+          }} className="fixed right-14 sm:10 top-10 text-yellow-600 hover:text-yellow-500 z-40">
             <motion.span animate={{scale:darkTheme ? 0 : 1}} className="absolute block rounded-full bg-zinc-50 p-1 text-4xl dark:bg-zinc-800">{moonIcon}</motion.span>
             <motion.span animate={{scale:darkTheme ? 1 : 0}} className="absolute block rounded-full bg-zinc-50 p-1 text-3xl dark:bg-zinc-800">{sunIcon}</motion.span>
           </button>

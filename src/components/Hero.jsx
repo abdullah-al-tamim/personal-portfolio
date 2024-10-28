@@ -43,7 +43,7 @@ const Hero = () => {
   return (
     <div id="home" className="h-screen grid place-items-center" onMouseMove={handleMouseMove} onMouseEnter={handleMouseEnter}>
       <div>
-        <div className="flex flex-col items-center justify-center gap-y-3 font-light capitalize">
+        <motion.div initial={{opacity:0, y:-100}} animate={{opacity:1, y:0}} transition={{delay:.5}} className="flex flex-col items-center justify-center gap-y-3 font-light capitalize">
           <motion.div className="flex items-center justify-center" style={{ 
             rotateX: mouseMove ? rotateX : 0, 
             rotateY: mouseMove ? rotateY : 0, 
@@ -68,10 +68,10 @@ const Hero = () => {
           </motion.div>
           <h1 className="text-center text-3xl font-bold tracking-wide text-gray-500 sm:text-2xl dark:text-white transition-colors">I'm Abdullah al Tamim &</h1>
           <p className="text-lg tracking-wider text-gray-700 dark:text-gray-200 transition-colors">I love animations 🤗</p>
-        </div>
+        </motion.div>
 
 
-        <div className="mt-8 flex justify-center gap-x-10 text-3xl text-yellow-600 sm:text-2xl">
+        <motion.div initial={{opacity:0, y:100}} animate={{opacity: 1, y:0}} transition={{delay:.5}} className="mt-8 flex justify-center gap-x-10 text-3xl text-yellow-600 sm:text-2xl">
   {heroIcons.map((icon, i) => {
     let url = ""; 
 
@@ -97,13 +97,13 @@ const Hero = () => {
       </a>
     );
   })}
-</div>
+</motion.div>
 
 
-        <a href="#" className="mx-auto mt-7 block w-max rounded-lg bg-red-400 px-3 py-1 font-light capitalize tracking-wider text-white hover:bg-red-500 hover:font-bold transition-colors" 
+        <motion.a initial={{opacity:0, y:100}} animate={{opacity: 1, y:0}} transition={{delay:.5}} href="#" className="mx-auto mt-7 block w-max rounded-lg bg-red-400 px-3 py-1 font-light capitalize tracking-wider text-white hover:bg-red-500 hover:font-bold transition-colors" 
         onMouseEnter={() => setButtonHover(true)}
         onMouseLeave={() => setButtonHover(false)}
-        >Talk to me</a>
+        >Talk to me</motion.a>
       </div>
     </div>
   )
