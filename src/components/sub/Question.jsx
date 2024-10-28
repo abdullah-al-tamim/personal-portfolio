@@ -26,7 +26,7 @@ const Question = ({ data, index }) => {
                 <motion.span animate={{ rotate: show ? 180 : 0 }}>{questionArrow}</motion.span>
                 <span>{data.question}</span>
             </h1>
-            <motion.p initial={{ scaleY: 0, height: 0, opacity: 0 }} animate={{ scaleY: show ? 1 : 0, height: show ? "auto" : 0, opacity: show ? 1 : 0 }} transition={{duration: .1, type:'spring', stiffness: show? 250: 50, opacity:{delay: show ? 0.2: 0},}} className="pl-8 text-lg font-extralight tracking-wide text-gray-900 first-letter:pl-3">{data.answer}</motion.p>
+            <motion.p initial={{ scaleY: 0, height: 0, opacity: 0 }} animate={{ scaleY: show ? 1 : 0, height: show ? "auto" : 0, opacity: show ? 1 : 0 }} transition={{duration: .1, type:'spring', stiffness: show? 250: 50, opacity:{delay: show ? 0.2: 0},}} className="box-border origin-top pl-8 text-lg font-extralight tracking-wide text-gray-900 first-letter:pl-3">{data.answer}</motion.p>
         </motion.li>
     )
 }
