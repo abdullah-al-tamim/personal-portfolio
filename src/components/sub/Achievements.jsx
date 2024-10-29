@@ -9,7 +9,7 @@ const Achievements = ({title, amount, children}) => {
             let timeOut 
             if(i <= amount){
                 number.set(i++)
-                timeOut = setTimeout(updateCount, 50)
+                timeOut = setTimeout(updateCount, 100)
             } else{
                 clearTimeout(timeOut)
             }
@@ -23,7 +23,7 @@ const Achievements = ({title, amount, children}) => {
             <h1 className='flex flex-col gap-y-2 '>
                 <motion.span className='text-2xl lg:text-xl font-light text-yellow-500 ' whileInView={() => count(amount)} viewport={{once: true}}
                     >{number}</motion.span>
-                <span className='text-sm tracking-wide text-gray-500 dark:text-white transition-colors'>{title}</span>
+                <span className='text-xl tracking-wide text-gray-500 dark:text-white transition-colors'>{title}</span>
             </h1>
         </div>
     )

@@ -22,22 +22,17 @@ import AwardFillIcon from 'remixicon-react/AwardFillIcon'
 export const aboutData = [
   {
     title: 'Github Repos',
-    amount: 348,
+    amount: 27,
     icon: <GithubFillIcon />,
   },
   {
     title: 'Successful Projects',
-    amount: 227,
+    amount: 10,
     icon: <Projector2LineIcon />,
   },
   {
-    title: 'Satisfied clients',
-    amount: 176,
-    icon: <GroupLineIcon />,
-  },
-  {
     title: 'Awards and Recognition',
-    amount: 107,
+    amount: 6,
     icon: <AwardFillIcon />,
   },
 ]
@@ -54,22 +49,7 @@ export const aboutText =
 
 // Skills
 export const skillsData = [
-  {
-    name: 'Figma',
-    icon: '/skills/figma.png',
-  },
-  {
-    name: 'Photoshop',
-    icon: '/skills/photoshop.png',
-  },
-  {
-    name: 'Blender',
-    icon: '/skills/blender.png',
-  },
-  {
-    name: 'VS Code',
-    icon: '/skills/vscode.png',
-  },
+  
   {
     name: 'HTML',
     icon: '/skills/html.png',
@@ -86,18 +66,18 @@ export const skillsData = [
     name: 'TailwindCSS',
     icon: '/skills/tailwind.png',
   },
-  {
-    name: 'Vite',
-    icon: '/skills/vite.png',
-  },
-  {
-    name: 'ReactJS',
-    icon: '/skills/react.png',
-  },
-  {
-    name: 'TypeScript',
-    icon: '/skills/ts.png',
-  },
+  // {
+  //   name: 'Vite',
+  //   icon: '/skills/vite.png',
+  // },
+  // {
+  //   name: 'ReactJS',
+  //   icon: '/skills/react.png',
+  // },
+  // {
+  //   name: 'TypeScript',
+  //   icon: '/skills/ts.png',
+  // },
   {
     name: 'AI',
     icon: '/skills/ai.png',
@@ -106,25 +86,41 @@ export const skillsData = [
     name: 'Framer Motion',
     icon: '/skills/framer.png',
   },
-  {
-    name: 'ThreeJS',
-    icon: '/skills/threejs.png',
-  },
+  // {
+  //   name: 'ThreeJS',
+  //   icon: '/skills/threejs.png',
+  // },
   {
     name: 'NextJS',
     icon: '/skills/nextjs.png',
   },
-  {
-    name: 'NodeJS',
-    icon: '/skills/nodejs.png',
-  },
-  {
-    name: 'MongoDB',
-    icon: '/skills/mongodb.png',
-  },
+  // {
+  //   name: 'NodeJS',
+  //   icon: '/skills/nodejs.png',
+  // },
+  // {
+  //   name: 'MongoDB',
+  //   icon: '/skills/mongodb.png',
+  // },
   {
     name: 'Github',
     icon: '/skills/github.png',
+  },
+  {
+    name: 'Figma',
+    icon: '/skills/figma.png',
+  },
+  {
+    name: 'Photoshop',
+    icon: '/skills/photoshop.png',
+  },
+  // {
+  //   name: 'Blender',
+  //   icon: '/skills/blender.png',
+  // },
+  {
+    name: 'VS Code',
+    icon: '/skills/vscode.png',
   },
 ]
 

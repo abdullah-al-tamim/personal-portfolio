@@ -76,9 +76,9 @@ const Hero = () => {
     let url = ""; 
 
     if (i === 0) {
-      url = "https://www.facebook.com/tamim.977";
+      url = "https://www.instagram.com/abdullah.al.tamim/";
     } else if (i === 1) {
-      url = "https://twitter.com/yourprofile"; 
+      url = "https://www.facebook.com/tamim.977"; 
     } else if (i === 2) {
       url = "https://www.linkedin.com/in/yourprofile"; 
     } else if (i === 3) {
@@ -100,7 +100,7 @@ const Hero = () => {
 </motion.div>
 
 
-        <motion.a initial={{opacity:0, y:100}} animate={{opacity: 1, y:0}} transition={{delay:.5}} href="#" className="mx-auto mt-7 block w-max rounded-lg bg-red-400 px-3 py-1 font-light capitalize tracking-wider text-white hover:bg-red-500 hover:font-bold transition-colors" 
+        <motion.a initial={{opacity:0, y:100}} animate={{opacity: 1, y:0}} transition={{delay:.5}} href="#" className="mx-auto mt-7 block w-max rounded-lg bg-red-400 px-3 py-1 font-light capitalize tracking-wider text-white hover:bg-red-500 transition-colors" 
         onMouseEnter={() => setButtonHover(true)}
         onMouseLeave={() => setButtonHover(false)}
         >Talk to me</motion.a>
