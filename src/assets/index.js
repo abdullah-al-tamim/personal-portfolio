@@ -5,13 +5,19 @@ import DribbbleLineIcon from 'remixicon-react/DribbbleLineIcon'
 import YoutubeLineIcon from 'remixicon-react/YoutubeLineIcon'
 import GithubLineIcon from 'remixicon-react/GithubLineIcon'
 
-export const heroIcons = [
-  <InstagramLineIcon />,
-  <FacebookCircleLineIcon />,
-  <DribbbleLineIcon />,
-  <YoutubeLineIcon />,
-  <GithubLineIcon />,
-]
+const icons = [
+  { component: <InstagramLineIcon />, key: 'instagram' },
+  { component: <FacebookCircleLineIcon />, key: 'facebook' },
+  { component: <DribbbleLineIcon />, key: 'dribbble' },
+  { component: <YoutubeLineIcon />, key: 'youtube' },
+  { component: <GithubLineIcon />, key: 'github' },
+];
+
+export const heroIcons = icons.map(icon => (
+  <div key={icon.key}>
+    {icon.component}
+  </div>
+));
 
 // AboutMe icons
 import GithubFillIcon from 'remixicon-react/GithubFillIcon'
