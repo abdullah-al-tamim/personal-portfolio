@@ -390,8 +390,27 @@ import StarHalfLineIcon from 'remixicon-react/StarHalfLineIcon'
 import ArrowLeftSLineIcon from 'remixicon-react/ArrowLeftSLineIcon'
 import ArrowRightSLineIcon from 'remixicon-react/ArrowRightSLineIcon'
 
-export const starIcons = [<StarFillIcon />, <StarHalfLineIcon />]
-export const arrowIcons = [<ArrowLeftSLineIcon />, <ArrowRightSLineIcon />]
+const starIconsArray = [
+  { component: <StarFillIcon />, key: 'star-fill' },
+  { component: <StarHalfLineIcon />, key: 'star-half' },
+];
+
+const arrowIconsArray = [
+  { component: <ArrowLeftSLineIcon />, key: 'arrow-left' },
+  { component: <ArrowRightSLineIcon />, key: 'arrow-right' },
+];
+
+export const starIcons = starIconsArray.map(icon => (
+  <div key={icon.key}>
+    {icon.component}
+  </div>
+));
+
+export const arrowIcons = arrowIconsArray.map(icon => (
+  <div key={icon.key}>
+    {icon.component}
+  </div>
+));
 
 export const reviewsData = [
   {
