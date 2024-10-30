@@ -66,8 +66,8 @@ const Hero = () => {
               Hi..
             </motion.span>
           </motion.div>
-          <h1 className="text-center text-3xl font-bold tracking-wide text-gray-500 sm:text-2xl dark:text-white transition-colors">I am Abdullah al Tamim &</h1>
-          <p className="text-lg tracking-wider text-gray-700 dark:text-gray-200 transition-colors">I love animations 🤗</p>
+          <h1 className="text-center text-3xl font-bold tracking-wide text-gray-500 sm:text-2xl dark:text-white transition-colors">I'm Abdullah al Tamim &</h1>
+          <p className="text-lg tracking-wider text-gray-700 dark:text-gray-200 transition-colors">And I love to solve problems with elegant codes 🤗</p>
         </motion.div>
 
 
