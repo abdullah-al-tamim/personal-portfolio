@@ -2,13 +2,15 @@
 import InstagramLineIcon from 'remixicon-react/InstagramLineIcon'
 import FacebookCircleLineIcon from 'remixicon-react/FacebookCircleLineIcon'
 import DribbbleLineIcon from 'remixicon-react/DribbbleLineIcon'
+import LinkedinBoxLineIcon from 'remixicon-react/LinkedinBoxLineIcon';
 import YoutubeLineIcon from 'remixicon-react/YoutubeLineIcon'
 import GithubLineIcon from 'remixicon-react/GithubLineIcon'
 
 const icons = [
   { component: <InstagramLineIcon />, key: 'instagram' },
   { component: <FacebookCircleLineIcon />, key: 'facebook' },
-  { component: <DribbbleLineIcon />, key: 'dribbble' },
+  // { component: <DribbbleLineIcon />, key: 'dribbble' },
+  { component: <LinkedinBoxLineIcon />, key: 'linkedin' },
   { component: <YoutubeLineIcon />, key: 'youtube' },
   { component: <GithubLineIcon />, key: 'github' },
 ];
