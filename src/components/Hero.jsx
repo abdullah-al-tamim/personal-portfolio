@@ -52,10 +52,10 @@ const Hero = () => {
             <Image
               src={'/avatar.png'}
               alt="Tamim's image"
-              width={800}
-              height={800}
+              width={400}
+              height={400}
               priority={true}
-              className="h-auto w-[150px]"
+              className="h-auto w-[400px]"
             />
             <motion.span className="absolute text-3xl font-semibold text-white" initial={{scale: 0}} 
             animate={{opacity: buttonHover ? 0 : 1, 
