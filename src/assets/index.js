@@ -57,7 +57,7 @@ export const aboutText =
 
 // Skills
 export const skillsData = [
-  
+
   {
     name: 'HTML',
     icon: '/skills/html.png',
@@ -139,54 +139,40 @@ import CopyrightLineIcon from 'remixicon-react/CopyrightLineIcon'
 export const copyRightIcon = <CopyrightLineIcon />
 // Experience
 export const experienceData = [
+
   {
-    year: 1,
-    title: 'Foundation and Basics',
-    education:
-      'High School Diploma: Focus on computer science, mathematics, and art/design courses.',
+    year: '2024.6\n-\nnow',
+    title: 'Trainee',
+    institution: ['Bangladesh Japan ICT Engineers\' Training Program (BJET)'],
     experience: [
-      'Basic HTML/CSS: Learn through online tutorials and courses.',
-      'Personal Projects: Create simple personal websites or blogs.',
+      'Learning Japanese Language, Culture, Business Manner and IT skills.',
+      'Developed a Learning Management System as part of the IT project of BJET.',
+      'Technologies Used: Shadcn, Tailwind, ReactJS, NodeJS, MongoDB',
+    ],
+  },
+
+  {
+    year: '2022.2\n-\nnow',
+    title: 'Undergraduate and Graduate Teaching Assistant',
+    institution: ['East West University'],
+    experience: [
+      'Courses Assisted: Object Oriented Programming, Algorithms, Database Systems, Artificial Intelligence, Software Engineering, Information System Analysis and Design.',
+      'Tutored students individually and in groups to help them grasp difficult concepts and project work. Evaluated assignments and lab tests and gave detailed feedback.',
+      'Technologies Used: C++, Java, Python, Django, Oracle DB, MySQL, SQLite, HTML, CSS (Bootstrap), Javascript',
     ],
   },
   {
-    year: 2,
-    title: 'Advanced Learning and Early Experience',
-    education:
-      'Associate’s Degree in Web Development or Design: Enroll in a 2-year program covering web development and design principles.',
+    year: '2020.1\n-\n2024.2',
+    title: 'Graduation with a Computer Science and Engineering Degree',
+    institution: ['East West University'],
     experience: [
-      'Freelance Work: Take on small freelance projects to build a portfolio.',
-      'Online Courses and Certifications: Learn JavaScript, responsive design, and UX/UI design.',
+      'CGPA: 3.88 / 4',
+      'Participated in many programming contests and project showcasing.',
+      'Worked on different academic as well as personal projects that are shown below.',
     ],
   },
-  {
-    year: 3,
-    title: 'Specialized Education and Real-World Application',
-    education:
-      'Online Courses and Bootcamps: Focus on specialized areas like front-end frameworks (React, Angular) and back-end technologies (Node.js).',
-    experience: [
-      'Internships: Secure internships with tech companies or design agencies.',
-      'Contribute to Open Source: Collaborate on open-source projects.',
-    ],
-  },
-  {
-    year: 4,
-    title: 'Building Expertise and Expanding Skills',
-    education: 'Certifications: Obtain certifications in advanced web technologies.',
-    experience: [
-      'Full-Time Position: Work as a junior web developer or designer.',
-      'Portfolio Development: Continuously update your portfolio with professional and personal projects.',
-    ],
-  },
-  {
-    year: 5,
-    title: 'Mastery and Leadership',
-    education: 'Workshops and Conferences: Attend industry events to stay updated.',
-    experience: [
-      'Senior Position: Aim for a senior web developer or lead designer role, mentoring junior colleagues.',
-      'Freelance and Consulting: Consider starting a freelance business or consulting practice.',
-    ],
-  },
+  
+
 ]
 
 export const projectsData = [
