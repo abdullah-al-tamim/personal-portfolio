@@ -177,15 +177,15 @@ export const experienceData = [
 
 export const projectsData = [
   {
-    name: 'SparkleGrove.com',
-    desc: 'A lifestyle blog featuring DIY crafts, home decor ideas, and inspiration for creating a cozy and stylish living space.',
-    url: '/projects/image-1.jpg',
-    tech: ['Figma', 'Photoshop', 'HTML'],
+    name: 'Face Attedance System',
+    desc: 'This system uses Google MediaPipe to scan and identify registered users’ faces for automatic attendance, showing “already taken” if recorded for the day.”',
+    url: '/projects/FaceAttendance.gif',
+    tech: ['Figma', 'ML', 'Python'],
   },
   {
-    name: 'TechTrekker.net',
+    name: 'Decoding Object Shapes from EEG Signals of the Brain ',
     desc: 'A technology news and review site covering the latest gadgets, software updates, and trends in the tech industry.',
-    url: '/projects/image-2.jpg',
+    url: '/projects/EEG.gif',
     tech: ['Figma', 'Photoshop'],
   },
   {
@@ -240,8 +240,8 @@ export const projectsData = [
 
 export const projectsButton = [
   'All',
-  'Figma',
-  'Photoshop',
+  'ML',
+  'Django',
   'HTML',
   'CSS',
   'JavaScript',
