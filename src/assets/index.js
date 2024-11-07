@@ -58,6 +58,53 @@ export const aboutText =
 // Skills
 export const skillsData = [
 
+  
+  {
+    name: 'C',
+    icon: '/skills/C.png',
+  },
+  {
+    name: 'C++',
+    icon: '/skills/CPP.png',
+  },
+  {
+    name: 'Python',
+    icon: '/skills/Python.png',
+  },
+  {
+    name: 'Go',
+    icon: '/skills/Go.png',
+  },
+  {
+    name: 'Django',
+    icon: '/skills/Django.png',
+  },
+  {
+    name: 'AI',
+    icon: '/skills/ai.png',
+  },
+  
+  {
+    name: 'TensorFlow',
+    icon: '/skills/TensorFlow.png',
+  },
+  
+  {
+    name: 'Oracle',
+    icon: '/skills/Oracle.png',
+  },
+  {
+    name: 'MySQL',
+    icon: '/skills/MySQL.png',
+  },
+  {
+    name: 'Firebase',
+    icon: '/skills/Firebase.png',
+  },
+  {
+    name: 'Hadoop',
+    icon: '/skills/Hadoop.png',
+  },
   {
     name: 'HTML',
     icon: '/skills/html.png',
@@ -74,45 +121,17 @@ export const skillsData = [
     name: 'TailwindCSS',
     icon: '/skills/tailwind.png',
   },
-  // {
-  //   name: 'Vite',
-  //   icon: '/skills/vite.png',
-  // },
-  // {
-  //   name: 'ReactJS',
-  //   icon: '/skills/react.png',
-  // },
-  // {
-  //   name: 'TypeScript',
-  //   icon: '/skills/ts.png',
-  // },
   {
-    name: 'AI',
-    icon: '/skills/ai.png',
+    name: 'Bootstrap',
+    icon: '/skills/Bootstrap.png',
   },
-  {
-    name: 'Framer Motion',
-    icon: '/skills/framer.png',
-  },
-  // {
-  //   name: 'ThreeJS',
-  //   icon: '/skills/threejs.png',
-  // },
   {
     name: 'NextJS',
     icon: '/skills/nextjs.png',
   },
-  // {
-  //   name: 'NodeJS',
-  //   icon: '/skills/nodejs.png',
-  // },
-  // {
-  //   name: 'MongoDB',
-  //   icon: '/skills/mongodb.png',
-  // },
   {
-    name: 'Github',
-    icon: '/skills/github.png',
+    name: 'Framer Motion',
+    icon: '/skills/framer.png',
   },
   {
     name: 'Figma',
@@ -126,10 +145,7 @@ export const skillsData = [
   //   name: 'Blender',
   //   icon: '/skills/blender.png',
   // },
-  {
-    name: 'VS Code',
-    icon: '/skills/vscode.png',
-  },
+  
 ]
 
 // import { PiCopyrightThin } from 'react-icons/pi'
@@ -184,15 +200,15 @@ export const projectsData = [
   },
   {
     name: 'Decoding Object Shapes from EEG Signals of the Brain ',
-    desc: 'A technology news and review site covering the latest gadgets, software updates, and trends in the tech industry.',
+    desc: 'This project uses brain signals to classify object shapes by touch. It converts signals to images for Deep Learning methods. A YOLOv8 and Random Forest ensemble achieved 94% test accuracy.',
     url: '/projects/EEG.gif',
-    tech: ['Figma', 'Photoshop'],
+    tech: ['Python', 'ML'],
   },
   {
-    name: 'CozyNestHomes.org',
-    desc: 'A resource for homeowners and renters alike, offering tips on interior design, home improvement projects, and sustainable living practices.',
-    url: '/projects/image-3.jpg',
-    tech: ['HTML', 'CSS', 'JavaScript'],
+    name: 'Online Railway Ticket Reservation System',
+    desc: 'This project automates railway e-ticketing, enabling seat selection, payments, instant e-ticket delivery, user journey tracking, and admin management of train schedules and stoppages.',
+    url: '/projects/RTRS.gif',
+    tech: ['HTML', 'CSS', 'JavaScript', 'Django'],
   },
   {
     name: 'WanderLuxeTravels.co',
@@ -241,6 +257,7 @@ export const projectsData = [
 export const projectsButton = [
   'All',
   'ML',
+  'Python',
   'Django',
   'HTML',
   'CSS',
@@ -249,7 +266,6 @@ export const projectsButton = [
   'TailwindCSS',
   'NextJS',
   'FramerMotion',
-  'ThreeJS',
 ]
 
 import Home5LineIcon from 'remixicon-react/Home5LineIcon'
