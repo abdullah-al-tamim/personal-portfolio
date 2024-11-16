@@ -338,11 +338,11 @@ export const questions = [
     answer:
       'I tend to overcommit to details, as I believe in delivering quality work. While this focus on detail can sometimes affect efficiency, I’m working on balancing it by prioritizing tasks and setting time limits. For example, during university projects, I would spend a lot of time ensuring every element was perfect, but I’m learning to streamline my efforts while maintaining quality.',
   },
-  {
-    question: 'Why should we hire you?',
-    answer:
-      'You should hire me because my adaptability, positivity, and eagerness to learn make me a strong fit for your team. As a recent graduate, I’m highly motivated and a quick learner, so I’m ready to take on new challenges and be shaped into an ideal team member who consistently adds value. My hard-working nature helped me succeed academically, and I believe it will benefit your company too.',
-  },
+  // {
+  //   question: 'Why should we hire you?',
+  //   answer:
+  //     'You should hire me because my adaptability, positivity, and eagerness to learn make me a strong fit for your team. As a recent graduate, I’m highly motivated and a quick learner, so I’m ready to take on new challenges and be shaped into an ideal team member who consistently adds value. My hard-working nature helped me succeed academically, and I believe it will benefit your company too.',
+  // },
   {
     question: 'How do you approach a task when information is unclear?',
     answer:
@@ -363,16 +363,16 @@ export const questions = [
     answer:
       'The speed of my decision-making depends on the urgency and complexity of the situation. For high-priority tasks, I aim to make swift, informed decisions. However, for more complex issues, I take the necessary time to gather information and weigh options, ensuring the best outcome.',
   },
-  {
-    question: 'How would you handle conflict with a co-worker?',
-    answer:
-      'I believe open and honest communication is essential in resolving conflicts. If friction arises, I aim to understand my co-worker’s perspective and find a compromise that works for both of us. For instance, during a team project, I encountered a disagreement with a teammate over technology choices. By discussing our viewpoints and focusing on the project’s success, we resolved the conflict amicably.',
-  },
-  {
-    question: 'Tell me about a time when you anticipated a problem before it arose.',
-    answer:
-      'During my role as a Teaching Assistant, I noticed some students struggling with a topic early in the semester. To prevent issues later, I arranged additional study sessions to address their concerns proactively. This approach helped improve their understanding and prevented future difficulties with the course material.',
-  },
+  // {
+  //   question: 'How would you handle conflict with a co-worker?',
+  //   answer:
+  //     'I believe open and honest communication is essential in resolving conflicts. If friction arises, I aim to understand my co-worker’s perspective and find a compromise that works for both of us. For instance, during a team project, I encountered a disagreement with a teammate over technology choices. By discussing our viewpoints and focusing on the project’s success, we resolved the conflict amicably.',
+  // },
+  // {
+  //   question: 'Tell me about a time when you anticipated a problem before it arose.',
+  //   answer:
+  //     'During my role as a Teaching Assistant, I noticed some students struggling with a topic early in the semester. To prevent issues later, I arranged additional study sessions to address their concerns proactively. This approach helped improve their understanding and prevented future difficulties with the course material.',
+  // },
   {
     question: 'Tell me about a time when you failed.',
     answer:
