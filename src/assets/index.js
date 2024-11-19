@@ -8,12 +8,12 @@ import GithubLineIcon from 'remixicon-react/GithubLineIcon'
 
 
 const icons = [
-  { component: <InstagramLineIcon />, key: 'instagram' },
-  { component: <FacebookCircleLineIcon />, key: 'facebook' },
   // { component: <DribbbleLineIcon />, key: 'dribbble' },
+  { component: <GithubLineIcon />, key: 'github' },
   { component: <LinkedinBoxLineIcon />, key: 'linkedin' },
   { component: <YoutubeLineIcon />, key: 'youtube' },
-  { component: <GithubLineIcon />, key: 'github' },
+  { component: <FacebookCircleLineIcon />, key: 'facebook' },
+  { component: <InstagramLineIcon />, key: 'instagram' },
 ];
 
 export const heroIcons = icons.map(icon => (
