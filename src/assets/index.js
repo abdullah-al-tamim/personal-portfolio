@@ -56,6 +56,22 @@ export const aboutText =
   " Hi, I’m an enthusiastic recent graduate with a Bachelor's degree in Computer Science and Engineering. I enjoy working with Python and Java, and I specialize in developing web applications using Django. I am also passionate about learning the latest advancements in AI. Throughout my academic journey, I have cultivated strong discipline, punctuality, and a commitment to hard work. I've developed the ability to perform well under pressure and consistently prioritize quality over quantity. I thrive in environments that challenge me and allow me to demonstrate my skills through competitive assessments."
 // End of AboutMe icons
 
+// awards
+
+export const awardsData = [
+  {
+    title: '100% Merit Scholarship',
+    institution: 'East West University',
+    details: 'Lorem Ipsum'
+  },
+  {
+    title: '100% Merit Scholarship',
+    institution: 'East West University',
+    details: 'Lorem Ipsum'
+  },
+  
+]
+
 // Skills
 export const skillsData = [
 
