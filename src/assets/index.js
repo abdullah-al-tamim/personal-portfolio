@@ -62,12 +62,16 @@ export const awardsData = [
   {
     title: '100% Merit Scholarship',
     institution: 'East West University',
-    details: 'Lorem Ipsum'
+    details: 'Lorem Ipsum',
+    img: '/awards/img1.jpeg',
+    url: 'ff',
   },
   {
-    title: '100% Merit Scholarship',
-    institution: 'East West University',
-    details: 'Lorem Ipsum'
+    title: 'SQL intermediate',
+    institution: 'HackerRank',
+    details: 'Lorem Ipsum',
+    img: '/awards/img2.png',
+    url: 'ff',
   },
   
 ]
@@ -307,6 +311,11 @@ export const navbarData = [
     icon: <UserLineIcon />,
   },
   {
+    id: 'awards',
+    name: 'Awards',
+    icon: <UserStarLineIcon />,
+  },
+  {
     id: 'experience',
     name: 'MyRoad',
     icon: <HistoryLineIcon />,
@@ -316,11 +325,6 @@ export const navbarData = [
     name: 'Skills',
     icon: <BriefcaseLineIcon />,
   },
-  // {
-  //   id: 'reviews',
-  //   name: 'Reviews',
-  //   icon: <UserStarLineIcon />,
-  // },
   {
     id: 'projects',
     name: 'Projects',

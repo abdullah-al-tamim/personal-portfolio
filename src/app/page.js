@@ -8,8 +8,10 @@ import Projects from "@/components/Projects"
 import Contact from '@/components/Contact'
 import Questions from "@/components/Questions"
 import Navbar from "@/components/Navbar"
+import Awards from "@/components/Awards"
 import Toggle from "@/components/sub/Toggle"
 import Load from "@/components/sub/Load"
+
 import { useState, useRef, useEffect } from "react"
 
 
@@ -43,6 +45,7 @@ export default function Home() {
         <div className="" ref={compsRef}>
           <Hero />
           <About />
+          <Awards/>
           <Experience />
           <Skills />
           <Projects />
