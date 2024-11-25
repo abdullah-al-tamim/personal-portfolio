@@ -76,15 +76,15 @@ const Hero = () => {
     let url = ""; 
 
     if (i === 0) {
-      url = "https://www.instagram.com/abdullah.al.tamim/";
+      url = "https://github.com/abdullah-al-tamim";
     } else if (i === 1) {
-      url = "https://www.facebook.com/tamim.977"; 
-    } else if (i === 2) {
       url = "https://www.linkedin.com/in/abdullah-al-tamim-59778520a/"; 
-    } else if (i === 3) {
+    } else if (i === 2) {
       url = "https://www.youtube.com/@tamim.captures"; 
+    } else if (i === 3) {
+      url = "https://www.facebook.com/tamim.977"; 
     } else if (i === 4) {
-      url = "https://github.com/abdullah-al-tamim"; 
+      url = "https://www.instagram.com/abdullah.al.tamim/"; 
     }
 
     return (
