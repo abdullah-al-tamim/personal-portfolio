@@ -56,6 +56,47 @@ export const aboutText =
   " Hi, I’m an enthusiastic recent graduate with a Bachelor's degree in Computer Science and Engineering. I enjoy working with Python and Java, and I specialize in developing web applications using Django. I am also passionate about learning the latest advancements in AI. Throughout my academic journey, I have cultivated strong discipline, punctuality, and a commitment to hard work. I've developed the ability to perform well under pressure and consistently prioritize quality over quantity. I thrive in environments that challenge me and allow me to demonstrate my skills through competitive assessments."
 // End of AboutMe icons
 
+// awards
+
+export const awardsData = [
+  {
+    title: '100% Merit Scholarship',
+    institution: 'East West University',
+    details: 'Awarded 100% Merit Scholarship twice at East West University for maintaining a CGPA of 3.90 over three consecutive semesters.',
+    img: '/awards/merit.png',
+    url: 'https://drive.google.com/file/d/1Ofq4ntMErU7w6Ths2Kqbw0j4xLywVHPW/view?usp=sharing',
+  },
+  {
+    title: 'SQL Skill Assesment Certificate (intermediate)',
+    institution: 'HackerRank',
+    details: 'It includes complex joins, unions, and sub-queries.',
+    img: '/awards/hackerrankSQL.png',
+    url: 'https://www.hackerrank.com/certificates/712f0a16295e?utm_medium=email&utm_source=mail_template_1393&utm_campaign=hrc_skills_certificate',
+  },
+  {
+    title: 'Machine Learning with Tree-Based Models in Python',
+    institution: 'Datacamp',
+    details: 'This course is about using Python and scikit-learn to train decision trees, build ensemble models, and tune hyperparameters for improved machine learning performance.',
+    img: '/awards/ML2.png',
+    url: 'https://www.datacamp.com/statement-of-accomplishment/course/8c1e67429eede2afb0a67a660170e22b855920c8?raw=1',
+  },
+  {
+    title: 'Cleaning Data in Python',
+    institution: 'Datacamp',
+    details: 'This course is about learning essential Python techniques to clean, diagnose, and handle messy data for accurate analysis and modeling.',
+    img: '/awards/DC.png',
+    url: 'https://www.datacamp.com/statement-of-accomplishment/course/6f1434f5c3e35cb54cfe3d09966a1d489544be31?raw=1',
+  },
+  {
+    title: 'Feature Engineering for Machine Learning in Python',
+    institution: 'Datacamp',
+    details: 'This course is about mastering data preprocessing and feature engineering techniques to prepare diverse data types for machine learning models.',
+    img: '/awards/FE.png',
+    url: 'https://www.datacamp.com/statement-of-accomplishment/course/7ed2195647fe513806dec24c15508b59031219ef?raw=1',
+  },
+  
+]
+
 // Skills
 export const skillsData = [
 
@@ -291,6 +332,11 @@ export const navbarData = [
     icon: <UserLineIcon />,
   },
   {
+    id: 'awards',
+    name: 'Awards',
+    icon: <UserStarLineIcon />,
+  },
+  {
     id: 'experience',
     name: 'MyRoad',
     icon: <HistoryLineIcon />,
@@ -300,11 +346,6 @@ export const navbarData = [
     name: 'Skills',
     icon: <BriefcaseLineIcon />,
   },
-  // {
-  //   id: 'reviews',
-  //   name: 'Reviews',
-  //   icon: <UserStarLineIcon />,
-  // },
   {
     id: 'projects',
     name: 'Projects',
