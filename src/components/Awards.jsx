@@ -22,7 +22,7 @@ const Awards = () => {
   }, [index])
   return (
     <div id="awards">
-      <Heading text={'Awards'} />
+      <Heading text={'Awards & Certificates'} />
 
       <div className="relative w-full h-full flex flex-wrap items-center justify-center gap-y-10 lg:gap-y-20 py-10">
         {awardsData.map((data, i) => (
