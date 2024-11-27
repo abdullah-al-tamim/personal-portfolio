@@ -237,63 +237,39 @@ export const projectsData = [
   {
     name: 'Face Attedance System',
     desc: 'This system uses Google MediaPipe to scan and identify registered users’ faces for automatic attendance, showing “already taken” if recorded for the day.”',
-    url: '/projects/FaceAttendance.gif',
+    img: '/projects/FaceAttendance.gif',
     tech: ['Figma', 'ML', 'Python'],
+    url: 'https://github.com/abdullah-al-tamim/Facial-Recognition-with-Real-Time-Database',
   },
   {
     name: 'Decoding Object Shapes from EEG Signals of the Brain ',
     desc: 'This project uses brain signals to classify object shapes by touch. It converts signals to images for Deep Learning methods. A YOLOv8 and Random Forest ensemble achieved 94% test accuracy.',
-    url: '/projects/EEG.gif',
+    img: '/projects/EEG.gif',
     tech: ['Python', 'ML'],
+    url: 'ff',
   },
   {
     name: 'Online Railway Ticket Reservation System',
     desc: 'This project automates railway e-ticketing, enabling seat selection, payments, instant e-ticket delivery, user journey tracking, and admin management of train schedules and stoppages.',
-    url: '/projects/RTRS.gif',
+    img: '/projects/RTRS.gif',
     tech: ['HTML', 'CSS', 'JavaScript', 'Django'],
+    url: 'ff',
   },
   {
     name: 'WanderLuxeTravels.co',
     desc: 'A travel website that provides luxury travel guides, destination reviews, and tips for planning unforgettable vacations.',
-    url: '/projects/image-4.jpg',
+    img: '/projects/image-4.jpg',
     tech: ['HTML', 'CSS', 'JavaScript', 'TailwindCSS'],
+    url: 'ff',
   },
   {
     name: 'ByteBoosters.io',
     desc: 'A tech startup specializing in software development, offering innovative solutions and services for businesses looking to enhance their digital presence.',
-    url: '/projects/image-5.jpg',
+    img: '/projects/image-5.jpg',
     tech: ['Figma', 'ReactJS', 'TailwindCSS', 'CSS'],
+    url: 'ff',
   },
-  {
-    name: 'GreenLeafGardens.biz',
-    desc: 'An online store and community hub for gardening enthusiasts, featuring a wide range of plants, gardening tools, and expert advice.',
-    url: '/projects/image-6.jpg',
-    tech: ['ReactJS', 'TailwindCSS', , 'CSS', 'FramerMotion'],
-  },
-  {
-    name: 'PixelPerfectDesigns.info',
-    desc: 'A graphic design portfolio showcasing the work of a freelance designer, including branding, web design, and illustration projects.',
-    url: '/projects/image-7.jpg',
-    tech: ['NextJS', 'FramerMotion'],
-  },
-  {
-    name: 'HarmonyHealthHub.com',
-    desc: ' A wellness website focused on holistic health, offering articles on nutrition, fitness, mental health, and alternative therapies.',
-    url: '/projects/image-8.jpg',
-    tech: ['NextJS', 'ReactJS', 'FramerMotion'],
-  },
-  {
-    name: 'StellarSkiesAstronomy.org',
-    desc: 'An educational site dedicated to astronomy, providing resources for amateur astronomers, star maps, and information on celestial events.',
-    url: '/projects/image-9.jpg',
-    tech: ['ReactJS', 'JavaScript', 'ThreeJS'],
-  },
-  {
-    name: 'UrbanEatsDelights.com',
-    desc: 'An educational site dedicated to astronomy, providing resources for amateur astronomers, star maps, and information on celestial events.',
-    url: '/projects/image-10.jpg',
-    tech: ['NextJS', 'ThreeJS'],
-  },
+  
 ]
 
 export const projectsButton = [
