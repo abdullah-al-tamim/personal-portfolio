@@ -37,9 +37,12 @@ const Experience = () => {
                             </p>
                             <div className="text-gray-800 dark:text-gray-200 transition-colors">
                                 <span className="font-bold">Experience: </span>
-                                <ul className="pl-2">
-                                    {data.experience.map((exp, j) => (<li key={j} className="my-1 font-extralight">{exp}</li>))}
-
+                                <ul className="pl-5 list-disc">
+                                    {data.experience.map((exp, j) => (
+                                        <li key={j} className="my-1 font-extralight">
+                                            {exp}
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <span className={`absolute top-20  text-red-300 -translate-y-1/2 lg:hidden ${i % 2 === 0 ? "left-full rotate-180" : "right-full"

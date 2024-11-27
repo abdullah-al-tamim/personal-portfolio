@@ -63,7 +63,7 @@ export const awardsData = [
     title: '100% Merit Scholarship',
     institution: 'East West University',
     details: 'Awarded 100% Merit Scholarship twice at East West University for maintaining a CGPA of 3.90 over three consecutive semesters.',
-    img: '/awards/merit.png',
+    img: '/awards/Merit.png',
     url: 'https://drive.google.com/file/d/1Ofq4ntMErU7w6Ths2Kqbw0j4xLywVHPW/view?usp=sharing',
   },
   {
