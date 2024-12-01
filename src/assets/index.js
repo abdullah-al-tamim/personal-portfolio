@@ -246,14 +246,14 @@ export const projectsData = [
     desc: 'This project uses brain signals to classify object shapes by touch. It converts signals to images for Deep Learning methods. A YOLOv8 and Random Forest ensemble achieved 94% test accuracy.',
     img: '/projects/EEG.gif',
     tech: ['Python', 'ML'],
-    url: 'ff',
+    url: 'https://github.com/abdullah-al-tamim/Capstone',
   },
   {
     name: 'Online Railway Ticket Reservation System',
     desc: 'This project automates railway e-ticketing, enabling seat selection, payments, instant e-ticket delivery, user journey tracking, and admin management of train schedules and stoppages.',
     img: '/projects/RTRS.gif',
     tech: ['HTML', 'CSS', 'JavaScript', 'Django'],
-    url: 'ff',
+    url: 'https://github.com/abdullah-al-tamim/Online-Railway-Ticket-Reservation-System',
   },
   {
     name: 'WanderLuxeTravels.co',
