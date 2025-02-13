@@ -224,7 +224,7 @@ export const experienceData = [
   },
 
   {
-    year: '2022.2\n-\nnow',
+    year: '2022.2\n-\n2025.1',
     title: 'Undergraduate and Graduate Teaching Assistant',
     institution: ['East West University'],
     experience: [
