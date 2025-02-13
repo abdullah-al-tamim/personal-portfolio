@@ -197,9 +197,23 @@ import CopyrightLineIcon from 'remixicon-react/CopyrightLineIcon'
 export const copyRightIcon = <CopyrightLineIcon />
 // Experience
 export const experienceData = [
+  {
+    year: '2025.2\n-\nnow',
+    title: 'Operations Analyst - Submission Integrity QA',
+    institution: ['Augmedix Bangladesh'],
+    experience: [
+  'Performed rigorous quality assurance checks on operational processes, ensuring data accuracy and eliminating errors.',
+  'Maintained and updated comprehensive process documentation, ensuring strict adherence to standard operating procedures.',
+  'Analyzed large datasets using SQL and other analytical tools to identify inconsistencies, optimize workflows, and support data-driven decisions.',
+  'Developed detailed technical instructions and process documentation to guide internal teams effectively.',
+  'Translated complex technical concepts into clear, concise documentation for diverse audiences.',
+  'Collaborated with Product, Engineering, Sales, and Account Management teams to uphold quality standards and resolve technical issues.',
+  'Technologies Used: SQL, Python, Excel, Tableau, Jira, Confluence, Git.',
+],
+  },
 
   {
-    year: '2024.6\n-\nnow',
+    year: '2024.6\n-\n2024.12',
     title: 'Trainee',
     institution: ['Bangladesh Japan ICT Engineers\' Training Program (BJET)'],
     experience: [
