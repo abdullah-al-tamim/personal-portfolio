@@ -200,16 +200,16 @@ export const experienceData = [
   {
     year: '2025.2\n-\nnow',
     title: 'Operations Analyst - Submission Integrity QA',
-    institution: ['Augmedix Bangladesh'],
+    institution: ['Augmedix Bangladesh | Commure'],
     experience: [
-  'Performed rigorous quality assurance checks on operational processes, ensuring data accuracy and eliminating errors.',
-  'Maintained and updated comprehensive process documentation, ensuring strict adherence to standard operating procedures.',
-  'Analyzed large datasets using SQL and other analytical tools to identify inconsistencies, optimize workflows, and support data-driven decisions.',
-  'Developed detailed technical instructions and process documentation to guide internal teams effectively.',
-  'Translated complex technical concepts into clear, concise documentation for diverse audiences.',
-  'Collaborated with Product, Engineering, Sales, and Account Management teams to uphold quality standards and resolve technical issues.',
+  'Analyze large datasets using SQL and other tools to spot inconsistencies, improve workflows, and support business decisions.',
+  'Break down complex technical concepts into simple, easy-to-understand documentation.',
+  'Conduct quality assurance checks on operational processes to ensure data accuracy and minimize errors.',
+  'Maintain and update process documentation, making sure everything is clear and up-to-date.',
+  'Work closely with Product, Engineering, Sales, and Account Management teams to maintain quality standards and troubleshoot issues.',
   'Technologies Used: SQL, Python, Excel, Tableau, Jira, Confluence, Git.',
 ],
+
   },
 
   {
