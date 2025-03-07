@@ -207,7 +207,7 @@ export const experienceData = [
   'Conduct quality assurance checks on operational processes to ensure data accuracy and minimize errors.',
   'Maintain and update process documentation, making sure everything is clear and up-to-date.',
   'Work closely with Product, Engineering, Sales, and Account Management teams to maintain quality standards and troubleshoot issues.',
-  'Technologies Used: SQL, Python, Excel, Tableau, Jira, Confluence, Git.',
+  'Technologies Used: SQL, Python, Retool, Javascript, Excel, Jira, Confluence, Git.',
 ],
 
   },
