@@ -198,7 +198,24 @@ export const copyRightIcon = <CopyrightLineIcon />
 // Experience
 export const experienceData = [
   {
-    year: '2025.2\n-\nnow',
+  "year": "2025.3 - Present",
+  "title": "Associate Data Analyst - Central Operations QA",
+  "institution": ["Augmedix Bangladesh | Commure"],
+  "experience": [
+    "Perform quality assurance checks on high-volume operational data to ensure accuracy and flag inconsistencies across workflows.",
+    "Use SQL and Python to analyze data sets and support quality-related decision-making by identifying patterns, discrepancies, and areas for improvement.",
+    "Build and maintain internal Retool apps to streamline manual QA tasks, validate data inputs, and support cross-functional teams.",
+    "Create and maintain process documentation and SOPs, ensuring instructions are clear, accurate, and easy for internal teams to follow.",
+    "Work with Product, Engineering, and other operational teams to report issues, test fixes, and verify that changes meet quality standards.",
+    "Use Excel tools such as pivot tables and VLOOKUP for data audits and regular quality checks on submission workflows.",
+    "Comment and modularize code in Retool apps to make logic easier to understand and maintain, and participate in peer reviews before deployment.",
+    "Technologies Used: SQL, Python, Retool, Javascript, Excel, Jira, Confluence, Git."
+  ]
+}
+
+  
+  {
+    year: '2025.1\n-\n2025.3',
     title: 'Operations Analyst - Submission Integrity QA',
     institution: ['Augmedix Bangladesh | Commure'],
     experience: [
