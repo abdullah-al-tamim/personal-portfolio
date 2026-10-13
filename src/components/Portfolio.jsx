@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { projects, capabilities, cvs } from "@/assets/portfolio";
+import { ProjectArchive, Credentials } from "@/components/PortfolioArchive";
 
 function Arrow({ diagonal = false }) {
   return (
@@ -221,6 +222,7 @@ export default function Portfolio() {
             ["work", "Selected work"],
             ["about", "About"],
             ["research", "Research"],
+            ["certifications", "Credentials"],
             ["contact", "Contact"],
           ].map(([id, label]) => (
             <a
@@ -451,6 +453,7 @@ export default function Portfolio() {
             More experiments on GitHub <Arrow diagonal />
           </a>
         </section>
+        <ProjectArchive motionPaused={motionPaused} />
         <section className="expertise dark-section" id="expertise">
           <div className="section-wrap section-space">
             <div className="section-heading" data-reveal>
@@ -586,6 +589,7 @@ export default function Portfolio() {
             </span>
           </div>
         </section>
+        <Credentials />
         <section
           id="cv"
           className="cv-section section-wrap section-space"
@@ -617,7 +621,7 @@ export default function Portfolio() {
         <section id="contact" className="contact dark-section">
           <div className="section-wrap section-space">
             <p className="eyebrow" data-reveal>
-              05 / LET’S CONNECT
+              06 / LET’S CONNECT
             </p>
             <div className="contact-heading" data-reveal>
               <h2>

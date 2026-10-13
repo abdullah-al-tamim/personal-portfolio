@@ -42,3 +42,7 @@ Work diagrams are abstract illustrations, not screenshots or live data. No priva
 ## Interaction and accessibility
 
 Native anchor navigation and expandable details work without JavaScript. Project filters and the mobile menu are enhanced with React. Motion respects `prefers-reduced-motion`, and the footer includes a pause control. Links and buttons have visible keyboard focus. Contact uses email and a copy-address button, without a third-party contact-form service.
+
+## Original media archive
+
+The project archive reuses the existing EEG, face attendance, and railway reservation GIF recordings with explicit play/stop controls. They are not downloaded or animated before a visitor chooses to play. The global motion control stops them too. The credentials gallery retains six original certificate images, including the time-series course that previously existed only as an unused asset. Titles and dates were checked against the certificate images. Original portrait/sticker and stock assets remain in Git history; none is used in the redesigned page.

@@ -1658,3 +1658,266 @@ html:has(.motion-paused) {
     font-size: 6px;
   }
 }
+.archive {
+  padding-bottom: 100px;
+}
+.archive .section-heading {
+  border-top: 1px solid var(--line);
+  padding-top: 55px;
+}
+.archive h2 {
+  font-size: 40px;
+}
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+.archive-card {
+  min-width: 0;
+}
+.demo-stage {
+  aspect-ratio: 16/10;
+  background: #303830;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 1px solid #53604c;
+}
+.demo-cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 15px 50px;
+  color: #c2ceb5;
+  background-image: radial-gradient(#b9c1b026 0.75px, transparent 0.75px);
+  background-size: 18px 18px;
+}
+.demo-cover > span:first-child {
+  font:
+    7px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 1.2px;
+}
+.demo-cover > span:last-child {
+  font:
+    8px var(--font-geist-mono),
+    monospace;
+}
+.play-symbol {
+  font-family: Arial, sans-serif;
+  font-size: 52px;
+  line-height: 1;
+  transition: transform 0.3s;
+}
+.archive-card:hover .play-symbol {
+  transform: scale(1.1);
+}
+.demo-stage img {
+  object-fit: contain;
+  background: #151a16;
+  padding-bottom: 38px;
+}
+.demo-control {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #20281f;
+  color: #e1e7d9;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+  transition: background 0.25s;
+}
+.demo-control:hover {
+  background: #48543e;
+}
+.demo-control:disabled {
+  cursor: default;
+  color: #b7beb2;
+}
+.archive-card > .eyebrow {
+  font-size: 8px;
+  color: var(--muted);
+  letter-spacing: 0.6px;
+}
+.archive-card h3 {
+  font-size: 23px;
+  line-height: 1.25;
+  margin-top: 12px;
+}
+.archive-description {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 13px;
+}
+.archive-card .text-link {
+  margin-top: 20px;
+}
+.credentials {
+  border-bottom: 1px solid var(--line);
+}
+.credential-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 35px 25px;
+}
+.credential-card {
+  border: 1px solid var(--line);
+  min-width: 0;
+  transition:
+    border-color 0.25s,
+    transform 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+.credential-card:hover {
+  border-color: #9aa28e;
+  transform: translateY(-3px);
+}
+.certificate-image {
+  position: relative;
+  display: block;
+  aspect-ratio: 1.65;
+  background: #e8e7df;
+  padding: 20px;
+  overflow: hidden;
+}
+.certificate-image img {
+  object-fit: contain;
+  padding: 18px;
+  transition: transform 0.35s;
+}
+.certificate-image:hover img {
+  transform: scale(1.035);
+}
+.certificate-image > span {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font:
+    7px var(--font-geist-mono),
+    monospace;
+  padding: 7px;
+  letter-spacing: 0.5px;
+}
+.credential-copy {
+  padding: 23px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+.credential-copy .eyebrow {
+  font-size: 8px;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+}
+.credential-copy h3 {
+  font-size: 19px;
+  line-height: 1.35;
+  margin-top: 13px;
+  margin-bottom: 25px;
+}
+.credential-copy .text-link {
+  font-size: 11px;
+  margin-top: auto;
+}
+.credentials + .cv-section {
+  padding-top: 70px;
+}
+@media (max-width: 1000px) {
+  .archive-grid {
+    gap: 18px;
+  }
+  .archive-card h3 {
+    font-size: 20px;
+  }
+  .demo-cover > span:last-child {
+    font-size: 6px;
+  }
+  .demo-control {
+    font-size: 8px;
+    padding: 12px;
+  }
+  .credential-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .navigation {
+    gap: 20px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 700px) {
+  .archive-grid {
+    grid-template-columns: 1fr;
+  }
+  .archive {
+    padding-bottom: 65px;
+  }
+  .archive .section-heading {
+    padding-top: 35px;
+  }
+  .archive h2 {
+    font-size: 33px;
+  }
+  .archive-card {
+    margin-bottom: 20px;
+  }
+  .demo-stage {
+    aspect-ratio: 16/9;
+  }
+  .demo-cover > span:first-child {
+    font-size: 8px;
+  }
+  .demo-cover > span:last-child {
+    font-size: 9px;
+  }
+  .demo-control {
+    font-size: 10px;
+  }
+  .archive-card > .eyebrow {
+    font-size: 9px;
+  }
+  .archive-card h3 {
+    font-size: 24px;
+  }
+  .archive-description {
+    font-size: 13px;
+  }
+  .certificate-image img {
+    padding: 12px;
+  }
+  .credential-copy {
+    padding: 18px;
+  }
+  .credential-copy h3 {
+    font-size: 18px;
+  }
+  .credential-grid {
+    gap: 18px;
+  }
+}
+@media (max-width: 600px) {
+  .credential-grid {
+    grid-template-columns: 1fr;
+  }
+  .credential-copy h3 {
+    font-size: 21px;
+  }
+  .credential-copy .eyebrow {
+    font-size: 9px;
+  }
+  .certificate-image {
+    aspect-ratio: 1.7;
+  }
+}
