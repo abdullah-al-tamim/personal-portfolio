@@ -1,30 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Abdullah Al Tamim — portfolio
 
-## Getting Started
+Professional portfolio for data automation, operational analytics, and applied AI research. Built with Next.js, React, locally hosted Geist fonts, and lightweight CSS/Web Animations interactions.
 
-First, run the development server:
+## Run locally
 
-```bash
+Use Node.js 22 LTS (22.13 or newer).
+
+```sh
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Checks
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```sh
+npm run lint
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Pull requests run lint and a production build in GitHub Actions. Vercel can deploy the repository using the standard Next.js preset. Review the PR preview before merging to the production branch.
 
-## Learn More
+## Content and assets
 
-To learn more about Next.js, take a look at the following resources:
+- `src/assets/portfolio.js`: selected work, contribution summaries, capabilities, and CV filenames.
+- `src/components/Portfolio.jsx`: page sections and interactions.
+- `src/app/globals.css`: responsive layout, colors, hover states, and reduced-motion styles.
+- `public/images/abdullah-al-tamim.png`: supplied navy-suit portrait, used without generative alteration. Next.js optimizes it for display.
+- `public/cv/`: three confirmed CV PDFs from the October 2026 CV revision. Replace these when the source CVs change; they are snapshots, not automatically synchronized.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The original CV URLs redirect to current PDFs. Downloads use local PDF files and do not require access to the private resume repository.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Content rules
 
-## Deploy on Vercel
+Career content was reconciled against the CV review and direct confirmations on 12 October 2026. Employment began February 2025; Senior promotion was March 2026. Graduation was June 2024. Teaching assistance ran April 2022–May 2024.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Keep the 2025 period attached to impact metrics. Approximately 70 team hours/week is an estimate. $10M+ refers to tracked claims value supported, not revenue recovered. Preserve shared ownership of the eClinicalWorks project. The EEG thesis is unpublished; do not restore the earlier accuracy claim. Publication contribution is preprocessing, training, and writing.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Work diagrams are abstract illustrations, not screenshots or live data. No private reviews, patient data, internal links, or credentials are included. The previous template content, placeholder projects, and unused testimonial data have been removed.
+
+## Interaction and accessibility
+
+Native anchor navigation and expandable details work without JavaScript. Project filters and the mobile menu are enhanced with React. Motion respects `prefers-reduced-motion`, and the footer includes a pause control. Links and buttons have visible keyboard focus. Contact uses email and a copy-address button, without a third-party contact-form service.
