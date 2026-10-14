@@ -23,7 +23,10 @@ Pull requests run lint and a production build in GitHub Actions. Vercel can depl
 
 ## Content and assets
 
-- `src/assets/portfolio.js`: selected work, contribution summaries, capabilities, and CV filenames.
+- `src/assets/studies.js`: professional case studies, diagram explanations, experience, and expertise. Edit content here without changing layouts.
+- `src/assets/portfolio.js`: research summaries and CV filenames.
+- `src/components/SystemExhibit.jsx`: bespoke hero transformation and three interactive system models, with readable mobile alternatives.
+- `src/app/opengraph-image.js`: statically generated 1200×630 social preview.
 - `src/components/Portfolio.jsx`: page sections and interactions.
 - `src/app/globals.css`: responsive layout, colors, hover states, and reduced-motion styles.
 - `public/images/abdullah-al-tamim.png`: supplied navy-suit portrait, used without generative alteration. Next.js optimizes it for display.
@@ -41,7 +44,9 @@ Work diagrams are abstract illustrations, not screenshots or live data. No priva
 
 ## Interaction and accessibility
 
-Native anchor navigation and expandable details work without JavaScript. Project filters and the mobile menu are enhanced with React. Motion respects `prefers-reduced-motion`, and the footer includes a pause control. Links and buttons have visible keyboard focus. Contact uses email and a copy-address button, without a third-party contact-form service.
+Native anchor navigation and expandable engineering notes work without JavaScript; a noscript navigation keeps all major sections accessible on mobile. React enhances the diagram stages, hero transformation, and mobile menu. Motion respects `prefers-reduced-motion`, and the footer pause control stops transitions, animated paths, GIF playback, and smooth scrolling. Links and buttons have visible keyboard focus. Contact uses email and a copy-address button, without a third-party contact-form service. No additional animation libraries, WebGL dependency, tracking, or remote font requests are needed.
+
+The October 2026 Systems Atlas redesign replaces the previous portrait-led hero and project-card layout. See `docs/design-and-validation.md` for the audit, creative directions, and validation notes. Production deployment requires the owner's approval and merge; this feature branch is for review.
 
 ## Original media archive
 

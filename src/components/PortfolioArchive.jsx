@@ -137,7 +137,7 @@ export function ProjectArchive({ motionPaused }) {
       <div className="section-heading" data-reveal>
         <div>
           <p className="eyebrow">THE PROJECT ARCHIVE</p>
-          <h2>Ideas, made tangible.</h2>
+          <h2>Earlier work, in motion.</h2>
         </div>
         <p className="section-aside">
           Original recordings from earlier research and software projects. A
@@ -169,11 +169,11 @@ export function Credentials() {
     >
       <div className="section-heading" data-reveal>
         <div>
-          <p className="eyebrow">05 / CREDENTIALS & RECOGNITION</p>
+          <p className="eyebrow">CREDENTIALS & RECOGNITION</p>
           <h2>
-            Learning that
+            Evidence of
             <br />
-            <em>keeps compounding.</em>
+            <em>continued learning.</em>
           </h2>
         </div>
         <p className="section-aside">
