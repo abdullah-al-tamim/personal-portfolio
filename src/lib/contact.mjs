@@ -29,8 +29,10 @@ export function emailFailure(status, detail = "") {
   let reason = "The email provider rejected the request.";
   if (/origin|domain|whitelist|allowlist/i.test(detail))
     reason = "EmailJS does not allow messages from this website address.";
-  else if (/invalid.grant|expired|revoked|authentication|oauth|gmail_api/i.test(detail))
+  else if (/invalid.grant|expired|revoked|authentication|oauth/i.test(detail))
     reason = "The connected email account needs to be reconnected in EmailJS.";
+  else if (/gmail_api/i.test(detail))
+    reason = "The connected Gmail service rejected the request. Its EmailJS connection needs attention.";
   else if (/public.key|user_id|account.*not found/i.test(detail))
     reason = "EmailJS rejected the website’s account configuration.";
   else if (/template/i.test(detail))

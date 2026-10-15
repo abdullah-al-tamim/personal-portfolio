@@ -48,3 +48,7 @@ Restored direct-contact form using the original EmailJS configuration and field 
 ### Owner clarification and opening revision — 15 October 2026
 
 Moved the portrait, name, current role, and employer above the main headline. Increased particle contrast and density, added continuous drift and a local pointer attractor, and retained pause/reduced-motion/visibility controls. Rebuilt reconciliation as an encounter audit alongside an existing EHR import: report extraction, database count comparison, and discrepancy investigation. Removed the backlog metric from this case study to avoid conflating remediation with auditing. Example counts are explicitly fictional. Desktop (1440px) and mobile (390px) browser review passed, with no horizontal overflow or browser errors; diagram controls and global pause checked. Lint, production build, and all four mocked contact tests passed.
+
+
+### Structured motion and live email diagnosis
+Particle positions now belong to ordered lanes on a shared animated wave surface, with an accent spine and localized pointer deformation. An owner-authorized test on the preview reached EmailJS and received HTTP 412, classified in the connected-mailbox error family. Delivery remains blocked; configuration presence is not a delivery guarantee. Vercel MCP project access returned 403 for the owner team. Error handling now maps provider responses to bounded, actionable messages without exposing raw credentials or provider bodies. Five mocked transport/diagnostic tests, lint and build passed.
