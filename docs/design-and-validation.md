@@ -39,3 +39,7 @@ All three PDF downloads, both legacy CV redirects, the generated Open Graph imag
 ## Deployment and maintenance
 
 Use the existing Vercel Next.js preset and Node 22. Do not merge/deploy production without owner approval. Preview access may require the owner's Vercel sign-in. CV PDFs are October 2026 snapshots and need replacement when the source resumes change. Certificate/research links point to their existing public records; external destinations can change independently.
+
+## Follow-up — 15 October 2026
+
+Restored direct-contact form using the original EmailJS configuration and field mapping, added a repository-specific contribution milestone from user-supplied evidence, and added a custom pointer-responsive canvas field based on the requested Antigravity reference. The canvas has static fallbacks and visibility-aware rendering. The contribution rank is not company-wide, and profile contribution counts are not substituted for repository commit analytics. Private evidence remains outside this public repository. Contact transport tests use mocked requests; real email delivery is not claimed without an authorized end-to-end send and recipient confirmation.

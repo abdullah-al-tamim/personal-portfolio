@@ -1939,3 +1939,225 @@ html[data-motion="paused"] {
     display: none;
   }
 }
+/* Pointer-responsive marks sit behind the landing composition, never its controls. */
+.hero {
+  position: relative;
+  isolation: isolate;
+}
+.hero > :not(.flow-background) {
+  position: relative;
+  z-index: 1;
+}
+.flow-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(#000 0%, #000 55%, transparent 78%);
+}
+.contribution-note {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 26px;
+  padding: 30px;
+  background: var(--diagram-bg);
+  margin-top: 15px;
+}
+.contribution-rank {
+  font-size: 78px;
+  letter-spacing: -0.075em;
+  line-height: 1.1;
+  color: var(--accent);
+}
+.contribution-rank > span {
+  font-size: 22px;
+  color: var(--muted);
+  letter-spacing: -0.03em;
+  margin-left: 10px;
+}
+.contribution-note h3 {
+  font-size: 28px;
+  letter-spacing: -0.04em;
+  margin: 10px 0;
+}
+.contribution-note p:not(.micro) {
+  font-size: 14px;
+  max-width: 480px;
+}
+.contribution-note small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.6;
+  margin-top: 13px;
+  color: var(--muted);
+  max-width: 470px;
+}
+.contact-compose {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 10%;
+  margin: 5px 0 55px;
+}
+.contact-compose-intro h3 {
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  margin: 20px 0;
+}
+.contact-compose-intro > p:last-child {
+  font-size: 13px;
+  max-width: 270px;
+  color: #ffe1d7;
+}
+.contact-form {
+  min-width: 0;
+}
+.contact-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+.contact-form label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+.contact-form input,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #efaa99;
+  border-radius: 0;
+  padding: 12px 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 3px;
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 115px;
+  max-height: 420px;
+}
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: 2px solid #fff5ed;
+  outline-offset: 5px;
+}
+.contact-form input:disabled,
+.contact-form textarea:disabled {
+  opacity: 0.6;
+}
+.contact-form .form-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(100%);
+}
+.form-submit-row {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.form-submit-row button {
+  display: flex;
+  justify-content: space-between;
+  gap: 35px;
+  padding: 16px 22px;
+  background: #fff5ed;
+  color: #8d2818;
+  font-size: 13px;
+  min-width: 180px;
+  transition:
+    transform 0.3s var(--ease),
+    background 0.3s;
+}
+.form-submit-row button:hover:not(:disabled) {
+  background: white;
+  transform: translateY(-2px);
+}
+.form-submit-row button:disabled {
+  opacity: 0.6;
+}
+.form-submit-row button:focus-visible {
+  outline-color: white;
+}
+.form-submit-row p {
+  font-size: 10px;
+  max-width: 235px;
+  line-height: 1.6;
+}
+.form-status {
+  margin-top: 17px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.form-status:empty {
+  display: none;
+}
+.form-status.success {
+  border-left: 2px solid white;
+  padding-left: 12px;
+}
+.form-status.error {
+  border-left: 2px solid #ffd0bc;
+  padding-left: 12px;
+}
+.contact-bottom {
+  border-top: 1px solid #ef9a88;
+  padding-top: 30px;
+}
+@media (max-width: 760px) {
+  .contribution-note {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 25px;
+  }
+  .contribution-rank {
+    font-size: 64px;
+  }
+  .contribution-note h3 {
+    font-size: 25px;
+  }
+  .contact-compose {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 35px;
+  }
+  .contact-compose-intro h3 {
+    font-size: 30px;
+  }
+  .contact-compose-intro h3 br {
+    display: none;
+  }
+  .contact-compose-intro > .micro {
+    font-size: 8px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .form-submit-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .form-submit-row button {
+    width: 100%;
+  }
+  .form-submit-row p {
+    max-width: none;
+  }
+}

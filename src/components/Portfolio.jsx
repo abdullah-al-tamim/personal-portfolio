@@ -5,6 +5,8 @@ import { studies, experience, disciplines } from "@/assets/studies";
 import { projects, cvs } from "@/assets/portfolio";
 import StudyDiagram, { SystemExhibit } from "@/components/SystemExhibit";
 import { ProjectArchive, Credentials } from "@/components/PortfolioArchive";
+import FlowBackground from "@/components/FlowBackground";
+import ContactForm from "@/components/ContactForm";
 
 const nav = [
   ["work", "Work"],
@@ -195,6 +197,7 @@ export default function Portfolio() {
       </header>
       <main id="main">
         <section className="hero section-wrap" id="home">
+          <FlowBackground paused={pause} />
           <div className="hero-kicker">
             <p className="micro">
               <span className="status-dot" />
@@ -452,6 +455,26 @@ export default function Portfolio() {
               </article>
             ))}
           </div>
+          <aside
+            className="contribution-note"
+            aria-label="Repository contribution milestone"
+          >
+            <span className="contribution-rank">
+              03<span>/ 163</span>
+            </span>
+            <div>
+              <p className="micro">CONTRIBUTING TO THE SHARED SYSTEM</p>
+              <h3>Third-ranked contributor.</h3>
+              <p>
+                Ranked third among 163 contributors to an internal Commure
+                Retool workflow repository.
+              </p>
+              <small>
+                GitHub contributor snapshot supplied October 2026.
+                Repository-specific ranking; private source.
+              </small>
+            </div>
+          </aside>
         </section>
         <section
           className="expertise section-wrap"
@@ -505,6 +528,7 @@ export default function Portfolio() {
               to work better?<span aria-hidden="true">↗</span>
             </a>
           </h2>
+          <ContactForm />
           <div className="contact-bottom">
             <div>
               <a className="email" href="mailto:alltamim.abdullah@gmail.com">
