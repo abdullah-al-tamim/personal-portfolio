@@ -205,6 +205,15 @@ export default function Portfolio() {
             </p>
             <span className="micro">DHAKA, BANGLADESH · PORTFOLIO / 2026</span>
           </div>
+          <a className="hero-identity" href="#about">
+            <Image src="/images/abdullah-al-tamim.png" width={104} height={120}
+              sizes="104px" loading="eager" alt="Abdullah Al Tamim" />
+            <span><strong>Abdullah Al Tamim</strong>
+              <span>Senior Data Automations Analyst</span>
+              <small>Augmedix / Commure | Athelas</small>
+            </span>
+            <span className="identity-arrow" aria-hidden="true">↗</span>
+          </a>
           <h1 className="hero-title">
             Order from
             <br />
@@ -232,26 +241,7 @@ export default function Portfolio() {
             </a>
           </div>
           <SystemExhibit />
-          <div className="hero-foot">
-            <p>
-              Senior Data Automations Analyst
-              <br />
-              <span>Augmedix / Commure | Athelas</span>
-            </p>
-            <a href="#about" className="portrait-stamp">
-              <Image
-                src="/images/abdullah-al-tamim.png"
-                width={64}
-                height={72}
-                alt="Abdullah Al Tamim"
-              />
-              <span>
-                The person
-                <br />
-                behind the systems ↗
-              </span>
-            </a>
-          </div>
+
         </section>
         <section
           className="impact section-wrap"

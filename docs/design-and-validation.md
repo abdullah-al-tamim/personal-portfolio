@@ -43,3 +43,8 @@ Use the existing Vercel Next.js preset and Node 22. Do not merge/deploy producti
 ## Follow-up — 15 October 2026
 
 Restored direct-contact form using the original EmailJS configuration and field mapping, added a repository-specific contribution milestone from user-supplied evidence, and added a custom pointer-responsive canvas field based on the requested Antigravity reference. The canvas has static fallbacks and visibility-aware rendering. The contribution rank is not company-wide, and profile contribution counts are not substituted for repository commit analytics. Private evidence remains outside this public repository. Contact transport tests use mocked requests; real email delivery is not claimed without an authorized end-to-end send and recipient confirmation.
+
+
+### Owner clarification and opening revision — 15 October 2026
+
+Moved the portrait, name, current role, and employer above the main headline. Increased particle contrast and density, added continuous drift and a local pointer attractor, and retained pause/reduced-motion/visibility controls. Rebuilt reconciliation as an encounter audit alongside an existing EHR import: report extraction, database count comparison, and discrepancy investigation. Removed the backlog metric from this case study to avoid conflating remediation with auditing. Example counts are explicitly fictional. Desktop (1440px) and mobile (390px) browser review passed, with no horizontal overflow or browser errors; diagram controls and global pause checked. Lint, production build, and all four mocked contact tests passed.

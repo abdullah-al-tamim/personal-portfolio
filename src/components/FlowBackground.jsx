@@ -19,31 +19,37 @@ export default function FlowBackground({ paused }) {
       previous = 0;
     let particles = [];
     const pointer = { x: -1000, y: -1000 };
-    const staticOnly = () => paused || reduced.matches || !fine.matches;
+    const staticOnly = () => paused || reduced.matches;
     function paint(time = 0) {
       frame = 0;
       const moving = !staticOnly() && visible && !document.hidden;
-      if (moving) tick += Math.min(time - previous || 16, 32) * 0.001;
+      const delta = moving ? Math.min(time - previous || 16, 32) * 0.001 : 0;
+      tick += delta;
       previous = time;
       ctx.clearRect(0, 0, width, height);
       particles.forEach((p, i) => {
-        const wave = Math.sin(p.y * 0.008 + tick * 0.23 + p.phase);
-        const baseX = p.x + wave * 14;
-        const baseY = p.y + Math.cos(p.x * 0.006 + tick * 0.17 + p.phase) * 11;
-        const dx = baseX - pointer.x,
-          dy = baseY - pointer.y;
+        // A continuous current remains alive without a pointer. Nearby marks
+        // orbit a moving attractor, then relax back into the ambient field.
+        const wave = Math.sin(p.y * 0.006 + tick * 0.65 + p.phase);
+        const baseX = (p.x + tick * (10 + i % 9) + wave * 28) % (width + 40) - 20;
+        const baseY = p.y + Math.cos(p.x * 0.004 + tick * 0.6 + p.phase) * 24;
+        const dx = pointer.x - baseX, dy = pointer.y - baseY;
         const distance = Math.hypot(dx, dy);
-        const force = moving ? Math.max(0, 1 - distance / 180) : 0;
-        const targetX = distance > 0 ? (dx / distance) * force * 48 : 0;
-        const targetY = distance > 0 ? (dy / distance) * force * 48 : 0;
-        p.ox += (targetX - p.ox) * 0.08;
-        p.oy += (targetY - p.oy) * 0.08;
+        const force = moving && fine.matches ? Math.max(0, 1 - distance / 310) : 0;
+        const orbit = tick * 1.1 + p.phase;
+        const targetX = force * (dx * 0.72 + Math.cos(orbit) * 34);
+        const targetY = force * (dy * 0.72 + Math.sin(orbit) * 34);
+        const ease = 1 - Math.exp(-5 * delta);
+        p.ox += (targetX - p.ox) * ease;
+        p.oy += (targetY - p.oy) * ease;
         ctx.save();
         ctx.translate(baseX + p.ox, baseY + p.oy);
-        ctx.rotate(wave * 0.4 + force * 0.8);
-        ctx.fillStyle = i % 6 === 0 ? "#c63920" : "#68756a";
-        ctx.globalAlpha = (i % 6 === 0 ? 0.25 : 0.19) + force * 0.25;
-        ctx.fillRect(0, 0, p.size, 1.2);
+        ctx.rotate(wave + tick * 0.3 + force);
+        ctx.fillStyle = i % 4 === 0 ? "#c63920" : "#52645a";
+        ctx.globalAlpha = (i % 4 === 0 ? 0.65 : 0.42) + force * 0.25;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.size, 1.25, 0, 0, Math.PI * 2);
+        ctx.fill();
         ctx.restore();
       });
       if (moving) frame = requestAnimationFrame(paint);
@@ -61,12 +67,12 @@ export default function FlowBackground({ paused }) {
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(210, Math.round((width * height) / 6500));
+      const count = Math.min(fine.matches ? 500 : 180, Math.round((width * height) / 2300));
       particles = Array.from({ length: count }, (_, i) => ({
         x: (((i * 137.508) % 997) / 997) * width,
         y: (((i * 83.731) % 991) / 991) * height,
         phase: i * 0.73,
-        size: 2 + (i % 4),
+        size: 1.4 + (i % 4) * 0.65,
         ox: 0,
         oy: 0,
       }));

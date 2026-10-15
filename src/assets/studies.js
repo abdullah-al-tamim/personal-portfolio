@@ -7,37 +7,37 @@ export const studies = [
     name: "Reconcile the gaps.",
     discipline: "AUTOMATION / 2025",
     intro:
-      "A record can exist in one system and disappear from the next. The work begins by making that gap visible.",
+      "The encounters are already imported. The question is whether the database still reflects what is in the EHR.",
     problem:
-      "Healthcare operations depended on repeated extraction and manual comparisons to find encounters and claims that had not moved through the submission process.",
+      "Existing systems import encounters from EHRs into the database. But information can become outdated, and duplicate-prevention rules can block some encounters. The submissions team had to download encounter reports manually and compare their counts against the database.",
     difficulty:
-      "Different EHRs exposed different data and behaviors. Automating a happy path was only part of the problem: incomplete inputs and import failures still needed a safe route back to a person.",
+      "A mismatch is a signal to investigate, not proof that an encounter should be imported again. The audit needs to expose discrepancies while preserving the safeguards that prevent duplicate encounters.",
     contribution:
-      "I co-developed the Bangladesh team’s first eClinicalWorks encounter extraction with Navid Al Azim, then independently extended automation to Hellonote, NextGen, and AdvancedMD. I built three scheduled billable-unsubmitted claim workflows and safe Retool triggers for remediation.",
+      "I helped automate and productionalize this encounter audit. I co-developed the eClinicalWorks report extraction with Navid Al Azim, then independently extended extraction automation to Hellonote, NextGen, and AdvancedMD.",
     approach:
-      "Extract the relevant records, reconcile what is missing, validate the candidates, and route exceptions before triggering the next operation. The diagram is an anonymized explanation of that approach, not a reconstruction of an employer system.",
+      "Automate report extraction from the EHR, compare encounter counts against the database, and surface discrepancies for investigation. This audit runs alongside the existing import system; it does not replace it or bypass duplicate-prevention rules.",
     outcome:
-      "Extraction and remediation work reduced an import-error backlog from approximately 18,000 to 4,000 in three weeks in 2025. This describes backlog size, not an error rate or revenue recovered.",
+      "Repeated manual report downloads and count comparisons became a production automation for the submissions team. Differences between the EHR and database could be identified through a repeatable audit.",
     judgment:
-      "An automation is useful only when someone can understand what it did—and what it deliberately left for review.",
+      "Trust the database enough to use it. Verify it enough to know when it needs attention.",
     tools: "Python · JavaScript · Retool · EHR integrations",
-    metric: "18k → 4k",
-    metricLabel: "Approx. import-error backlog / three weeks, 2025",
+    metric: "Report ↔ DB",
+    metricLabel: "Production encounter auditing / existing import retained",
     steps: [
       {
-        name: "Reconcile",
-        title: "Find what did not arrive.",
-        text: "Compare source records with the downstream set. Missing records become candidates for further checking, not automatic resubmission.",
+        name: "Existing import",
+        title: "Import already exists. Verification is the missing layer.",
+        text: "The EHR feeds the database through an existing import system. Updates can lag and duplicate-prevention rules may block encounters. The audit checks the resulting database coverage.",
       },
       {
-        name: "Validate",
-        title: "Keep uncertainty visible.",
-        text: "Separate eligible candidates from records that need investigation. The amber branch represents human review; it is not discarded data.",
+        name: "Compare counts",
+        title: "Replace the manual report-to-database check.",
+        text: "Extract an encounter report and compare its count with the corresponding database count. The fictional example shows 120 reported encounters versus 116 in the database: a difference of four to investigate.",
       },
       {
-        name: "Route",
-        title: "Give every record a next step.",
-        text: "Validated work can proceed through a controlled workflow. Exceptions remain visible with an actionable owner or explanation.",
+        name: "Review gaps",
+        title: "Expose the discrepancy. Preserve the safeguards.",
+        text: "The difference becomes audit output for investigation into stale information or import-rule exclusions. A count mismatch does not automatically authorize importing or resubmitting encounters.",
       },
     ],
   },

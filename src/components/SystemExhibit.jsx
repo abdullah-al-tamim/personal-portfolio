@@ -220,88 +220,25 @@ function Architecture({ step }) {
   );
 }
 
-function Reconciliation({ step, routing }) {
+function Reconciliation({ step }) {
   return (
-    <svg
-      viewBox="0 0 700 300"
-      role="img"
-      aria-label={
-        routing
-          ? [
-              "Records awaiting classification",
-              "Records separated by category and responsibility",
-              "Classified records routed to an action queue",
-            ][step]
-          : [
-              "Source records compared to a downstream set",
-              "Candidates separated into valid and review groups",
-              "Validated records routed forward; exceptions retained for review",
-            ][step]
-      }
-    >
-      <path
-        d="M120 150C240 150 240 90 350 90H610M350 90C420 90 400 235 510 235H610"
-        fill="none"
-        stroke="currentColor"
-        opacity=".25"
-      />
-      <path
-        className="route-highlight"
-        d={
-          step === 2
-            ? "M350 90H610"
-            : step === 1
-              ? "M350 90C420 90 400 235 510 235H610"
-              : "M120 150C240 150 240 90 350 90"
-        }
-        fill="none"
-        stroke="var(--accent)"
-        strokeWidth="2"
-      />
-      {Array.from({ length: 12 }, (_, i) => (
-        <rect
-          key={i}
-          className="diagram-record"
-          x={
-            step === 0
-              ? 65 + (i % 3) * 25
-              : i < 9
-                ? 450 + (i % 3) * 32
-                : 510 + (i - 9) * 32
-          }
-          y={
-            step === 0
-              ? 85 + Math.floor(i / 3) * 32
-              : i < 9
-                ? 50 + Math.floor(i / 3) * 24
-                : 225
-          }
-          width="17"
-          height="9"
-          fill={i >= 9 ? "var(--accent)" : "currentColor"}
-        />
-      ))}
-      <circle
-        cx="350"
-        cy="90"
-        r="28"
-        fill="var(--diagram-bg)"
-        stroke="currentColor"
-      />
-      <path d="M337 90h26m-13-13v26" stroke="currentColor" />
-      <text x="60" y="285" className="svg-label">
-        {routing ? "UNRESOLVED" : "SOURCE RECORDS"}
-      </text>
-      <text x="310" y="155" className="svg-label">
-        {routing ? "CLASSIFY" : "VALIDATE"}
-      </text>
-      <text x="540" y="130" className="svg-label">
-        {routing ? "ACTION QUEUE" : "ELIGIBLE"}
-      </text>
-      <text x="540" y="270" className="svg-label">
-        REVIEW
-      </text>
-    </svg>
+    <div className="encounter-audit">
+      <div className="audit-existing">
+        <strong>EHR</strong><span>Existing import →<small>Duplicate-prevention rules apply</small></span><strong>Database</strong>
+      </div>
+      <p className="audit-context">Already in place · information may lag or encounters may be blocked</p>
+      <div className={`audit-comparison ${step > 0 ? "is-compared" : ""}`}>
+        <div><span>EHR encounter report</span><strong>{step > 0 ? "120" : "—"}</strong><small>Automated report extraction</small></div>
+        <span className="audit-versus" aria-hidden="true">↔</span>
+        <div><span>Database encounters</span><strong>{step > 0 ? "116" : "—"}</strong><small>Corresponding database count</small></div>
+      </div>
+      <div className={`audit-finding ${step === 2 ? "is-reviewed" : ""}`}>
+        <strong>{step === 0 ? "Audit layer" : "Difference: 4 encounters"}</strong>
+        <span>{step === 0 ? "Check the report against the database" : step === 1 ? "A discrepancy to investigate" : "Review freshness & import-rule exclusions"}</span>
+        {step === 2 && <small>No automatic re-import · duplicate safeguards stay in place</small>}
+      </div>
+      <p className="micro audit-example">FICTIONAL COUNTS / EXPLANATORY MODEL</p>
+    </div>
   );
 }
 
@@ -421,6 +358,7 @@ export default function StudyDiagram({ study }) {
       )}
       <div
         className={`mobile-diagram ${study.id} stage-${step}`}
+        hidden={study.id === "reconciliation"}
         aria-label="Simplified system view"
       >
         {study.id === "architecture" ? (
