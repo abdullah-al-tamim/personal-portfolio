@@ -18,7 +18,8 @@ export default function FlowBackground({ paused }) {
       tick = 0,
       previous = 0;
     let particles = [];
-    const pointer = { x: -1000, y: -1000 };
+    const pointer = { x: 0, y: 0, active: false };
+    const lens = { x: 0, y: 0, strength: 0 };
     const staticOnly = () => paused || reduced.matches;
     function paint(time = 0) {
       frame = 0;
@@ -27,32 +28,46 @@ export default function FlowBackground({ paused }) {
       tick += delta;
       previous = time;
       ctx.clearRect(0, 0, width, height);
+      const ease = 1 - Math.exp(-4.5 * delta);
+      lens.x += (pointer.x - lens.x) * ease;
+      lens.y += (pointer.y - lens.y) * ease;
+      lens.strength += ((pointer.active && fine.matches ? 1 : 0) - lens.strength) * ease;
+      const radius = Math.min(width * 0.32, 280);
+      // Rounded lenses inflate a shared point field. A moving focus trails the
+      // pointer; two slower foci keep the surface breathing while unattended.
+      const bubbles = [
+        { x: width * (0.28 + Math.sin(tick * 0.22) * 0.18),
+          y: height * (0.3 + Math.cos(tick * 0.27) * 0.1),
+          r: radius * (1.1 + Math.sin(tick * 0.55) * 0.12), strength: 0.8 },
+        { x: width * (0.73 + Math.cos(tick * 0.19) * 0.16),
+          y: height * (0.38 + Math.sin(tick * 0.24) * 0.15),
+          r: radius * 0.85, strength: 0.65 },
+        { x: lens.x, y: lens.y, r: Math.min(width * 0.42, 260), strength: lens.strength * 1.35 },
+      ];
       particles.forEach((p) => {
-        // A shared wave surface: ordered lanes remain coherent as they flow.
-        const u = (p.u + tick * 0.025) % 1;
-        const x = u * (width + 80) - 40;
-        const envelope = Math.sin(u * Math.PI);
-        const wave = Math.sin(u * Math.PI * 2.2 - tick * 0.45);
-        const baseX = x;
-        const baseY = height * 0.35 + wave * height * 0.13
-          + p.lane * (12 + envelope * 13)
-          + Math.sin(u * Math.PI * 3 + tick * 0.3) * p.lane * 1.5;
-        const dx = pointer.x - baseX, dy = pointer.y - baseY;
-        const distance = Math.hypot(dx, dy);
-        const force = moving && fine.matches ? Math.max(0, 1 - distance / 310) : 0;
-        const orbit = tick * 0.7 + p.lane * 0.12;
-        const targetX = force * (dx * 0.24 + Math.cos(orbit) * 12);
-        const targetY = force * (dy * 0.38 + Math.sin(orbit) * 16);
-        const ease = 1 - Math.exp(-5 * delta);
-        p.ox += (targetX - p.ox) * ease;
-        p.oy += (targetY - p.oy) * ease;
+        const baseX = p.x + Math.sin(tick * 0.25 + p.y * 0.004) * 7;
+        const baseY = p.y + Math.cos(tick * 0.22 + p.x * 0.004) * 7;
+        let x = baseX, y = baseY, depth = 0, angle = 0;
+        for (const bubble of bubbles) {
+          const dx = baseX - bubble.x, dy = baseY - bubble.y;
+          const distance = Math.hypot(dx, dy);
+          const q = distance / bubble.r;
+          const influence = Math.exp(-q * q * 2) * bubble.strength;
+          // Radial inflation plus a small tangent displacement gives a soft
+          // spherical edge rather than a flat wave or a scattered swarm.
+          x += dx * influence * 0.65 - dy * influence * 0.12;
+          y += dy * influence * 0.65 + dx * influence * 0.12;
+          depth += influence;
+          angle += Math.atan2(dy, dx) * influence;
+        }
+        const size = 0.38 + Math.min(depth, 1.7) * 2.1;
         ctx.save();
-        ctx.translate(baseX + p.ox, baseY + p.oy);
-        ctx.rotate(Math.atan2(Math.cos(u * Math.PI * 2.2 - tick * 0.45) * height * 0.13 * Math.PI * 2.2, width));
-        ctx.fillStyle = Math.abs(p.lane) < 2 ? "#c63920" : "#52645a";
-        ctx.globalAlpha = (Math.abs(p.lane) < 2 ? 0.65 : 0.32) + force * 0.25;
+        ctx.translate(x, y);
+        ctx.rotate(angle + p.rotation);
+        ctx.fillStyle = depth < 0.12 ? "#53625b" : ["#4269a2", "#b84531", "#a88b37", "#536e63"][p.color];
+        ctx.globalAlpha = 0.25 + Math.min(depth, 1) * 0.48;
         ctx.beginPath();
-        ctx.ellipse(0, 0, p.size, 1.25, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, size, Math.max(0.4, size * 0.45), 0, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       });
@@ -71,26 +86,30 @@ export default function FlowBackground({ paused }) {
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const lanes = fine.matches ? 17 : 11;
-      const columns = fine.matches ? 44 : 24;
-      particles = Array.from({ length: lanes * columns }, (_, i) => ({
-        u: (i % columns) / columns,
-        lane: Math.floor(i / columns) - (lanes - 1) / 2,
-        size: fine.matches ? 2.3 : 1.8,
-        ox: 0,
-        oy: 0,
+      const spacing = fine.matches ? 25 : 28;
+      const columns = Math.ceil(width / spacing) + 2;
+      const rows = Math.ceil(height / spacing) + 2;
+      particles = Array.from({ length: Math.min(columns * rows, 2400) }, (_, i) => ({
+        x: (i % columns) * spacing - spacing / 2,
+        y: Math.floor(i / columns) * spacing - spacing / 2,
+        rotation: Math.sin(i * 13.7) * 0.5,
+        color: Math.floor(i / columns / 5) % 4,
       }));
+      if (!pointer.active) {
+        pointer.x = lens.x = width * 0.65;
+        pointer.y = lens.y = height * 0.35;
+      }
       refresh();
     }
     function move(event) {
       if (staticOnly()) return;
       const rect = host.getBoundingClientRect();
+      pointer.active = true;
       pointer.x = event.clientX - rect.left;
       pointer.y = event.clientY - rect.top;
     }
     function leave() {
-      pointer.x = -1000;
-      pointer.y = -1000;
+      pointer.active = false;
     }
     const resizeObserver = new ResizeObserver(resize);
     const observer = new IntersectionObserver(([entry]) => {

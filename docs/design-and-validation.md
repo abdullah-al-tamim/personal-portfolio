@@ -52,3 +52,9 @@ Moved the portrait, name, current role, and employer above the main headline. In
 
 ### Structured motion and live email diagnosis
 Particle positions now belong to ordered lanes on a shared animated wave surface, with an accent spine and localized pointer deformation. An owner-authorized test on the preview reached EmailJS and received HTTP 412, classified in the connected-mailbox error family. Delivery remains blocked; configuration presence is not a delivery guarantee. Vercel MCP project access returned 403 for the owner team. Error handling now maps provider responses to bounded, actionable messages without exposing raw credentials or provider bodies. Five mocked transport/diagnostic tests, lint and build passed.
+
+
+### Bubble motion and confirmed Gmail error — 16 October 2026
+Revisited Antigravity and compared idle, right-pointer and left-pointer states. Replaced the previous wave lanes with an original rounded-lens particle field: overlapping radial inflation, continuous idle movement, smoothed pointer tracking, depth-dependent point size and muted colors. Desktop/mobile rendering and pause controls checked; lint, five contact tests and production build passed.
+
+With owner-authorized dashboard access, EmailJS history explicitly reported `Gmail_API: Invalid grant. Please reconnect your Gmail account`. The service identifier matched the owner-provided service. A fresh portfolio test also returned HTTP 412. Reconnection must be completed by the owner; successful delivery is not claimed. No private dashboard screenshots or message contents are committed.
