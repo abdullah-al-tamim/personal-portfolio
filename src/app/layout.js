@@ -16,28 +16,20 @@ export const metadata = {
   metadataBase: new URL("https://abdullah-al-tamim.vercel.app"),
   title: "Abdullah Al Tamim | Data Automation & Applied AI",
   description:
-    "Data automation, operational analytics, and applied machine learning. Explore the work and research of Abdullah Al Tamim, Senior Data Automation Analyst based in Dhaka.",
+    "Systems that reconcile fragmented data, automate repetitive work, and clarify decisions. Work and research by Abdullah Al Tamim, Senior Data Automations Analyst in Dhaka.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Abdullah Al Tamim | Data Automation & Applied AI",
     description:
-      "From complex data to clear decisions. Automation, analytics, and research.",
+      "Order from complexity. Data automation, operational intelligence, and applied machine learning.",
     url: "/",
     type: "website",
-    images: [
-      {
-        url: "/images/abdullah-al-tamim.png",
-        width: 987,
-        height: 1164,
-        alt: "Abdullah Al Tamim",
-      },
-    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Abdullah Al Tamim | Data Automation & Applied AI",
     description: "Automation, analytics, and research.",
-    images: ["/images/abdullah-al-tamim.png"],
+    images: ["/opengraph-image"],
   },
   icons: { icon: "/icon.svg" },
 };
