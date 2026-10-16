@@ -1,91 +1,74 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { surfacePoint } from "@/lib/hero-surface.mjs";
 
-// Conceptual automation: incoming records straighten into lanes, pass gates,
-// then leave as uniform output. No real system activity or personal data.
 export default function FlowBackground({ paused }) {
   const ref = useRef(null);
   useEffect(() => {
     const canvas = ref.current,
+      host = canvas?.parentElement,
       ctx = canvas?.getContext("2d");
-    if (!ctx) return;
+    if (!ctx || !host) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    const fine = matchMedia("(pointer: fine)");
+    const fine = matchMedia("(hover: hover) and (pointer: fine)");
     let width = 0,
       height = 0,
       frame = 0,
       last = 0,
-      time = 0;
-    const target = { x: -1000, y: -1000 },
-      cursor = { x: -1000, y: -1000 };
-    function pathY(x, lane, lanes) {
-      const base = height * (0.23 + (lane * 0.55) / Math.max(1, lanes - 1));
-      const entry = Math.max(0, 1 - x / (width * 0.4));
-      return (
-        base + Math.sin((x / width) * 8 + lane * 1.8) * entry * height * 0.075
-      );
-    }
+      time = 0,
+      visible = true,
+      points = [];
+    const pointer = { x: 0, y: 0, active: false };
+    const focus = { x: 0, y: 0 },
+      trail = { x: 0, y: 0 };
+    const colors = ["#5963b3", "#8b629f", "#b46264", "#b29a4d", "#6579ad"];
     function draw(now = 0) {
-      const active = !paused && !reduced.matches && !document.hidden;
-      const dt = active ? Math.min(now - last || 16, 32) / 1000 : 0;
-      time += dt;
+      frame = 0;
+      const moving = !paused && !reduced.matches && visible && !document.hidden;
+      const dt = moving ? Math.min(now - last || 16, 32) / 1000 : 0;
       last = now;
-      const ease = 1 - Math.exp(-5 * dt);
-      cursor.x += (target.x - cursor.x) * ease;
-      cursor.y += (target.y - cursor.y) * ease;
+      time += dt;
+      const target =
+        pointer.active && fine.matches
+          ? pointer
+          : {
+              x: width * (0.68 + 0.17 * Math.sin(time * 0.22)),
+              y: height * (0.49 + 0.17 * Math.cos(time * 0.27)),
+            };
+      const follow = 1 - Math.exp(-6 * dt),
+        lag = 1 - Math.exp(-2.3 * dt);
+      focus.x += (target.x - focus.x) * follow;
+      focus.y += (target.y - focus.y) * follow;
+      trail.x += (focus.x - trail.x) * lag;
+      trail.y += (focus.y - trail.y) * lag;
       ctx.clearRect(0, 0, width, height);
-      const lanes = width < 650 ? 3 : 5;
-      for (let lane = 0; lane < lanes; lane++) {
+      const radius = Math.min(235, Math.max(110, width * 0.19));
+      for (const p of points) {
+        const a = surfacePoint(p.x, p.y, focus, trail, time, radius);
+        // Fade only at the hero's lower boundary; never cover sections below it.
+        const fade = Math.min(1, Math.max(0, (height - a.y) / (height * 0.18)));
+        ctx.globalAlpha = a.alpha * fade;
+        ctx.fillStyle =
+          a.depth > 0.09
+            ? colors[Math.min(4, Math.floor(a.hue * 5))]
+            : "#87918b";
+        ctx.save();
+        ctx.translate(a.x, a.y);
+        ctx.rotate(a.angle);
         ctx.beginPath();
-        for (let x = -10; x <= width + 10; x += 8) {
-          const y = pathY(x, lane, lanes);
-          if (x === -10) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.strokeStyle = "rgba(65,91,78,.15)";
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-        for (const gate of [0.4, 0.7]) {
-          const x = width * gate,
-            y = pathY(x, lane, lanes);
-          const hover = Math.max(
-            0,
-            1 - Math.hypot(x - cursor.x, y - cursor.y) / 130,
-          );
-          ctx.fillStyle = "rgba(240,241,237,.95)";
-          ctx.fillRect(x - 9, y - 9, 18, 18);
-          ctx.strokeStyle = "rgba(166,70,40," + (0.26 + hover * 0.35) + ")";
-          ctx.lineWidth = 1 + hover;
-          ctx.strokeRect(x - 9, y - 9, 18, 18);
-          ctx.beginPath();
-          ctx.moveTo(x - 4, y);
-          ctx.lineTo(x - 1, y + 3);
-          ctx.lineTo(x + 4, y - 3);
-          ctx.stroke();
-        }
-        for (let n = 0; n < 4; n++) {
-          const x =
-            ((time * (24 + lane * 2) + (n * width) / 4 + lane * 43) %
-              (width + 40)) -
-            20;
-          const y = pathY(x, lane, lanes);
-          const processed = x > width * 0.7;
-          ctx.save();
-          ctx.translate(x, y);
-          if (x < width * 0.4)
-            ctx.rotate(Math.sin(n + lane) * 0.5 * (1 - x / (width * 0.4)));
-          ctx.fillStyle = processed
-            ? "rgba(48,91,72,.57)"
-            : "rgba(181,68,37,.46)";
-          ctx.fillRect(-3, -2, processed ? 6 : 9, 4);
-          if (processed) {
-            ctx.fillStyle = "rgba(48,91,72,.22)";
-            ctx.fillRect(-3, 5, 6, 1);
-          }
-          ctx.restore();
-        }
+        ctx.ellipse(
+          0,
+          0,
+          a.size,
+          Math.max(0.22, a.size * 0.43),
+          0,
+          0,
+          Math.PI * 2,
+        );
+        ctx.fill();
+        ctx.restore();
       }
-      frame = active ? requestAnimationFrame(draw) : 0;
+      if (moving) frame = requestAnimationFrame(draw);
     }
     function refresh() {
       cancelAnimationFrame(frame);
@@ -93,37 +76,58 @@ export default function FlowBackground({ paused }) {
       draw();
     }
     function resize() {
-      width = innerWidth;
-      height = innerHeight;
+      width = host.clientWidth;
+      height = Math.min(host.clientHeight, innerHeight * 1.05);
       const dpr = Math.min(devicePixelRatio || 1, 2);
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const spacing = Math.max(
+        width < 650 ? 25 : 29,
+        Math.sqrt((width * height) / 1800),
+      );
+      points = [];
+      for (let y = -20; y < height + 20; y += spacing)
+        for (let x = -20; x < width + 20; x += spacing) points.push({ x, y });
+      focus.x = trail.x = width * 0.77;
+      focus.y = trail.y = height * 0.58;
       refresh();
     }
     function move(e) {
-      if (fine.matches && !paused && !reduced.matches) {
-        target.x = e.clientX;
-        target.y = e.clientY;
-      }
+      if (paused || reduced.matches || !fine.matches) return;
+      const rect = host.getBoundingClientRect();
+      pointer.x = e.clientX - rect.left;
+      pointer.y = Math.min(height, Math.max(0, e.clientY - rect.top));
+      pointer.active = e.clientY - rect.top <= height;
     }
     function leave() {
-      target.x = -1000;
-      target.y = -1000;
+      pointer.active = false;
     }
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(host);
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      refresh();
+    });
+    observer.observe(host);
+    host.addEventListener("pointermove", move, { passive: true });
+    host.addEventListener("pointerleave", leave);
     window.addEventListener("resize", resize);
-    window.addEventListener("pointermove", move, { passive: true });
-    document.documentElement.addEventListener("pointerleave", leave);
     document.addEventListener("visibilitychange", refresh);
     reduced.addEventListener("change", refresh);
+    fine.addEventListener("change", leave);
     resize();
     return () => {
       cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      observer.disconnect();
+      host.removeEventListener("pointermove", move);
+      host.removeEventListener("pointerleave", leave);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", move);
-      document.documentElement.removeEventListener("pointerleave", leave);
       document.removeEventListener("visibilitychange", refresh);
       reduced.removeEventListener("change", refresh);
+      fine.removeEventListener("change", leave);
     };
   }, [paused]);
   return <canvas ref={ref} className="flow-background" aria-hidden="true" />;

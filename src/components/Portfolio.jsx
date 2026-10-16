@@ -205,9 +205,10 @@ export default function Portfolio() {
           <span aria-hidden="true">{menu ? "−" : "+"}</span>
         </button>
       </header>
-      <FlowBackground paused={pause} />
+
       <main id="main">
         <section className="hero section-wrap" id="home">
+          <FlowBackground paused={pause} />
           <div className="hero-kicker">
             <p className="micro">
               <span className="status-dot" />

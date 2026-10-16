@@ -1950,12 +1950,11 @@ html[data-motion="paused"] {
 }
 .flow-background {
   position: absolute;
-  inset: 0;
+  inset: 0 0 auto;
   width: 100%;
-  height: 100%;
   pointer-events: none;
   z-index: 0;
-  mask-image: linear-gradient(#000 0%, #000 55%, transparent 78%);
+  mask-image: none;
 }
 .contribution-note {
   display: grid;
@@ -2329,19 +2328,12 @@ html[data-motion="paused"] {
     font-size: 48px;
   }
 }
-/* A continuous field behind the page; opaque exhibits keep diagrams legible. */
+/* The page remains still outside the hero. */
 .portfolio {
   position: relative;
   isolation: isolate;
 }
-.flow-background {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100dvh;
-  z-index: -1;
-  mask-image: none;
-}
+
 .process-exhibit {
   padding: 22px 0;
 }
@@ -2672,4 +2664,8 @@ html[data-motion="paused"] {
 .archive-card:target .demo-stage {
   outline: 2px solid var(--accent);
   outline-offset: 5px;
+}
+
+.hero {
+  overflow: clip;
 }
