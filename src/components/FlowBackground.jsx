@@ -1,166 +1,111 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-// Decorative, synthetic field. No tracking, assets, WebGL, or pointer interception.
+// Ordered paths and travelling signals: decorative, viewport-sized, no WebGL.
 export default function FlowBackground({ paused }) {
-  const canvasRef = useRef(null);
+  const ref = useRef(null);
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const host = canvas;
+    const canvas = ref.current;
     const ctx = canvas?.getContext("2d");
-    if (!host || !ctx) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
-    let frame = 0,
-      visible = true,
-      width = 0,
+    if (!ctx) return;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    const fine = matchMedia("(pointer: fine)");
+    let width = 0,
       height = 0,
-      tick = 0,
-      previous = 0;
-    let particles = [];
-    const pointer = { x: 0, y: 0, active: false };
-    const lens = { x: 0, y: 0, strength: 0 };
-    const staticOnly = () => paused || reduced.matches;
-    function paint(time = 0) {
-      frame = 0;
-      const moving = !staticOnly() && visible && !document.hidden;
-      const delta = moving ? Math.min(time - previous || 16, 32) * 0.001 : 0;
-      tick += delta;
-      previous = time;
+      frame = 0,
+      last = 0,
+      time = 0;
+    const target = { x: 0, y: 0, power: 0 },
+      cursor = { x: 0, y: 0, power: 0 };
+    const point = (x, line) => {
+      const base = height * 0.12 + line * height * 0.065;
+      const wave =
+        Math.sin((x / width) * 5.4 + line * 0.16 + time * 0.16) *
+        height *
+        0.055;
+      const bend =
+        Math.exp(
+          -(((x - cursor.x) / 150) ** 2) - ((base - cursor.y) / 180) ** 2,
+        ) *
+        cursor.power *
+        18;
+      return base + wave + bend;
+    };
+    function draw(now = 0) {
+      const active = !paused && !reduced.matches && !document.hidden;
+      const dt = active ? Math.min(now - last || 16, 32) / 1000 : 0;
+      last = now;
+      time += dt;
+      const ease = 1 - Math.exp(-5 * dt);
+      for (const k of ["x", "y", "power"])
+        cursor[k] += (target[k] - cursor[k]) * ease;
       ctx.clearRect(0, 0, width, height);
-      const ease = 1 - Math.exp(-4.5 * delta);
-      lens.x += (pointer.x - lens.x) * ease;
-      lens.y += (pointer.y - lens.y) * ease;
-      lens.strength +=
-        ((pointer.active && fine.matches ? 1 : 0) - lens.strength) * ease;
-      const radius = Math.min(width * 0.16, 150);
-      // Rounded lenses inflate a shared point field. A moving focus trails the
-      // pointer; two slower foci keep the surface breathing while unattended.
-      const bubbles = [
-        {
-          x: width * (0.28 + Math.sin(tick * 0.22) * 0.18),
-          y: height * (0.3 + Math.cos(tick * 0.27) * 0.1),
-          r: radius * (1 + Math.sin(tick * 0.55) * 0.07),
-          strength: 0.65,
-        },
-        {
-          x: width * (0.73 + Math.cos(tick * 0.19) * 0.16),
-          y: height * (0.38 + Math.sin(tick * 0.24) * 0.15),
-          r: radius * 0.85,
-          strength: 0.55,
-        },
-        {
-          x: lens.x,
-          y: lens.y,
-          r: Math.min(width * 0.12, 115),
-          strength: lens.strength * 0.65,
-        },
-      ];
-      particles.forEach((p) => {
-        const baseX = p.x + Math.sin(tick * 0.25 + p.y * 0.004) * 2;
-        const baseY = p.y + Math.cos(tick * 0.22 + p.x * 0.004) * 2;
-        let x = baseX,
-          y = baseY,
-          depth = 0,
-          angle = 0;
-        for (const bubble of bubbles) {
-          const dx = baseX - bubble.x,
-            dy = baseY - bubble.y;
-          const distance = Math.hypot(dx, dy);
-          const q = distance / bubble.r;
-          const influence = Math.exp(-q * q * 2) * bubble.strength;
-          // Radial inflation plus a small tangent displacement gives a soft
-          // spherical edge rather than a flat wave or a scattered swarm.
-          x += dx * influence * 0.28 - dy * influence * 0.025;
-          y += dy * influence * 0.28 + dx * influence * 0.025;
-          depth = Math.max(depth, influence);
-          angle += Math.atan2(dy, dx) * influence;
-        }
-        const size = 0.45 + Math.min(depth, 0.7) * 1.8;
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(angle + p.rotation);
-        ctx.fillStyle =
-          depth < 0.12
-            ? "#53625b"
-            : ["#4269a2", "#b84531", "#a88b37", "#536e63"][p.color];
-        ctx.globalAlpha = 0.2 + Math.min(depth, 0.7) * 0.48;
+      for (let line = 0; line < 12; line++) {
         ctx.beginPath();
-        ctx.ellipse(0, 0, size, Math.max(0.4, size * 0.45), 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      });
-      if (moving) frame = requestAnimationFrame(paint);
+        for (let x = -20; x <= width + 20; x += 12) {
+          const y = point(x, line);
+          if (x === -20) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle =
+          line % 4 === 0 ? "rgba(166,79,47,.16)" : "rgba(63,88,79,.12)";
+        ctx.lineWidth = 0.65;
+        ctx.stroke();
+        for (let n = 0; n < 3; n++) {
+          const x =
+            ((time * (16 + line * 0.8) + (n * width) / 3 + line * 59) %
+              (width + 40)) -
+            20;
+          const y = point(x, line),
+            nextY = point(x + 7, line);
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + 7, nextY);
+          ctx.strokeStyle =
+            line % 4 === 0 ? "rgba(178,67,37,.5)" : "rgba(55,88,77,.38)";
+          ctx.lineWidth = 1.7;
+          ctx.stroke();
+        }
+      }
+      frame = active ? requestAnimationFrame(draw) : 0;
     }
     function refresh() {
       cancelAnimationFrame(frame);
-      frame = 0;
-      previous = 0;
-      paint();
+      last = 0;
+      draw();
     }
     function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
+      width = innerWidth;
+      height = innerHeight;
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const spacing = Math.max(
-        fine.matches ? 22 : 28,
-        Math.sqrt((width * height) / 2800),
-      );
-      const columns = Math.ceil(width / spacing) + 2;
-      const rows = Math.ceil(height / spacing) + 2;
-      particles = Array.from(
-        { length: Math.min(columns * rows, 3500) },
-        (_, i) => ({
-          x: (i % columns) * spacing - spacing / 2,
-          y: Math.floor(i / columns) * spacing - spacing / 2,
-          rotation: 0,
-          color: Math.floor(i / columns / 5) % 4,
-        }),
-      );
-      if (!pointer.active) {
-        pointer.x = lens.x = width * 0.65;
-        pointer.y = lens.y = height * 0.35;
-      }
       refresh();
     }
-    function move(event) {
-      if (staticOnly()) return;
-      const rect = host.getBoundingClientRect();
-      pointer.active = true;
-      pointer.x = event.clientX - rect.left;
-      pointer.y = event.clientY - rect.top;
+    function move(e) {
+      if (!fine.matches) return;
+      target.x = e.clientX;
+      target.y = e.clientY;
+      target.power = 1;
     }
     function leave() {
-      pointer.active = false;
+      target.power = 0;
     }
-    const resizeObserver = new ResizeObserver(resize);
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      refresh();
-    });
-    resizeObserver.observe(host);
-    observer.observe(host);
+    window.addEventListener("resize", resize);
     window.addEventListener("pointermove", move, { passive: true });
     document.documentElement.addEventListener("pointerleave", leave);
     document.addEventListener("visibilitychange", refresh);
     reduced.addEventListener("change", refresh);
-    fine.addEventListener("change", refresh);
     resize();
     return () => {
       cancelAnimationFrame(frame);
-      resizeObserver.disconnect();
-      observer.disconnect();
+      window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", move);
       document.documentElement.removeEventListener("pointerleave", leave);
       document.removeEventListener("visibilitychange", refresh);
       reduced.removeEventListener("change", refresh);
-      fine.removeEventListener("change", refresh);
     };
   }, [paused]);
-  return (
-    <canvas className="flow-background" ref={canvasRef} aria-hidden="true" />
-  );
+  return <canvas ref={ref} className="flow-background" aria-hidden="true" />;
 }

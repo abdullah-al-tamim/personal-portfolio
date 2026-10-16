@@ -14,20 +14,28 @@ const mono = localFont({
 });
 export const metadata = {
   metadataBase: new URL("https://abdullah-al-tamim.vercel.app"),
-  title: "Abdullah Al Tamim | Data Automation & Applied AI",
+  title: "Abdullah Al Tamim | Data Automation & Analytics, Bangladesh",
   description:
-    "Systems that reconcile fragmented data, automate repetitive work, and clarify decisions. Work and research by Abdullah Al Tamim, Senior Data Automations Analyst in Dhaka.",
+    "Abdullah Al Tamim, Senior Data Automations Analyst in Dhaka, Bangladesh. Python automation, SQL data engineering, Retool workflows and applied AI research.",
+  authors: [
+    { name: "Abdullah Al Tamim", url: "https://abdullah-al-tamim.vercel.app" },
+  ],
+  creator: "Abdullah Al Tamim",
+  robots: { index: process.env.VERCEL_ENV !== "preview", follow: true },
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined },
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Abdullah Al Tamim | Data Automation & Applied AI",
+    title: "Abdullah Al Tamim | Data Automation & Analytics, Bangladesh",
     description:
-      "Order from complexity. Data automation, operational intelligence, and applied machine learning.",
+      "Explore Abdullah Al Tamim’s automation engineering, data analytics and applied AI work from Dhaka, Bangladesh.",
     url: "/",
     type: "website",
+    locale: "en_BD",
+    siteName: "Abdullah Al Tamim",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abdullah Al Tamim | Data Automation & Applied AI",
+    title: "Abdullah Al Tamim | Data Automation & Analytics, Bangladesh",
     description: "Automation, analytics, and research.",
     images: ["/opengraph-image"],
   },

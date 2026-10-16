@@ -7,9 +7,9 @@ export const studies = [
     name: "Check what made it across.",
     discipline: "EHR AUTOMATION / 2025",
     intro:
-      "Our database receives encounters from EHRs. I automated the report downloads that help our team check whether the counts match.",
+      "I automated EHR report extraction to find missing encounters and investigate possible duplicates in our database.",
     problem:
-      "Imports already run, but information can become outdated and rules designed to prevent duplicates can block encounters. Our submissions team had to download EHR reports by hand and compare them with the database.",
+      "Imports already run, but information can become outdated and rules designed to prevent duplicates can block encounters. The database can also contain more encounters than the EHR report, requiring a duplicate investigation. Our team previously downloaded reports and compared counts manually.",
     difficulty:
       "Different EHRs require different extraction routines. A count difference needs investigation: it does not mean every missing encounter should be imported again.",
     contribution:
@@ -31,12 +31,12 @@ export const studies = [
       {
         name: "Compare",
         title: "Check the report against the database.",
-        text: "SQL provides the database side of the audit. In this fictional example, the report contains 120 encounters and the database contains 116: four encounters to investigate.",
+        text: "SQL provides the database side of the audit. Try both fictional examples: 116 database encounters suggests a shortfall; 124 suggests excess records to investigate for duplicates. The report has 120.",
       },
       {
         name: "Investigate",
         title: "Give the team a clear discrepancy to investigate.",
-        text: "Retool workflows surface the difference. The team checks for stale information, import rules, or import errors. Missing-information errors are handled by the separate workflow shown in example 03.",
+        text: "Retool workflows surface the difference. The team investigates missing encounters or possible duplicates, plus stale information and import errors. Missing-information errors are handled by the separate workflow shown in example 03.",
       },
     ],
   },
@@ -46,7 +46,7 @@ export const studies = [
     name: "Break the bottleneck.",
     discipline: "WORKFLOW ARCHITECTURE / H1 2026",
     intro:
-      "When a tool grows, the original query can become the bottleneck. I reworked the architecture beneath the interface.",
+      "I split heavy processing into parallel chunks and cached results to avoid repeating work.",
     problem:
       "The Submissions Funnel and Error Tracker needed to handle large, complex operational datasets. Heavy queries and tightly coupled processing made the architecture harder to scale.",
     difficulty:
@@ -86,7 +86,7 @@ export const studies = [
     name: "Find the missing information.",
     discipline: "TEAM WORK / IMPORT-ERROR RESOLUTION",
     intro:
-      "An encounter cannot be imported when required details are missing. Our team built workflows that look at the same patient’s earlier encounters and suggest a solution.",
+      "Our team’s workflows suggest missing import details using the same patient’s earlier encounters.",
     problem:
       "An EHR encounter may arrive without a required name, member ID, or another primary field. The import fails, leaving the team to investigate what is missing.",
     difficulty:

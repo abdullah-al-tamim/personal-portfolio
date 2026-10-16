@@ -221,6 +221,7 @@ function Architecture({ step }) {
 }
 
 function ProcessDiagram({ step, resolver }) {
+  const [excess, setExcess] = useState(false);
   const nodes = resolver
     ? [
         {
@@ -257,15 +258,22 @@ function ProcessDiagram({ step, resolver }) {
           tech: "SQL / DATABASE COMPARISON",
           title: "Compare the counts",
           label: "Database encounters",
-          value: step > 0 ? "116" : "Read database",
+          value: step > 0 ? (excess ? "124" : "116") : "Read database",
           detail: "Compare with the report count",
         },
         {
           tech: "RETOOL / AUDIT WORKFLOW",
           title: "Investigate the gap",
           label: "Difference to investigate",
-          value: step === 2 ? "4 encounters" : "Awaiting comparison",
-          detail: "Check freshness, rules and import errors",
+          value:
+            step === 2
+              ? excess
+                ? "4 extra"
+                : "4 missing"
+              : "Awaiting comparison",
+          detail: excess
+            ? "Investigate possible duplicate encounters"
+            : "Check freshness, rules and import errors",
         },
       ];
   return (
@@ -275,6 +283,20 @@ function ProcessDiagram({ step, resolver }) {
           ? "EHR encounter → existing import → missing-information error"
           : "Existing EHR imports keep running. This is the separate audit layer."}
       </p>
+      {!resolver && (
+        <div
+          className="audit-scenarios"
+          role="group"
+          aria-label="Audit example"
+        >
+          <button aria-pressed={!excess} onClick={() => setExcess(false)}>
+            DB has fewer
+          </button>
+          <button aria-pressed={excess} onClick={() => setExcess(true)}>
+            DB has more
+          </button>
+        </div>
+      )}
       <div className="process-nodes">
         {nodes.map((node, i) => (
           <div
