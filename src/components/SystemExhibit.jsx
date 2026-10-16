@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const coordinates = Array.from({ length: 36 }, (_, i) => ({
   x: 35 + ((i * 73) % 430),
@@ -220,118 +220,167 @@ function Architecture({ step }) {
   );
 }
 
-function Reconciliation({ step }) {
+function ProcessDiagram({ step, resolver }) {
+  const [excess, setExcess] = useState(false);
+  const nodes = resolver
+    ? [
+        {
+          tech: "RETOOL / ERROR CHECK",
+          title: "Import blocked",
+          label: "Required member ID",
+          value: "Missing",
+          detail: "Identify the missing field",
+        },
+        {
+          tech: "SQL / HISTORY LOOKUP",
+          title: "Earlier encounter",
+          label: "Same patient / member ID",
+          value: step > 0 ? "DEMO-104" : "Look up history",
+          detail: "Recover the relevant context",
+        },
+        {
+          tech: "RETOOL / RESOLUTION",
+          title: "Proposed solution",
+          label: "Suggested member ID",
+          value: step === 2 ? "DEMO-104" : "Awaiting context",
+          detail: "Surface a suggestion for review",
+        },
+      ]
+    : [
+        {
+          tech: "PYTHON + PLAYWRIGHT / SELENIUM",
+          title: "Extract EHR report",
+          label: "Reported encounters",
+          value: "120",
+          detail: "Browser automation downloads the report",
+        },
+        {
+          tech: "SQL / DATABASE COMPARISON",
+          title: "Compare the counts",
+          label: "Database encounters",
+          value: step > 0 ? (excess ? "124" : "116") : "Read database",
+          detail: "Compare with the report count",
+        },
+        {
+          tech: "RETOOL / AUDIT WORKFLOW",
+          title: "Investigate the gap",
+          label: "Difference to investigate",
+          value:
+            step === 2
+              ? excess
+                ? "4 extra"
+                : "4 missing"
+              : "Awaiting comparison",
+          detail: excess
+            ? "Investigate possible duplicate encounters"
+            : "Check freshness, rules and import errors",
+        },
+      ];
   return (
-    <div className="encounter-audit">
-      <div className="audit-existing">
-        <strong>EHR</strong><span>Existing import →<small>Duplicate-prevention rules apply</small></span><strong>Database</strong>
+    <div className="process-exhibit">
+      <p className="process-context">
+        {resolver
+          ? "EHR encounter → existing import → missing-information error"
+          : "Existing EHR imports keep running. This is the separate audit layer."}
+      </p>
+      {!resolver && (
+        <div
+          className="audit-scenarios"
+          role="group"
+          aria-label="Audit example"
+        >
+          <button aria-pressed={!excess} onClick={() => setExcess(false)}>
+            DB has fewer
+          </button>
+          <button aria-pressed={excess} onClick={() => setExcess(true)}>
+            DB has more
+          </button>
+        </div>
+      )}
+      <div className="process-nodes">
+        {nodes.map((node, i) => (
+          <div
+            key={node.title}
+            className={`process-node ${step >= i ? "is-reached" : ""} ${step === i ? "is-current" : ""}`}
+          >
+            <span className="process-tech">{node.tech}</span>
+            <h4>{node.title}</h4>
+            <div className="process-record">
+              <span>{node.label}</span>
+              <strong key={node.value}>{node.value}</strong>
+            </div>
+            <p>{node.detail}</p>
+            {i < 2 && (
+              <span className="process-connector" aria-hidden="true">
+                <i />
+              </span>
+            )}
+          </div>
+        ))}
       </div>
-      <p className="audit-context">Already in place · information may lag or encounters may be blocked</p>
-      <div className={`audit-comparison ${step > 0 ? "is-compared" : ""}`}>
-        <div><span>EHR encounter report</span><strong>{step > 0 ? "120" : "—"}</strong><small>Automated report extraction</small></div>
-        <span className="audit-versus" aria-hidden="true">↔</span>
-        <div><span>Database encounters</span><strong>{step > 0 ? "116" : "—"}</strong><small>Corresponding database count</small></div>
-      </div>
-      <div className={`audit-finding ${step === 2 ? "is-reviewed" : ""}`}>
-        <strong>{step === 0 ? "Audit layer" : "Difference: 4 encounters"}</strong>
-        <span>{step === 0 ? "Check the report against the database" : step === 1 ? "A discrepancy to investigate" : "Review freshness & import-rule exclusions"}</span>
-        {step === 2 && <small>No automatic re-import · duplicate safeguards stay in place</small>}
-      </div>
-      <p className="micro audit-example">FICTIONAL COUNTS / EXPLANATORY MODEL</p>
+      <p className="micro">FICTIONAL EXAMPLE / NO PATIENT OR PRODUCTION DATA</p>
+      {!resolver && (
+        <a className="process-related" href="#intelligence">
+          Missing information blocked the import? See the team’s resolver
+          workflow below ↗
+        </a>
+      )}
     </div>
   );
 }
 
-function Routing({ step }) {
-  return (
-    <svg
-      viewBox="0 0 700 300"
-      role="img"
-      aria-label={
-        [
-          "Three fictional categories of unresolved records",
-          "Each category connects to its own guidance",
-          "Guidance routes each category into an action queue",
-        ][step]
-      }
-    >
-      {[0, 1, 2].map((i) => (
-        <g key={i}>
-          <path
-            d={`M185 ${60 + i * 85}H310Q330 ${60 + i * 85} 350 ${60 + i * 85}H570`}
-            fill="none"
-            stroke="currentColor"
-            opacity=".2"
-          />
-          <rect
-            x="65"
-            y={38 + i * 85}
-            width="120"
-            height="44"
-            fill="var(--diagram-bg)"
-            stroke="currentColor"
-            strokeOpacity=".4"
-          />
-          <text x="82" y={65 + i * 85} fill="currentColor" fontSize="12">
-            CATEGORY {["A", "B", "C"][i]}
-          </text>
-          <g className="routing-guidance" opacity={step > 0 ? 1 : 0.15}>
-            <circle
-              cx="350"
-              cy={60 + i * 85}
-              r="18"
-              fill="var(--diagram-bg)"
-              stroke="var(--accent)"
-            />
-            <text
-              x="350"
-              y={64 + i * 85}
-              textAnchor="middle"
-              fill="var(--accent)"
-              fontSize="11"
-            >
-              {i + 1}
-            </text>
-          </g>
-          <g className="routing-action" opacity={step === 2 ? 1 : 0.12}>
-            <rect
-              x="530"
-              y={40 + i * 85}
-              width="88"
-              height="40"
-              fill="var(--ink)"
-            />
-            <path
-              d={`m546 ${59 + i * 85} 5 5 9-10`}
-              fill="none"
-              stroke="var(--paper)"
-            />
-            <text x="566" y={64 + i * 85} fill="var(--paper)" fontSize="10">
-              ROUTE
-            </text>
-          </g>
-        </g>
-      ))}
-      <text x="65" y="292" className="svg-label">
-        CONTEXT
-      </text>
-      <text x="310" y="292" className="svg-label">
-        GUIDANCE
-      </text>
-      <text x="530" y="292" className="svg-label">
-        NEXT ACTION
-      </text>
-    </svg>
-  );
-}
-
-export default function StudyDiagram({ study }) {
+export default function StudyDiagram({ study, paused }) {
   const [step, setStep] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const host = useRef(null);
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer;
+    let visible = false;
+    const stop = () => {
+      clearInterval(timer);
+      timer = undefined;
+    };
+    const update = () => {
+      stop();
+      if (visible && playing && !paused && !reduced.matches && !document.hidden)
+        timer = setInterval(() => setStep((s) => (s + 1) % 3), 4500);
+    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        update();
+      },
+      { threshold: 0.35 },
+    );
+    observer.observe(host.current);
+    document.addEventListener("visibilitychange", update);
+    reduced.addEventListener("change", update);
+    return () => {
+      stop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", update);
+      reduced.removeEventListener("change", update);
+    };
+  }, [playing, paused]);
   return (
-    <div className="study-diagram">
+    <div
+      className={`study-diagram ${playing && !paused ? "is-playing" : ""}`}
+      ref={host}
+    >
       <div className="diagram-heading">
-        <span className="micro">FIG. {study.number} / SYSTEM ANATOMY</span>
-        <span className="micro">ILLUSTRATIVE MODEL</span>
+        <span className="micro">FIG. {study.number} / HOW IT WORKS</span>
+        <button
+          className="diagram-play"
+          disabled={paused}
+          onClick={() => setPlaying((p) => !p)}
+        >
+          {paused
+            ? "Motion paused"
+            : playing
+              ? "Pause walkthrough"
+              : "Play walkthrough"}
+        </button>
       </div>
       <div
         className="diagram-controls"
@@ -342,7 +391,10 @@ export default function StudyDiagram({ study }) {
           <button
             key={s.name}
             aria-pressed={step === i}
-            onClick={() => setStep(i)}
+            onClick={() => {
+              setPlaying(false);
+              setStep(i);
+            }}
           >
             <span>{String(i + 1).padStart(2, "0")}</span>
             {s.name}
@@ -350,72 +402,34 @@ export default function StudyDiagram({ study }) {
         ))}
       </div>
       {study.id === "architecture" ? (
-        <Architecture step={step} />
-      ) : study.id === "intelligence" ? (
-        <Routing step={step} />
-      ) : (
-        <Reconciliation step={step} />
-      )}
-      <div
-        className={`mobile-diagram ${study.id} stage-${step}`}
-        hidden={study.id === "reconciliation"}
-        aria-label="Simplified system view"
-      >
-        {study.id === "architecture" ? (
-          <>
-            <span className="mobile-diagram-label">REQUEST</span>
+        <>
+          <Architecture step={step} />
+          <p className="architecture-tools">
+            SQL / StarRocks: query data → JavaScript: coordinate parallel chunks
+            → Retool DB: cache results → Retool app: display the view
+          </p>
+          <div className="mobile-diagram architecture">
+            <span className="mobile-diagram-label">
+              SQL / STARROCKS → JAVASCRIPT PROCESSING
+            </span>
             <div className={`mobile-chunks ${step > 0 ? "parallel" : ""}`}>
               {[1, 2, 3, 4].map((i) => (
                 <span key={i}>Chunk 0{i}</span>
               ))}
             </div>
-            <span
-              className={`mobile-output ${step === 2 ? "cache-active" : ""}`}
-            >
+            <span className="mobile-output">
               {step === 2
-                ? "Local cache → reusable view"
+                ? "Retool DB cache → Retool app"
                 : step === 1
-                  ? "Combine results → view"
-                  : "Dependent sequence → view"}
+                  ? "Combine parallel results → Retool app"
+                  : "Run chunks in sequence → Retool app"}
             </span>
-          </>
-        ) : study.id === "intelligence" ? (
-          <>
-            {["A", "B", "C"].map((s, i) => (
-              <div className="mobile-routing" key={s}>
-                <span>Category {s}</span>
-                <span className={step > 0 ? "lit" : ""}>
-                  {step > 0 ? `Guide ${i + 1}` : "Unassigned"}
-                </span>
-                <span className={step === 2 ? "lit" : ""}>
-                  {step === 2 ? "Route ↗" : "Review"}
-                </span>
-              </div>
-            ))}
-            <span className="mobile-diagram-label">
-              FICTIONAL CATEGORIES / NO CLAIM DATA
-            </span>
-          </>
-        ) : (
-          <>
-            <div className="mobile-records">
-              <span>Source A</span>
-              <span>Source B</span>
-              <span>Source C</span>
-            </div>
-            <div className="mobile-gate">
-              {step === 0 ? "Compare records ↓" : "Validate candidates ↓"}
-            </div>
-            <div className="mobile-branches">
-              <span>
-                {step === 2 ? "Eligible → route" : "Eligible records"}
-              </span>
-              <span>Exceptions → review</span>
-            </div>
-          </>
-        )}
-      </div>
-      <div className="diagram-caption" aria-live="polite">
+          </div>
+        </>
+      ) : (
+        <ProcessDiagram step={step} resolver={study.id === "intelligence"} />
+      )}
+      <div className="diagram-caption" aria-live={playing ? "off" : "polite"}>
         <h4>{study.steps[step].title}</h4>
         <p>{study.steps[step].text}</p>
       </div>

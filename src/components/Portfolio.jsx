@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { studies, experience, disciplines } from "@/assets/studies";
 import { projects, cvs } from "@/assets/portfolio";
@@ -15,7 +16,7 @@ const nav = [
   ["contact", "Contact"],
 ];
 
-function Study({ study }) {
+function Study({ study, paused }) {
   return (
     <article className="study" id={study.id}>
       <div className="study-title">
@@ -33,25 +34,30 @@ function Study({ study }) {
         </a>
       </div>
       <p className="study-intro">{study.intro}</p>
-      <StudyDiagram study={study} />
-      <div className="study-summary">
-        <div>
-          <span className="micro">THE PROBLEM</span>
-          <p>{study.problem}</p>
-        </div>
-        <div>
-          <span className="micro">MY CONTRIBUTION</span>
-          <p>{study.contribution}</p>
-        </div>
-      </div>
+      <StudyDiagram study={study} paused={paused} />
       <details className="study-depth">
         <summary>
-          <span>Read the engineering notes</span>
+          <span>Details: my role & engineering approach</span>
           <span className="expand-mark" aria-hidden="true">
             +
           </span>
         </summary>
         <div className="depth-content">
+          <div className="study-summary">
+            <div>
+              <span className="micro">THE PROBLEM</span>
+              <p>{study.problem}</p>
+            </div>
+            <div>
+              <span className="micro">
+                {study.id === "intelligence"
+                  ? "TEAM WORK & MY ROLE"
+                  : "MY CONTRIBUTION"}
+              </span>
+              <p>{study.contribution}</p>
+            </div>
+          </div>
+
           <div>
             <h4>What made it difficult</h4>
             <p>{study.difficulty}</p>
@@ -65,6 +71,9 @@ function Study({ study }) {
             <p>{study.outcome}</p>
           </div>
           <blockquote>{study.judgment}</blockquote>
+          <Link className="text-link" href={"/work/" + study.id}>
+            Open full case study ↗
+          </Link>
         </div>
       </details>
       <div className="study-result">
@@ -78,6 +87,7 @@ function Study({ study }) {
 
 export default function Portfolio() {
   const [menu, setMenu] = useState(false);
+  const [playingDemo, setPlayingDemo] = useState(null);
   const [active, setActive] = useState("");
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -195,6 +205,7 @@ export default function Portfolio() {
           <span aria-hidden="true">{menu ? "−" : "+"}</span>
         </button>
       </header>
+
       <main id="main">
         <section className="hero section-wrap" id="home">
           <FlowBackground paused={pause} />
@@ -206,13 +217,22 @@ export default function Portfolio() {
             <span className="micro">DHAKA, BANGLADESH · PORTFOLIO / 2026</span>
           </div>
           <a className="hero-identity" href="#about">
-            <Image src="/images/abdullah-al-tamim.png" width={104} height={120}
-              sizes="104px" loading="eager" alt="Abdullah Al Tamim" />
-            <span><strong>Abdullah Al Tamim</strong>
+            <Image
+              src="/images/abdullah-al-tamim.png"
+              width={104}
+              height={120}
+              sizes="104px"
+              loading="eager"
+              alt="Abdullah Al Tamim"
+            />
+            <span>
+              <strong>Abdullah Al Tamim</strong>
               <span>Senior Data Automations Analyst</span>
               <small>Augmedix / Commure | Athelas</small>
             </span>
-            <span className="identity-arrow" aria-hidden="true">↗</span>
+            <span className="identity-arrow" aria-hidden="true">
+              ↗
+            </span>
           </a>
           <h1 className="hero-title">
             Order from
@@ -228,9 +248,9 @@ export default function Portfolio() {
               THAT MOVES WORK FORWARD
             </span>
             <p>
-              I’m Abdullah Al Tamim. I build systems that reconcile fragmented
-              data, automate repetitive work, and make the next decision
-              clearer.
+              Data automation, data engineering and analytics from Dhaka,
+              Bangladesh. I build tools that take repetitive work off people’s
+              hands.
             </p>
             <a
               className="circle-link"
@@ -241,7 +261,6 @@ export default function Portfolio() {
             </a>
           </div>
           <SystemExhibit />
-
         </section>
         <section
           className="impact section-wrap"
@@ -284,8 +303,7 @@ export default function Portfolio() {
               <span className="muted">More forward.</span>
             </h2>
             <p className="section-aside">
-              Three views into the work: reliable execution, scalable
-              architecture, and decisions people can act on.
+              Extract. Compare. Resolve. Explore the systems behind the work.
             </p>
           </div>
           <div className="work-layout">
@@ -305,7 +323,7 @@ export default function Portfolio() {
             </aside>
             <div className="studies">
               {studies.map((s) => (
-                <Study key={s.id} study={s} />
+                <Study key={s.id} study={s} paused={pause} />
               ))}
             </div>
           </div>
@@ -319,9 +337,8 @@ export default function Portfolio() {
               to <em>possibilities.</em>
             </h2>
             <p>
-              Alongside operational engineering, I’ve explored how machine
-              learning interprets images and signals. I’m preparing for master’s
-              study to deepen that connection.
+              Machine learning for images and brain signals. Preparing for
+              master’s study.
             </p>
           </div>
           <div className="research-papers">
@@ -362,21 +379,31 @@ export default function Portfolio() {
                       ? "Unveiling Microorganism Diversity through Neural Network-driven Classification"
                       : "Decoding Object Shapes from EEG Signals of the Brain"}
                   </h3>
-                  <p>{p.details}</p>
+                  <details className="research-details">
+                    <summary>Research details & my contribution</summary>
+                    <p>{p.details}</p>
+                  </details>
                   <a
                     className="text-link"
-                    href={p.href}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={p.id === "eeg" ? "#eeg-demo" : p.href}
+                    target={p.id === "eeg" ? undefined : "_blank"}
+                    rel={p.id === "eeg" ? undefined : "noreferrer"}
+                    onClick={
+                      p.id === "eeg" ? () => setPlayingDemo("eeg") : undefined
+                    }
                   >
-                    {p.link}
+                    {p.id === "eeg" ? "Watch the EEG demo" : p.link}
                     <span aria-hidden="true">↗</span>
                   </a>
                 </article>
               ))}
           </div>
         </section>
-        <ProjectArchive motionPaused={pause} />
+        <ProjectArchive
+          motionPaused={paused}
+          playingDemo={playingDemo}
+          onPlaybackChange={setPlayingDemo}
+        />
         <section className="profile section-wrap" id="about">
           <div className="profile-photo">
             <Image
@@ -396,19 +423,13 @@ export default function Portfolio() {
               <em>Then build the system.</em>
             </h2>
             <p className="profile-intro">
-              My work starts with the operation: what people repeat, where
-              records diverge, and what happens when a process fails.
+              I’m a Dhaka-based Senior Data Automations Analyst at Augmedix /
+              Commure | Athelas.
             </p>
             <p>
-              I’m a Computer Science and Engineering graduate from East West
-              University. Moving from operational analytics into automation
-              taught me to treat exception handling, ownership, and clear
-              information as part of the engineering—not as work left over after
-              it.
-            </p>
-            <p>
-              I also bring a researcher’s caution to applied AI: data quality
-              and honest evaluation matter as much as the model.
+              East West University CSE graduate. I build reliable automation
+              around messy operational data, with a research interest in applied
+              AI.
             </p>
             <a
               className="text-link"
