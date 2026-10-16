@@ -2666,3 +2666,10 @@ html[data-motion="paused"] {
     margin-bottom: 48px;
   }
 }
+.archive-card {
+  scroll-margin-top: 120px;
+}
+.archive-card:target .demo-stage {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}

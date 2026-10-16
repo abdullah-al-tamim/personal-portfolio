@@ -87,6 +87,7 @@ function Study({ study, paused }) {
 
 export default function Portfolio() {
   const [menu, setMenu] = useState(false);
+  const [playingDemo, setPlayingDemo] = useState(null);
   const [active, setActive] = useState("");
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -383,18 +384,25 @@ export default function Portfolio() {
                   </details>
                   <a
                     className="text-link"
-                    href={p.href}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={p.id === "eeg" ? "#eeg-demo" : p.href}
+                    target={p.id === "eeg" ? undefined : "_blank"}
+                    rel={p.id === "eeg" ? undefined : "noreferrer"}
+                    onClick={
+                      p.id === "eeg" ? () => setPlayingDemo("eeg") : undefined
+                    }
                   >
-                    {p.link}
+                    {p.id === "eeg" ? "Watch the EEG demo" : p.link}
                     <span aria-hidden="true">↗</span>
                   </a>
                 </article>
               ))}
           </div>
         </section>
-        <ProjectArchive motionPaused={pause} />
+        <ProjectArchive
+          motionPaused={paused}
+          playingDemo={playingDemo}
+          onPlaybackChange={setPlayingDemo}
+        />
         <section className="profile section-wrap" id="about">
           <div className="profile-photo">
             <Image

@@ -57,8 +57,8 @@ export const projects = [
     outcome: "Four-person team · team lead · unpublished thesis",
     details:
       "Supervised by Dr. Ahmed Wasif Reza, Professor at East West University. Led a four-person team, built models, transformed EEG signals using CWT and FFT, and assisted with data collection. Explored YOLOv8 models with a Random Forest classifier. Further validation was limited by data reliability, equipment, and funding; the work remains unpublished.",
-    href: "https://github.com/abdullah-al-tamim/Capstone",
-    link: "Explore the repository",
+    href: "#eeg-demo",
+    link: "Watch the EEG demo",
   },
 ];
 export const capabilities = [

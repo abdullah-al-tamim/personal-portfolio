@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-// Ordered paths and travelling signals: decorative, viewport-sized, no WebGL.
+// Conceptual automation: incoming records straighten into lanes, pass gates,
+// then leave as uniform output. No real system activity or personal data.
 export default function FlowBackground({ paused }) {
   const ref = useRef(null);
   useEffect(() => {
-    const canvas = ref.current;
-    const ctx = canvas?.getContext("2d");
+    const canvas = ref.current,
+      ctx = canvas?.getContext("2d");
     if (!ctx) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const fine = matchMedia("(pointer: fine)");
@@ -15,56 +16,73 @@ export default function FlowBackground({ paused }) {
       frame = 0,
       last = 0,
       time = 0;
-    const target = { x: 0, y: 0, power: 0 },
-      cursor = { x: 0, y: 0, power: 0 };
-    const point = (x, line) => {
-      const base = height * 0.12 + line * height * 0.065;
-      const wave =
-        Math.sin((x / width) * 5.4 + line * 0.16 + time * 0.16) *
-        height *
-        0.055;
-      const bend =
-        Math.exp(
-          -(((x - cursor.x) / 150) ** 2) - ((base - cursor.y) / 180) ** 2,
-        ) *
-        cursor.power *
-        18;
-      return base + wave + bend;
-    };
+    const target = { x: -1000, y: -1000 },
+      cursor = { x: -1000, y: -1000 };
+    function pathY(x, lane, lanes) {
+      const base = height * (0.23 + (lane * 0.55) / Math.max(1, lanes - 1));
+      const entry = Math.max(0, 1 - x / (width * 0.4));
+      return (
+        base + Math.sin((x / width) * 8 + lane * 1.8) * entry * height * 0.075
+      );
+    }
     function draw(now = 0) {
       const active = !paused && !reduced.matches && !document.hidden;
       const dt = active ? Math.min(now - last || 16, 32) / 1000 : 0;
-      last = now;
       time += dt;
+      last = now;
       const ease = 1 - Math.exp(-5 * dt);
-      for (const k of ["x", "y", "power"])
-        cursor[k] += (target[k] - cursor[k]) * ease;
+      cursor.x += (target.x - cursor.x) * ease;
+      cursor.y += (target.y - cursor.y) * ease;
       ctx.clearRect(0, 0, width, height);
-      for (let line = 0; line < 12; line++) {
+      const lanes = width < 650 ? 3 : 5;
+      for (let lane = 0; lane < lanes; lane++) {
         ctx.beginPath();
-        for (let x = -20; x <= width + 20; x += 12) {
-          const y = point(x, line);
-          if (x === -20) ctx.moveTo(x, y);
+        for (let x = -10; x <= width + 10; x += 8) {
+          const y = pathY(x, lane, lanes);
+          if (x === -10) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
-        ctx.strokeStyle =
-          line % 4 === 0 ? "rgba(166,79,47,.16)" : "rgba(63,88,79,.12)";
-        ctx.lineWidth = 0.65;
+        ctx.strokeStyle = "rgba(65,91,78,.15)";
+        ctx.lineWidth = 0.8;
         ctx.stroke();
-        for (let n = 0; n < 3; n++) {
+        for (const gate of [0.4, 0.7]) {
+          const x = width * gate,
+            y = pathY(x, lane, lanes);
+          const hover = Math.max(
+            0,
+            1 - Math.hypot(x - cursor.x, y - cursor.y) / 130,
+          );
+          ctx.fillStyle = "rgba(240,241,237,.95)";
+          ctx.fillRect(x - 9, y - 9, 18, 18);
+          ctx.strokeStyle = "rgba(166,70,40," + (0.26 + hover * 0.35) + ")";
+          ctx.lineWidth = 1 + hover;
+          ctx.strokeRect(x - 9, y - 9, 18, 18);
+          ctx.beginPath();
+          ctx.moveTo(x - 4, y);
+          ctx.lineTo(x - 1, y + 3);
+          ctx.lineTo(x + 4, y - 3);
+          ctx.stroke();
+        }
+        for (let n = 0; n < 4; n++) {
           const x =
-            ((time * (16 + line * 0.8) + (n * width) / 3 + line * 59) %
+            ((time * (24 + lane * 2) + (n * width) / 4 + lane * 43) %
               (width + 40)) -
             20;
-          const y = point(x, line),
-            nextY = point(x + 7, line);
-          ctx.beginPath();
-          ctx.moveTo(x, y);
-          ctx.lineTo(x + 7, nextY);
-          ctx.strokeStyle =
-            line % 4 === 0 ? "rgba(178,67,37,.5)" : "rgba(55,88,77,.38)";
-          ctx.lineWidth = 1.7;
-          ctx.stroke();
+          const y = pathY(x, lane, lanes);
+          const processed = x > width * 0.7;
+          ctx.save();
+          ctx.translate(x, y);
+          if (x < width * 0.4)
+            ctx.rotate(Math.sin(n + lane) * 0.5 * (1 - x / (width * 0.4)));
+          ctx.fillStyle = processed
+            ? "rgba(48,91,72,.57)"
+            : "rgba(181,68,37,.46)";
+          ctx.fillRect(-3, -2, processed ? 6 : 9, 4);
+          if (processed) {
+            ctx.fillStyle = "rgba(48,91,72,.22)";
+            ctx.fillRect(-3, 5, 6, 1);
+          }
+          ctx.restore();
         }
       }
       frame = active ? requestAnimationFrame(draw) : 0;
@@ -84,13 +102,14 @@ export default function FlowBackground({ paused }) {
       refresh();
     }
     function move(e) {
-      if (!fine.matches) return;
-      target.x = e.clientX;
-      target.y = e.clientY;
-      target.power = 1;
+      if (fine.matches && !paused && !reduced.matches) {
+        target.x = e.clientX;
+        target.y = e.clientY;
+      }
     }
     function leave() {
-      target.power = 0;
+      target.x = -1000;
+      target.y = -1000;
     }
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", move, { passive: true });
