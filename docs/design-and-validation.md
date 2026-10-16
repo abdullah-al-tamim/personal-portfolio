@@ -58,3 +58,11 @@ Particle positions now belong to ordered lanes on a shared animated wave surface
 Revisited Antigravity and compared idle, right-pointer and left-pointer states. Replaced the previous wave lanes with an original rounded-lens particle field: overlapping radial inflation, continuous idle movement, smoothed pointer tracking, depth-dependent point size and muted colors. Desktop/mobile rendering and pause controls checked; lint, five contact tests and production build passed.
 
 With owner-authorized dashboard access, EmailJS history explicitly reported `Gmail_API: Invalid grant. Please reconnect your Gmail account`. The service identifier matched the owner-provided service. A fresh portfolio test also returned HTTP 412. Reconnection must be completed by the owner; successful delivery is not claimed. No private dashboard screenshots or message contents are committed.
+
+## Follow-up: clearer workflows and bounded page motion (16 October 2026)
+- Replaced the static encounter audit with a three-stage extraction/comparison/investigation walkthrough. Labels identify Python, Playwright/Selenium, SQL, and Retool roles.
+- Replaced abstract responsibility routing with the team-built import-error resolver: missing member ID, same-patient historical lookup, proposed solution. Values are fictional; no private data or internal URLs.
+- Owner confirmed that extraction was selected for product integration for all operations teams. Copy does not claim rollout completion.
+- Added automatic walkthroughs with local pause/manual selection; global pause, reduced motion, hidden-document and offscreen behavior stop stage timers.
+- Moved the decorative field to a single viewport-sized background throughout light sections. Reduced cursor radius from 260px to 115px, capped dot size, reduced displacement, and retained regular formation. Dark sections and diagrams remain opaque for readability.
+- Lint, five contact tests and production build passed. Fresh visual QA is pending: browser automation cannot start because its installed runtime's kernel.js is missing. No claim of an exact Antigravity match, new screenshots, or fresh browser interaction verification is made for this follow-up.

@@ -4,40 +4,39 @@ export const studies = [
   {
     id: "reconciliation",
     number: "01",
-    name: "Reconcile the gaps.",
-    discipline: "AUTOMATION / 2025",
+    name: "Check what made it across.",
+    discipline: "EHR AUTOMATION / 2025",
     intro:
-      "The encounters are already imported. The question is whether the database still reflects what is in the EHR.",
+      "Our database receives encounters from EHRs. I automated the report downloads that help our team check whether the counts match.",
     problem:
-      "Existing systems import encounters from EHRs into the database. But information can become outdated, and duplicate-prevention rules can block some encounters. The submissions team had to download encounter reports manually and compare their counts against the database.",
+      "Imports already run, but information can become outdated and rules designed to prevent duplicates can block encounters. Our submissions team had to download EHR reports by hand and compare them with the database.",
     difficulty:
-      "A mismatch is a signal to investigate, not proof that an encounter should be imported again. The audit needs to expose discrepancies while preserving the safeguards that prevent duplicate encounters.",
+      "Different EHRs require different extraction routines. A count difference needs investigation: it does not mean every missing encounter should be imported again.",
     contribution:
-      "I helped automate and productionalize this encounter audit. I co-developed the eClinicalWorks report extraction with Navid Al Azim, then independently extended extraction automation to Hellonote, NextGen, and AdvancedMD.",
+      "I co-developed eClinicalWorks report extraction with Navid Al Azim, then independently extended extraction to Hellonote, NextGen, and AdvancedMD. I helped turn the manual audit into production automation.",
     approach:
-      "Automate report extraction from the EHR, compare encounter counts against the database, and surface discrepancies for investigation. This audit runs alongside the existing import system; it does not replace it or bypass duplicate-prevention rules.",
+      "Python with Playwright and Selenium automates browser-based report extraction. SQL supports the database comparison, and Retool workflows bring the audit together. Separately, our team built import-error resolver workflows that use earlier encounters to suggest missing information; see the third example.",
     outcome:
-      "Repeated manual report downloads and count comparisons became a production automation for the submissions team. Differences between the EHR and database could be identified through a repeatable audit.",
-    judgment:
-      "Trust the database enough to use it. Verify it enough to know when it needs attention.",
-    tools: "Python · JavaScript · Retool · EHR integrations",
-    metric: "Report ↔ DB",
-    metricLabel: "Production encounter auditing / existing import retained",
+      "The company decided to bring EHR volume extraction into the product so all operations teams can use it. This describes the integration decision, not a claim that the product rollout is already complete.",
+    judgment: "First find the gap. Then understand why it exists.",
+    tools: "Python / Playwright / Selenium / SQL / Retool",
+    metric: "Into the product",
+    metricLabel: "Selected for product integration for all operations teams",
     steps: [
       {
-        name: "Existing import",
-        title: "Import already exists. Verification is the missing layer.",
-        text: "The EHR feeds the database through an existing import system. Updates can lag and duplicate-prevention rules may block encounters. The audit checks the resulting database coverage.",
+        name: "Extract",
+        title: "Download the EHR report automatically.",
+        text: "Python drives Playwright or Selenium browser automation to extract encounter reports. The choice of browser tool depends on the EHR integration.",
       },
       {
-        name: "Compare counts",
-        title: "Replace the manual report-to-database check.",
-        text: "Extract an encounter report and compare its count with the corresponding database count. The fictional example shows 120 reported encounters versus 116 in the database: a difference of four to investigate.",
+        name: "Compare",
+        title: "Check the report against the database.",
+        text: "SQL provides the database side of the audit. In this fictional example, the report contains 120 encounters and the database contains 116: four encounters to investigate.",
       },
       {
-        name: "Review gaps",
-        title: "Expose the discrepancy. Preserve the safeguards.",
-        text: "The difference becomes audit output for investigation into stale information or import-rule exclusions. A count mismatch does not automatically authorize importing or resubmitting encounters.",
+        name: "Investigate",
+        title: "Give the team a clear discrepancy to investigate.",
+        text: "Retool workflows surface the difference. The team checks for stale information, import rules, or import errors. Missing-information errors are handled by the separate workflow shown in example 03.",
       },
     ],
   },
@@ -84,40 +83,41 @@ export const studies = [
   {
     id: "intelligence",
     number: "03",
-    name: "Make the next action clear.",
-    discipline: "OPERATIONAL INTELLIGENCE / 2025–26",
+    name: "Find the missing information.",
+    discipline: "TEAM WORK / IMPORT-ERROR RESOLUTION",
     intro:
-      "A dashboard should help someone act. Visibility alone does not resolve a claim or assign responsibility.",
+      "An encounter cannot be imported when required details are missing. Our team built workflows that look at the same patient’s earlier encounters and suggest a solution.",
     problem:
-      "Submission errors and ownership information needed to be understandable to the people resolving them, as well as to stakeholders reviewing operational progress.",
+      "An EHR encounter may arrive without a required name, member ID, or another primary field. The import fails, leaving the team to investigate what is missing.",
     difficulty:
-      "Different claim conditions need different guidance. A single aggregate count can conceal the context required to decide who should act and what they should do next.",
+      "An earlier encounter may contain the answer, but it needs to belong to the same patient. Historical information is a source of possible solutions, not a reason to overwrite records blindly.",
     contribution:
-      "I owned the Submission Error Tracker used by US stakeholders for audits and rebuilt responsibility routing with claim-specific action guidance for three major pre-submission categories. I also supported new error-workflow rollout through QA, guidance, and validation.",
+      "I worked with my team on import-error resolver workflows. This is a team-built capability: identify the error, use that patient’s historical encounters, and provide a proposed solution. My broader error-workflow rollout work included QA, guidance, and validation.",
     approach:
-      "Connect error classification with responsibility and action guidance. Keep unresolved work visible alongside the operational summary. The illustrative routing model uses invented category labels and no actual claims.",
+      "Retool workflows identify the missing field and use a SQL lookup of the patient’s encounter history to find supporting information. They surface a proposed solution for the error. The diagram explains this logic; its field values are fictional.",
     outcome:
-      "The resulting tools connected monitoring with operational follow-through. Across my broader 2025 work, the tracked claims value supported exceeded $10M; this is not revenue generated or recovered.",
+      "The workflow turns a missing-information error into a proposed solution using context the team already has. It supports the next step in resolving the import error without claiming that every error can be fixed automatically.",
     judgment:
-      "A useful metric points to a decision. A useful internal tool makes that decision easier to carry out.",
-    tools: "SQL · Retool · Operational reporting · Workflow validation",
-    metric: "3",
-    metricLabel: "Pre-submission categories with action guidance",
+      "An error is more useful when it comes with the context needed to resolve it.",
+    tools: "Retool workflows / SQL / Historical encounter lookup / Validation",
+    metric: "Error to solution",
+    metricLabel:
+      "Team-built workflows using the same patient’s encounter history",
     steps: [
       {
-        name: "Observe",
-        title: "See the unresolved work.",
-        text: "Operational records need enough context to distinguish a data problem from a process problem.",
+        name: "Identify",
+        title: "Explain why the import failed.",
+        text: "The incoming encounter is missing a member ID. The workflow identifies that missing field instead of leaving the operator with an unexplained failure.",
       },
       {
-        name: "Assign",
-        title: "Connect context to responsibility.",
-        text: "Category-specific guidance helps a reviewer understand the appropriate next action. Labels in this demonstration are fictional.",
+        name: "Look back",
+        title: "Look at the same patient’s earlier encounters.",
+        text: "A SQL lookup finds relevant historical encounter information. In this fictional example, an earlier encounter contains the missing member ID.",
       },
       {
-        name: "Follow through",
-        title: "Monitoring meets execution.",
-        text: "A clear route from a summary to an actionable record makes the tool useful to both operators and stakeholders.",
+        name: "Suggest",
+        title: "Provide the missing context as a proposed solution.",
+        text: "The Retool workflow presents the historical value as a suggested resolution. This model stops at the suggestion; it does not imply automatic overwriting or a guaranteed successful re-import.",
       },
     ],
   },

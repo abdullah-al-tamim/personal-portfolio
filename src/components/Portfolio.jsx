@@ -15,7 +15,7 @@ const nav = [
   ["contact", "Contact"],
 ];
 
-function Study({ study }) {
+function Study({ study, paused }) {
   return (
     <article className="study" id={study.id}>
       <div className="study-title">
@@ -33,14 +33,18 @@ function Study({ study }) {
         </a>
       </div>
       <p className="study-intro">{study.intro}</p>
-      <StudyDiagram study={study} />
+      <StudyDiagram study={study} paused={paused} />
       <div className="study-summary">
         <div>
           <span className="micro">THE PROBLEM</span>
           <p>{study.problem}</p>
         </div>
         <div>
-          <span className="micro">MY CONTRIBUTION</span>
+          <span className="micro">
+            {study.id === "intelligence"
+              ? "TEAM WORK & MY ROLE"
+              : "MY CONTRIBUTION"}
+          </span>
           <p>{study.contribution}</p>
         </div>
       </div>
@@ -195,9 +199,9 @@ export default function Portfolio() {
           <span aria-hidden="true">{menu ? "−" : "+"}</span>
         </button>
       </header>
+      <FlowBackground paused={pause} />
       <main id="main">
         <section className="hero section-wrap" id="home">
-          <FlowBackground paused={pause} />
           <div className="hero-kicker">
             <p className="micro">
               <span className="status-dot" />
@@ -206,13 +210,22 @@ export default function Portfolio() {
             <span className="micro">DHAKA, BANGLADESH · PORTFOLIO / 2026</span>
           </div>
           <a className="hero-identity" href="#about">
-            <Image src="/images/abdullah-al-tamim.png" width={104} height={120}
-              sizes="104px" loading="eager" alt="Abdullah Al Tamim" />
-            <span><strong>Abdullah Al Tamim</strong>
+            <Image
+              src="/images/abdullah-al-tamim.png"
+              width={104}
+              height={120}
+              sizes="104px"
+              loading="eager"
+              alt="Abdullah Al Tamim"
+            />
+            <span>
+              <strong>Abdullah Al Tamim</strong>
               <span>Senior Data Automations Analyst</span>
               <small>Augmedix / Commure | Athelas</small>
             </span>
-            <span className="identity-arrow" aria-hidden="true">↗</span>
+            <span className="identity-arrow" aria-hidden="true">
+              ↗
+            </span>
           </a>
           <h1 className="hero-title">
             Order from
@@ -241,7 +254,6 @@ export default function Portfolio() {
             </a>
           </div>
           <SystemExhibit />
-
         </section>
         <section
           className="impact section-wrap"
@@ -305,7 +317,7 @@ export default function Portfolio() {
             </aside>
             <div className="studies">
               {studies.map((s) => (
-                <Study key={s.id} study={s} />
+                <Study key={s.id} study={s} paused={pause} />
               ))}
             </div>
           </div>
