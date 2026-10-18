@@ -1,3 +1,4 @@
+import { profileSchema } from "@/assets/profile-schema";
 import Portfolio from "@/components/Portfolio";
 export default function Home() {
   return (
@@ -11,6 +12,12 @@ export default function Home() {
           <a href="#contact">Contact</a>
         </nav>
       </noscript>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(profileSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       <Portfolio />
     </>
   );

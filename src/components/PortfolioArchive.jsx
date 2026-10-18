@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 
 const demos = [
   {
+    id: "eeg",
+    privateRepo: true,
     title: "EEG shape classification",
     kind: "RESEARCH · UNDERGRADUATE THESIS",
     src: "/projects/EEG.gif",
@@ -15,6 +16,7 @@ const demos = [
     tools: "Signal processing / Machine learning",
   },
   {
+    id: "face-attendance",
     title: "Face Attendance System",
     kind: "PERSONAL PROJECT",
     src: "/projects/FaceAttendance.gif",
@@ -25,6 +27,7 @@ const demos = [
     tools: "Python / Firebase",
   },
   {
+    id: "railway",
     title: "Railway Ticket Reservation",
     kind: "ACADEMIC SOFTWARE PROJECT",
     src: "/projects/RTRS.gif",
@@ -80,10 +83,14 @@ const certificates = [
   },
 ];
 
-function RecordedDemo({ demo, motionPaused }) {
-  const [playing, setPlaying] = useState(false);
+function RecordedDemo({ demo, motionPaused, playing, onPlaybackChange }) {
   return (
-    <article className="archive-card" data-reveal>
+    <article
+      id={`${demo.id}-demo`}
+      className="archive-card"
+      tabIndex={-1}
+      data-reveal
+    >
       <div
         className={`demo-stage ${playing && !motionPaused ? "is-playing" : ""}`}
       >
@@ -107,7 +114,7 @@ function RecordedDemo({ demo, motionPaused }) {
           aria-label={`${playing ? "Stop" : "Play"} ${demo.title} recording`}
           disabled={motionPaused}
           aria-pressed={playing && !motionPaused}
-          onClick={() => setPlaying(!playing)}
+          onClick={() => onPlaybackChange(playing ? null : demo.id)}
         >
           {motionPaused
             ? "Motion paused"
@@ -125,13 +132,20 @@ function RecordedDemo({ demo, motionPaused }) {
         target="_blank"
         rel="noreferrer"
       >
-        Explore the code <span aria-hidden="true">↗</span>
+        {demo.privateRepo
+          ? "Explore code (private · access required)"
+          : "Explore the code"}{" "}
+        <span aria-hidden="true">↗</span>
       </a>
     </article>
   );
 }
 
-export function ProjectArchive({ motionPaused }) {
+export function ProjectArchive({
+  motionPaused,
+  playingDemo,
+  onPlaybackChange,
+}) {
   return (
     <section id="archive" className="archive section-wrap">
       <div className="section-heading" data-reveal>
@@ -150,6 +164,8 @@ export function ProjectArchive({ motionPaused }) {
             key={demo.src}
             demo={demo}
             motionPaused={motionPaused}
+            playing={playingDemo === demo.id}
+            onPlaybackChange={onPlaybackChange}
           />
         ))}
       </div>
