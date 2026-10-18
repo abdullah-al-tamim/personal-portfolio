@@ -1,32 +1,41 @@
-// A coherent point surface, not independently wandering particles.
-// Bounds keep the cursor response small even when the two wave centres overlap.
+// Original annular field: a narrow breathing rim, a soft shoulder, and radial marks.
 export function surfacePoint(x, y, focus, trail, time, radius) {
   const dx = x - focus.x,
     dy = y - focus.y;
-  const d = Math.hypot(dx, dy),
-    q = d / radius;
-  const body = Math.exp(-q * q * 1.6);
-  const tx = x - trail.x,
-    ty = y - trail.y;
-  const tq = Math.hypot(tx, ty) / radius;
-  const wake = Math.exp(-tq * tq * 1.8);
-  const breath = 0.91 + 0.09 * Math.sin(time * 1.7 - q * 2.2);
-  const depth = Math.min(1, body * 0.78 * breath + wake * 0.3);
-  const ripple = Math.sin(q * 4 - time * 1.4) * Math.exp(-q * q * 0.75) * 3;
-  const amount = depth * 22 + ripple;
+  const angle = Math.atan2(dy, dx),
+    distance = Math.hypot(dx, dy);
+  const breath = 1 + 0.14 * Math.sin(time) + 0.08 * Math.cos(time * 3);
+  const warp =
+    Math.sin(angle * 3 + time * 0.7) * 0.045 +
+    Math.cos(angle * 5 - time * 0.43) * 0.025;
+  const q = distance / radius,
+    edge = q - breath - warp;
+  const shoulder = Math.exp(-Math.pow(edge / 0.38, 2));
+  const rim = Math.exp(-Math.pow(edge / 0.12, 2));
+  const interior = Math.exp(-Math.pow(q / 0.9, 4));
+  const texture =
+    0.5 +
+    0.5 *
+      Math.sin(x * 0.018 + Math.cos(y * 0.016 + time * 0.4) * 2 + time * 0.6);
+  const depth = Math.min(
+    1,
+    rim * 0.68 + shoulder * 0.22 + interior * texture * 0.12,
+  );
+  const displacement =
+    rim * 17 + shoulder * Math.sin(angle * 4 + time * 1.2) * 4;
   return {
     x:
       x +
-      (dx / Math.max(d, 1)) * amount +
-      Math.max(-70, Math.min(70, focus.x - trail.x)) * depth * 0.045,
+      Math.cos(angle) * displacement +
+      Math.max(-40, Math.min(40, focus.x - trail.x)) * shoulder * 0.04,
     y:
       y +
-      (dy / Math.max(d, 1)) * amount +
-      Math.max(-70, Math.min(70, focus.y - trail.y)) * depth * 0.045,
-    size: 0.24 + depth * 1.65,
-    angle: Math.atan2(dy, dx) + Math.PI / 2,
-    alpha: 0.12 + depth * 0.65,
-    hue: (Math.atan2(dy, dx) / Math.PI + 1) / 2,
+      Math.sin(angle) * displacement +
+      Math.max(-40, Math.min(40, focus.y - trail.y)) * shoulder * 0.04,
+    size: 0.2 + depth * 1.55,
+    angle: angle + Math.sin(x * 0.025 + y * 0.014 + time * 0.2) * 0.22,
+    alpha: 0.13 + depth * 0.63,
+    hue: 0.5 + 0.5 * Math.sin(x * 0.003 + y * 0.002 + time * 0.08),
     depth,
   };
 }

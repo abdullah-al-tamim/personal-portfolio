@@ -21,7 +21,7 @@ export default function FlowBackground({ paused }) {
     const pointer = { x: 0, y: 0, active: false };
     const focus = { x: 0, y: 0 },
       trail = { x: 0, y: 0 };
-    const colors = ["#5963b3", "#8b629f", "#b46264", "#b29a4d", "#6579ad"];
+    const colors = ["#4667dd", "#7160ca", "#ad5288", "#d26859", "#c9a03a"];
     function draw(now = 0) {
       frame = 0;
       const moving = !paused && !reduced.matches && visible && !document.hidden;
@@ -32,17 +32,17 @@ export default function FlowBackground({ paused }) {
         pointer.active && fine.matches
           ? pointer
           : {
-              x: width * (0.68 + 0.17 * Math.sin(time * 0.22)),
-              y: height * (0.49 + 0.17 * Math.cos(time * 0.27)),
+              x: width * (0.55 + 0.12 * Math.sin(time * 0.66)),
+              y: height * (0.51 + 0.09 * Math.cos(time * 0.75)),
             };
-      const follow = 1 - Math.exp(-6 * dt),
-        lag = 1 - Math.exp(-2.3 * dt);
+      const follow = 1 - Math.exp(-(pointer.active ? 1.2 : 0.6) * dt),
+        lag = 1 - Math.exp(-0.9 * dt);
       focus.x += (target.x - focus.x) * follow;
       focus.y += (target.y - focus.y) * follow;
       trail.x += (focus.x - trail.x) * lag;
       trail.y += (focus.y - trail.y) * lag;
       ctx.clearRect(0, 0, width, height);
-      const radius = Math.min(235, Math.max(110, width * 0.19));
+      const radius = Math.min(width * 0.48, height * 0.43);
       for (const p of points) {
         const a = surfacePoint(p.x, p.y, focus, trail, time, radius);
         // Fade only at the hero's lower boundary; never cover sections below it.
@@ -84,14 +84,21 @@ export default function FlowBackground({ paused }) {
       canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const spacing = Math.max(
-        width < 650 ? 25 : 29,
-        Math.sqrt((width * height) / 1800),
+        width < 650 ? 19 : 22,
+        Math.sqrt((width * height) / 2500),
       );
       points = [];
       for (let y = -20; y < height + 20; y += spacing)
-        for (let x = -20; x < width + 20; x += spacing) points.push({ x, y });
-      focus.x = trail.x = width * 0.77;
-      focus.y = trail.y = height * 0.58;
+        for (let x = -20; x < width + 20; x += spacing) {
+          const seed = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+          const jitter = seed - Math.floor(seed);
+          points.push({
+            x: x + (jitter - 0.5) * spacing * 0.65,
+            y: y + Math.sin(seed) * 0.5 * spacing * 0.65,
+          });
+        }
+      focus.x = trail.x = width * 0.55;
+      focus.y = trail.y = height * 0.51;
       refresh();
     }
     function move(e) {
