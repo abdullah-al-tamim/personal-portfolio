@@ -14,7 +14,7 @@ test("ring marks stay small and deformation bounded at every phase", () => {
           350,
         );
         assert.ok(Number.isFinite(p.x) && Number.isFinite(p.y));
-        assert.ok(p.size <= 1.9 && p.alpha <= 0.78);
+        assert.ok(p.size <= 2.32 && p.alpha <= 0.89);
         assert.ok(Math.hypot(p.x - x, p.y - y) < 30);
       }
 });
@@ -25,5 +25,5 @@ test("bright rim surrounds a quiet centre and keeps breathing without pointer mo
   assert.ok(rim.depth > centre.depth * 3);
   assert.notEqual(rim.x, surfacePoint(816, 400, f, f, 1, 200).x);
   const far = surfacePoint(0, 0, f, f, 1, 200);
-  assert.ok(far.size < 0.25);
+  assert.ok(far.size < 0.33);
 });

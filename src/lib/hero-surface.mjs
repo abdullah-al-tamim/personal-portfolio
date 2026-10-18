@@ -32,9 +32,9 @@ export function surfacePoint(x, y, focus, trail, time, radius) {
       y +
       Math.sin(angle) * displacement +
       Math.max(-40, Math.min(40, focus.y - trail.y)) * shoulder * 0.04,
-    size: 0.2 + depth * 1.55,
+    size: 0.32 + depth * 2.0,
     angle: angle + Math.sin(x * 0.025 + y * 0.014 + time * 0.2) * 0.22,
-    alpha: 0.13 + depth * 0.63,
+    alpha: 0.2 + depth * 0.68,
     hue: 0.5 + 0.5 * Math.sin(x * 0.003 + y * 0.002 + time * 0.08),
     depth,
   };
