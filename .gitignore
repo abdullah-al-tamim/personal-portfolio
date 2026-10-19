@@ -34,3 +34,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# Study Hub: private records must never enter the public repository
+.env
+.env.*
+!.env.example
+/private-data/
+/research-exports/
+/document-uploads/
+/supabase/.temp/
+/supabase/.branches/
+
+# Local browser verification output (synthetic fixtures only)
+/artifacts/
