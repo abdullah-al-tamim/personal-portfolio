@@ -58,14 +58,20 @@ export default async function Opportunity({ params }) {
         </section>
         <section className="hub-panel">
           <h2>Application pipeline</h2>
+          <Link
+            className="hub-source-link"
+            href="/study-hub/documents?view=requirements"
+          >
+            Document requirements &amp; readiness ↗
+          </Link>
           <StatusForm opportunity={o} />
           <div className="hub-notice">
             “Submitted” records your manual update. It does not submit an
             application.
           </div>
           <p className="hub-muted">
-            Email sending, document uploads, and institutional submissions are
-            not enabled.
+            Email sending and institutional submissions are not enabled. Private
+            document uploads are available in Documents & attestation.
           </p>
         </section>
       </div>

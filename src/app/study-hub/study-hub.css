@@ -557,3 +557,178 @@
     display: none;
   }
 }
+/* Document center reuses the private workspace palette and layout. */
+.doc-tabs {
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+  border-bottom: 1px solid var(--hub-line);
+  margin-bottom: 26px;
+  padding-bottom: 12px;
+}
+.doc-tabs a {
+  white-space: nowrap;
+  padding: 9px 13px;
+  border-radius: 5px;
+  color: var(--hub-muted);
+}
+.doc-tabs a[aria-current="page"] {
+  background: var(--hub-green);
+  color: white;
+}
+.doc-toolbar,
+.doc-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.doc-toolbar {
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.doc-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.doc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  background: white;
+  border: 1px solid var(--hub-line);
+  border-radius: 10px;
+}
+.doc-card h2 {
+  font-size: 20px;
+  margin: 0;
+}
+.doc-card:hover {
+  border-color: #9aafa0;
+}
+.doc-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.doc-next {
+  margin-top: auto;
+  border-top: 1px solid var(--hub-line);
+  padding-top: 15px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+.doc-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+.doc-job {
+  margin-bottom: 22px;
+}
+.doc-upload {
+  border: 1px dashed #9aafa0;
+  border-radius: 8px;
+  background: #f6f8f2;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+.doc-upload label {
+  display: grid;
+  gap: 14px;
+}
+.doc-version {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--hub-line);
+}
+.doc-version h3 {
+  margin: 10px 0;
+  overflow-wrap: anywhere;
+}
+.doc-list {
+  padding-left: 20px;
+  list-style: disc;
+  line-height: 1.8;
+  margin: 18px 0;
+}
+.doc-list small,
+.doc-board-card small {
+  display: block;
+  color: var(--hub-muted);
+  font-size: 11px;
+}
+.doc-board {
+  display: flex;
+  gap: 16px;
+  overflow: auto;
+  padding-bottom: 24px;
+}
+.doc-board section {
+  min-width: 210px;
+  flex: 1;
+  background: #e9eee7;
+  border-radius: 8px;
+  padding: 16px;
+}
+.doc-board-card {
+  display: block;
+  background: white;
+  padding: 15px;
+  margin-top: 12px;
+  border-radius: 6px;
+}
+.doc-error {
+  color: #953926;
+}
+.study-hub fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+}
+.study-hub fieldset:disabled {
+  opacity: 0.65;
+}
+.doc-check {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+}
+.doc-check input {
+  width: auto;
+}
+.doc-actions a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.doc-toolbar input,
+.doc-toolbar select {
+  padding: 10px;
+  border: 1px solid var(--hub-line);
+  border-radius: 5px;
+  background: white;
+}
+.doc-actions button {
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  .doc-cards {
+    grid-template-columns: 1fr;
+  }
+  .doc-status-grid {
+    grid-template-columns: 1fr;
+  }
+  .doc-toolbar {
+    align-items: stretch;
+  }
+  .doc-toolbar form {
+    width: 100%;
+  }
+}
