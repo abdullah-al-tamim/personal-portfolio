@@ -72,3 +72,12 @@ The owner confirmed third place among 163 contributors to an internal Retool wor
 The hero uses a custom canvas field inspired by the pointer-responsive behavior at https://antigravity.google/. It uses the portfolio palette, caps particle density and pixel ratio, does not intercept pointer events, and stops its animation loop off-screen or in hidden tabs. Reduced motion and the footer pause control use a static rendering. A shared point field expands around overlapping rounded lenses. Two drifting lenses animate the idle state; a third trails fine-pointer movement. Particle size, direction, and color change with depth to create a bubble-like effect. Touch uses lower density. No new dependencies or Google assets are used.
 
 Email delivery errors include the EmailJS status and a safe diagnostic category. A connected-mailbox HTTP 412 needs investigation in EmailJS Email Services; website environment variables alone cannot verify mailbox authorization or successful delivery.
+
+
+## Private Study Hub
+
+A separate `/study-hub` route provides the graduate-admissions foundation without
+changing the public portfolio. It requires Supabase configuration and an approved
+owner account; it contains no demo/private data and no autonomous external actions.
+See [Study Hub documentation](docs/study-hub/README.md) for architecture, migrations,
+setup, capability limits and validation.
