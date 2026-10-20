@@ -7,5 +7,8 @@
     "moduleResolution": "NodeNext",
     "skipLibCheck": true
   },
-  "include": ["src/lib/study-hub/contracts.ts"]
+  "include": [
+    "src/lib/study-hub/contracts.ts",
+    "src/lib/study-hub/documents/contracts.ts"
+  ]
 }

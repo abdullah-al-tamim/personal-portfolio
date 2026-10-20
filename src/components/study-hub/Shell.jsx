@@ -39,6 +39,7 @@ export default function Shell({ children }) {
           </Link>
           <Link href="/study-hub/opportunities?kind=phd">PhD positions</Link>
           <Link href="/study-hub/tasks">Research queue</Link>
+          <Link href="/study-hub/documents">Documents &amp; attestation</Link>
           <Link href="/study-hub/settings">Settings & integrations</Link>
         </nav>
         <div className="hub-sidebar-foot">
