@@ -1,6 +1,127 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Compact homepage previews; full narratives live on the case-study routes. */
+.work-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.work-card {
+  min-width: 0;
+  border-top: 1px solid var(--ink);
+}
+.work-card-art {
+  display: block;
+  margin-top: 18px;
+  background: var(--diagram-bg);
+  overflow: hidden;
+}
+.work-preview {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s var(--ease);
+}
+.work-card-art:hover .work-preview {
+  transform: scale(1.035);
+}
+.work-preview rect {
+  fill: var(--paper);
+  stroke: #a7b4a4;
+}
+.work-preview path {
+  stroke: #7b9078;
+  fill: none;
+  stroke-width: 1.5;
+}
+.work-preview text {
+  fill: var(--muted);
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+}
+.work-preview .preview-accent {
+  stroke: var(--accent);
+  fill: var(--diagram-bg);
+  stroke-width: 2;
+}
+.work-preview .preview-alert {
+  fill: var(--accent);
+  font-size: 14px;
+}
+.work-card-copy {
+  padding: 23px 0;
+}
+.work-card-copy > .micro {
+  font-size: 9px;
+  color: var(--muted);
+}
+.work-card h3 {
+  font-size: clamp(24px, 2.5vw, 36px);
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  margin: 12px 0 16px;
+}
+.work-card-copy > p:not(.micro) {
+  font-size: 14px;
+  color: var(--muted);
+  min-height: 92px;
+}
+.work-card-outcome {
+  font-size: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  margin: 20px 0;
+  min-height: 50px;
+}
+.work-card-copy .text-link {
+  font-size: 13px;
+}
+.work-disclosure {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 20px;
+  max-width: 630px;
+}
+@media (max-width: 800px) {
+  .work-card-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .work-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .work-card-copy > p:not(.micro) {
+    min-height: 0;
+  }
+  .work-card-art {
+    align-self: start;
+  }
+  .work-card h3 {
+    font-size: 28px;
+  }
+}
+@media (max-width: 520px) {
+  .work-card {
+    display: block;
+  }
+  .work-card-copy {
+    padding-top: 18px;
+  }
+  .work-card-art {
+    margin-top: 14px;
+  }
+  .work-card-outcome {
+    min-height: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-preview {
+    transition: none;
+  }
+}
 :root {
   --paper: #f0f1ed;
   --ink: #202522;
@@ -1119,7 +1240,7 @@ article[id] {
 .motion-paused *,
 .motion-paused *:before,
 .motion-paused *:after {
-  animation: none !important;
+  animation-play-state: paused !important;
   transition: none !important;
 }
 .motion-paused {

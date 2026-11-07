@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import StudyDiagram from "@/components/SystemExhibit";
 import { studies } from "@/assets/studies";
 const titles = {
   reconciliation: "EHR Report Extraction & Encounter Reconciliation",
@@ -52,6 +53,7 @@ export default async function CaseStudy({ params }) {
         <p>{study.metricLabel}</p>
       </div>
       <p className="micro">{study.tools}</p>
+      <StudyDiagram study={study} />
       {[
         ["The problem", study.problem],
         [
@@ -72,7 +74,7 @@ export default async function CaseStudy({ params }) {
         code or internal links are published.
       </p>
       <Link className="text-link" href={"/#" + slug}>
-        Explore the interactive walkthrough ↗
+        Back to selected work ↗
       </Link>
     </main>
   );

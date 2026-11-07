@@ -1,0 +1,389 @@
+.exhibit {
+  --flow-play: paused;
+  --flow-green: #436e50;
+  margin: 0;
+  border-block: 1px solid var(--ink);
+  padding: 12px 0;
+  overflow: hidden;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.controls {
+  display: flex;
+  gap: 6px;
+}
+.controls button {
+  min-height: 44px;
+  padding: 8px 12px;
+  font-size: 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.controls button:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
+}
+.controls button:disabled {
+  opacity: 0.45;
+}
+.scene {
+  width: 100%;
+  height: auto;
+  max-height: 310px;
+}
+.grid {
+  fill: #a5b2a0;
+  opacity: 0.5;
+}
+.record {
+  animation: collect 12s cubic-bezier(0.22, 0.8, 0.2, 1) both;
+}
+.card {
+  fill: #fafbf7;
+  stroke: #b7c6af;
+}
+.mark {
+  fill: var(--flow-green);
+}
+.lines {
+  stroke: #91a389;
+  stroke-width: 3;
+}
+.exception {
+  animation-name: separate;
+}
+.exception .mark {
+  animation: flag 12s linear both;
+}
+.scan {
+  color: var(--flow-green);
+  animation: scan 12s linear both;
+}
+.review {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  animation: review 12s ease both;
+}
+.review text {
+  fill: var(--accent);
+  stroke: none;
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.08em;
+}
+.result {
+  animation: result 12s var(--ease) both;
+}
+.resultPanel {
+  fill: #f8faf5;
+  stroke: #b4c5ab;
+}
+.resultTitle {
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+  fill: var(--flow-green);
+}
+.resultHeading {
+  font-size: 20px;
+  font-weight: 500;
+  fill: var(--ink);
+}
+.resultDetail {
+  font-size: 15px;
+  fill: var(--muted);
+}
+.resultException {
+  font-size: 15px;
+  fill: var(--accent);
+}
+.bar {
+  fill: var(--flow-green);
+}
+.mobileResult {
+  display: none;
+}
+.captions {
+  display: grid;
+  min-height: 48px;
+}
+.caption {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: baseline;
+  gap: 30px;
+  opacity: 0;
+  animation: caption 12s steps(1, end) both;
+}
+.caption strong {
+  font-size: clamp(20px, 2.2vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  min-width: 210px;
+}
+.caption span {
+  font-size: 13px;
+  color: var(--muted);
+}
+.stage1 {
+  animation-name: caption1;
+}
+.stage2 {
+  animation-name: caption2;
+}
+.stage3 {
+  animation-name: caption3;
+}
+.note {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.sequence * {
+  animation-play-state: var(--flow-play) !important;
+}
+@keyframes collect {
+  0%,
+  14% {
+    transform: translate(var(--raw-x), var(--raw-y)) rotate(var(--angle));
+    opacity: 1;
+  }
+  32%,
+  62% {
+    transform: translate(var(--grid-x), var(--grid-y)) rotate(0deg);
+    opacity: 1;
+  }
+  77%,
+  100% {
+    transform: translate(var(--end-x), var(--end-y)) scale(0.3);
+    opacity: 0;
+  }
+}
+@keyframes separate {
+  0%,
+  14% {
+    transform: translate(var(--raw-x), var(--raw-y)) rotate(var(--angle));
+  }
+  32%,
+  46% {
+    transform: translate(var(--grid-x), var(--grid-y)) rotate(0deg);
+  }
+  57%,
+  100% {
+    transform: translate(834px, 177px) rotate(0deg);
+  }
+}
+@keyframes flag {
+  0%,
+  45% {
+    fill: var(--flow-green);
+  }
+  49%,
+  100% {
+    fill: var(--accent);
+  }
+}
+@keyframes scan {
+  0%,
+  34% {
+    opacity: 0;
+    transform: translateX(175px);
+  }
+  35% {
+    opacity: 1;
+  }
+  52% {
+    opacity: 1;
+    transform: translateX(800px);
+  }
+  54%,
+  100% {
+    opacity: 0;
+    transform: translateX(800px);
+  }
+}
+@keyframes review {
+  0%,
+  48% {
+    opacity: 0;
+  }
+  57%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes result {
+  0%,
+  65% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+    transform-origin: center;
+  }
+  80%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes caption {
+  0% {
+    opacity: 1;
+  }
+  24%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes caption1 {
+  0% {
+    opacity: 0;
+  }
+  24% {
+    opacity: 1;
+  }
+  43%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes caption2 {
+  0% {
+    opacity: 0;
+  }
+  43% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes caption3 {
+  0% {
+    opacity: 0;
+  }
+  70%,
+  100% {
+    opacity: 1;
+  }
+}
+.exhibit[data-reduced="true"] .sequence * {
+  animation-duration: 1ms;
+  animation-delay: -12s;
+  animation-play-state: paused !important;
+}
+.exhibit[data-reduced="true"] .controls {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sequence * {
+    animation-duration: 1ms;
+    animation-delay: -12s;
+    animation-play-state: paused !important;
+  }
+  .controls {
+    display: none;
+  }
+  .record,
+  .scan,
+  .caption {
+    opacity: 0 !important;
+  }
+  .exception {
+    opacity: 1 !important;
+    transform: translate(834px, 177px) !important;
+  }
+  .exception .mark {
+    fill: var(--accent);
+  }
+  .review,
+  .result,
+  .stage3 {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+@media print {
+  .controls {
+    display: none;
+  }
+  .sequence * {
+    animation: none !important;
+  }
+  .record,
+  .scan,
+  .caption {
+    opacity: 0;
+  }
+  .exception {
+    opacity: 1;
+    transform: translate(834px, 177px);
+  }
+  .review,
+  .result,
+  .stage3 {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 600px) {
+  .top {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .top > span {
+    font-size: 9px;
+  }
+  .controls button {
+    font-size: 11px;
+    padding-inline: 9px;
+  }
+  .scene {
+    width: 120%;
+    max-width: none;
+    margin-left: -10%;
+    height: 220px;
+  }
+  .caption {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .captions {
+    min-height: 68px;
+  }
+  .caption strong {
+    font-size: 25px;
+  }
+  .caption span {
+    font-size: 12px;
+  }
+  .resultTitle {
+    font-size: 20px;
+  }
+  .resultHeading {
+    display: none;
+  }
+  .resultDetail,
+  .resultException {
+    display: none;
+  }
+  .mobileResult {
+    display: block;
+    font-size: 32px;
+    fill: var(--flow-green);
+  }
+  .mobileResult text:last-child {
+    fill: var(--accent);
+    font-size: 28px;
+  }
+  .review text {
+    font-size: 18px;
+  }
+}
