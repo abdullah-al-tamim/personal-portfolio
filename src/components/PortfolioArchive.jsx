@@ -41,6 +41,10 @@ const demos = [
 ];
 
 const certificates = [
+  { title: "Beast Award — Level 1: NESSIE", issuer: "Augmedix BD (now Commure BD)", description: "Recognised for an import-error resolver copilot enabling resolution of approximately 120,000 claims and for billable-unsubmitted workflow automation." },
+  { title: "B-JET Basic and Basic Plus — completed", issuer: "North South University / University of Miyazaki", date: "June–December 2024", description: "Basic term exam: 99/100; Basic final: 95/100; Basic Plus final: 96.8/100. All Excellent. Combined scheduled instruction: 400 units of 45 minutes." },
+  { title: "Giver Award", issuer: "B-JET, 14th Batch", date: "2024", description: "Selected by batchmates through student voting for sustained support to peers throughout training." },
+  { title: "Microsoft Azure Administration workshop", issuer: "East West University Robotics Club", date: "13 May 2023", description: "Successfully completed the workshop on Microsoft Azure Administration." },
   {
     title: "SQL (Intermediate)",
     issuer: "HackerRank",
@@ -197,10 +201,10 @@ export function Credentials() {
         {certificates.map((certificate) => (
           <article
             className="credential-card"
-            key={certificate.image}
+            key={certificate.title}
             data-reveal
           >
-            <a
+            {certificate.image && <a
               className="certificate-image"
               href={certificate.image}
               target="_blank"
@@ -214,12 +218,13 @@ export function Credentials() {
                 sizes="(max-width: 600px) 90vw, (max-width: 1000px) 45vw, 380px"
               />
               <span>VIEW CERTIFICATE ↗</span>
-            </a>
+            </a>}
             <div className="credential-copy">
               <p className="eyebrow">
-                {certificate.issuer} · {certificate.date}
+                {certificate.issuer}{certificate.date ? ` · ${certificate.date}` : ""}
               </p>
               <h3>{certificate.title}</h3>
+              {certificate.description && <p>{certificate.description}</p>}
               {certificate.href ? (
                 <a
                   href={certificate.href}
@@ -229,7 +234,7 @@ export function Credentials() {
                 >
                   View credential record <span aria-hidden="true">↗</span>
                 </a>
-              ) : (
+              ) : certificate.image ? (
                 <a
                   href={certificate.image}
                   target="_blank"
@@ -238,7 +243,7 @@ export function Credentials() {
                 >
                   View original certificate <span aria-hidden="true">↗</span>
                 </a>
-              )}
+              ) : null}
             </div>
           </article>
         ))}
@@ -246,3 +251,4 @@ export function Credentials() {
     </section>
   );
 }
+

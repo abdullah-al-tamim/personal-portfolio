@@ -208,7 +208,7 @@ export default function Portfolio() {
             <span>
               <strong>Abdullah Al Tamim</strong>
               <span>Senior Data Automations Analyst</span>
-              <small>Augmedix / Commure | Athelas</small>
+              <small>Commure BD (formerly Augmedix BD)</small>
             </span>
             <span className="identity-arrow" aria-hidden="true">
               ↗
@@ -385,8 +385,7 @@ export default function Portfolio() {
               <em>Then build the system.</em>
             </h2>
             <p className="profile-intro">
-              I’m a Dhaka-based Senior Data Automations Analyst at Augmedix /
-              Commure | Athelas.
+              I’m a Dhaka-based Senior Data Automations Analyst at Commure BD (formerly Augmedix BD).
             </p>
             <p>
               CSE graduate from East West University, preparing for master’s
@@ -545,3 +544,5 @@ export default function Portfolio() {
     </div>
   );
 }
+
+
