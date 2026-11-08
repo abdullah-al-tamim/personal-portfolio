@@ -9,6 +9,7 @@ import WorkPreview from "@/components/WorkPreview";
 import { ProjectArchive, Credentials } from "@/components/PortfolioArchive";
 import FlowBackground from "@/components/FlowBackground";
 import ContactForm from "@/components/ContactForm";
+import TubeVaultProject from "@/components/TubeVaultProject";
 import PracticeCards from "@/components/PracticeCards";
 
 const nav = [
@@ -67,7 +68,6 @@ function Study({ study }) {
 
 export default function Portfolio() {
   const [menu, setMenu] = useState(false);
-  const [playingDemo, setPlayingDemo] = useState(null);
   const [active, setActive] = useState("");
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -287,6 +287,7 @@ export default function Portfolio() {
               <Study key={s.id} study={s} />
             ))}
           </div>
+          <TubeVaultProject />
           <p className="work-disclosure">
             Professional work, explained with synthetic examples. Full context
             and individual contributions in each case study.
@@ -356,9 +357,6 @@ export default function Portfolio() {
                     href={p.id === "eeg" ? "#eeg-demo" : p.href}
                     target={p.id === "eeg" ? undefined : "_blank"}
                     rel={p.id === "eeg" ? undefined : "noreferrer"}
-                    onClick={
-                      p.id === "eeg" ? () => setPlayingDemo("eeg") : undefined
-                    }
                   >
                     {p.id === "eeg" ? "Watch the EEG demo" : p.link}
                     <span aria-hidden="true">↗</span>
@@ -367,11 +365,7 @@ export default function Portfolio() {
               ))}
           </div>
         </section>
-        <ProjectArchive
-          motionPaused={paused}
-          playingDemo={playingDemo}
-          onPlaybackChange={setPlayingDemo}
-        />
+        <ProjectArchive motionPaused={pause} />
         <section className="profile section-wrap" id="about">
           <div className="profile-photo">
             <Image

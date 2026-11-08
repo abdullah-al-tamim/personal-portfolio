@@ -92,6 +92,7 @@ function PracticeCard({ practice, paused }) {
   const host = useRef(null);
   const canvas = useRef(null);
   const savedProgress = useRef(0);
+  const elapsed = useRef(0);
   useEffect(() => {
     const anchor = host.current,
       surface = canvas.current,
@@ -110,13 +111,14 @@ function PracticeCard({ practice, paused }) {
       visible = false;
     let pointer = null;
     const desired = () =>
-      reduced.matches || !fine.matches || hovered || focused ? 1 : 0;
+      reduced.matches || hovered || focused || elapsed.current % 8 < 5 ? 1 : 0;
     function draw(now = 0) {
       frame = 0;
-      const target = desired();
       const dt = Math.min((now - last || 16) / 1000, 0.04);
       last = now;
-      if (reduced.matches || !fine.matches) progress = 1;
+      if (!paused && !reduced.matches) elapsed.current += dt;
+      const target = desired();
+      if (reduced.matches) progress = 1;
       else if (!paused)
         progress += (target - progress) * (1 - Math.exp(-5 * dt));
       if (Math.abs(target - progress) < 0.002) progress = target;
@@ -138,19 +140,13 @@ function PracticeCard({ practice, paused }) {
             y += (dy / distance) * force;
           }
         }
-        ctx.fillStyle = progress > 0.5 ? "#b94730" : "#7a897b";
+        ctx.fillStyle = progress > 0.5 ? "#b9f500" : "#a587f6";
         ctx.globalAlpha = 0.35 + 0.5 * progress;
         ctx.beginPath();
         ctx.arc(x, y, (0.7 + 0.55 * progress) * scale, 0, Math.PI * 2);
         ctx.fill();
       });
-      if (
-        visible &&
-        !document.hidden &&
-        !paused &&
-        !reduced.matches &&
-        Math.abs(target - progress) > 0.002
-      )
+      if (visible && !document.hidden && !paused && !reduced.matches)
         frame = requestAnimationFrame(draw);
     }
     function refresh() {

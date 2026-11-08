@@ -19,7 +19,6 @@ export default function FlowExhibit({ paused = false }) {
   const host = useRef(null);
   const [replay, setReplay] = useState(0);
   const [stopped, setStopped] = useState(false);
-  const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     const element = host.current;
@@ -63,7 +62,7 @@ export default function FlowExhibit({ paused = false }) {
         <span className="micro">FIG. 01 / FROM FRAGMENT TO FLOW</span>
         <div className={styles.controls}>
           <button
-            disabled={paused || finished}
+            disabled={paused}
             aria-pressed={stopped || paused}
             onClick={() => setStopped(!stopped)}
           >
@@ -73,7 +72,6 @@ export default function FlowExhibit({ paused = false }) {
             disabled={paused}
             onClick={() => {
               setReplay(replay + 1);
-              setFinished(false);
               setStopped(false);
             }}
           >
@@ -81,13 +79,7 @@ export default function FlowExhibit({ paused = false }) {
           </button>
         </div>
       </div>
-      <div
-        key={replay}
-        className={styles.sequence}
-        onAnimationEnd={(event) => {
-          if (event.target.dataset.finish === "true") setFinished(true);
-        }}
-      >
+      <div key={replay} className={styles.sequence}>
         <svg className={styles.scene} viewBox="0 0 1000 300" aria-hidden="true">
           <g className={styles.grid}>
             {Array.from({ length: 120 }, (_, i) => (

@@ -46,3 +46,6 @@ REA controlled-capture evidence: `ev_5420345d7bbdf84268df581ad2a4806c73dbe4bf8d1
 Applied here: direct, clearly named exploration paths in the expertise cards. A chatbot was not added because the requested portfolio prioritizes readable work and research evidence.
 
 Source: https://www.aaabadcode.com/
+
+
+Palette update: charcoal #18181C, violet #723BFA, lime #B9F500. FIG. 01, expertise particles and recordings loop automatically, retaining pause and reduced-motion controls. Portrait uses its original color file. TubeVault facts verified against its public README on 2026-11-08; the queue visual is explicitly illustrative.
