@@ -2,12 +2,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { studies, experience, disciplines } from "@/assets/studies";
+import { studies, experience } from "@/assets/studies";
 import { projects, cvs } from "@/assets/portfolio";
-import StudyDiagram, { SystemExhibit } from "@/components/SystemExhibit";
+import FlowExhibit from "@/components/FlowExhibit";
+import WorkPreview from "@/components/WorkPreview";
 import { ProjectArchive, Credentials } from "@/components/PortfolioArchive";
 import FlowBackground from "@/components/FlowBackground";
 import ContactForm from "@/components/ContactForm";
+import TubeVaultProject from "@/components/TubeVaultProject";
+import PracticeCards from "@/components/PracticeCards";
 
 const nav = [
   ["work", "Work"],
@@ -16,70 +19,48 @@ const nav = [
   ["contact", "Contact"],
 ];
 
-function Study({ study, paused }) {
-  return (
-    <article className="study" id={study.id}>
-      <div className="study-title">
-        <span className="study-number">{study.number}</span>
-        <div>
-          <p className="micro">{study.discipline}</p>
-          <h3>{study.name}</h3>
-        </div>
-        <a
-          className="study-permalink"
-          href={`#${study.id}`}
-          aria-label={`Link to ${study.name}`}
-        >
-          ↗
-        </a>
-      </div>
-      <p className="study-intro">{study.intro}</p>
-      <StudyDiagram study={study} paused={paused} />
-      <details className="study-depth">
-        <summary>
-          <span>Details: my role & engineering approach</span>
-          <span className="expand-mark" aria-hidden="true">
-            +
-          </span>
-        </summary>
-        <div className="depth-content">
-          <div className="study-summary">
-            <div>
-              <span className="micro">THE PROBLEM</span>
-              <p>{study.problem}</p>
-            </div>
-            <div>
-              <span className="micro">
-                {study.id === "intelligence"
-                  ? "TEAM WORK & MY ROLE"
-                  : "MY CONTRIBUTION"}
-              </span>
-              <p>{study.contribution}</p>
-            </div>
-          </div>
+const workSummaries = {
+  reconciliation: {
+    label: "DATA AUTOMATION",
+    title: "Find the gaps.",
+    text: "Automated extraction and cross-source checks reveal missing records and possible duplicates.",
+    outcome: "Selected for product integration",
+  },
+  architecture: {
+    label: "DATA ENGINEERING",
+    title: "Break the bottleneck.",
+    text: "Parallel processing and reusable data replace heavy, repeated queries.",
+    outcome: "96 deprecated logic instances updated",
+  },
+  intelligence: {
+    label: "WORKFLOW DEVELOPMENT",
+    title: "Connect the context.",
+    text: "Team-built workflows match historical records to suggest missing information for submission errors.",
+    outcome: "From an error to a proposed solution",
+  },
+};
 
-          <div>
-            <h4>What made it difficult</h4>
-            <p>{study.difficulty}</p>
-          </div>
-          <div>
-            <h4>Architecture & tradeoffs</h4>
-            <p>{study.approach}</p>
-          </div>
-          <div>
-            <h4>What changed</h4>
-            <p>{study.outcome}</p>
-          </div>
-          <blockquote>{study.judgment}</blockquote>
-          <Link className="text-link" href={"/work/" + study.id}>
-            Open full case study ↗
-          </Link>
-        </div>
-      </details>
-      <div className="study-result">
-        <strong>{study.metric}</strong>
-        <span>{study.metricLabel}</span>
-        <p className="micro">{study.tools}</p>
+function Study({ study }) {
+  const summary = workSummaries[study.id];
+  return (
+    <article className="work-card" id={study.id}>
+      <Link
+        href={"/work/" + study.id}
+        className="work-card-art"
+        aria-label={`Read case study: ${summary.title}`}
+      >
+        <WorkPreview kind={study.id} />
+      </Link>
+      <div className="work-card-copy">
+        <p className="micro">
+          {study.number} / {summary.label}
+        </p>
+        <h3>{summary.title}</h3>
+        <p>{summary.text}</p>
+        <div className="work-card-outcome">{summary.outcome}</div>
+        <Link className="text-link" href={"/work/" + study.id}>
+          Read case study <span aria-hidden="true">↗</span>
+        </Link>
       </div>
     </article>
   );
@@ -87,7 +68,6 @@ function Study({ study, paused }) {
 
 export default function Portfolio() {
   const [menu, setMenu] = useState(false);
-  const [playingDemo, setPlayingDemo] = useState(null);
   const [active, setActive] = useState("");
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -212,7 +192,7 @@ export default function Portfolio() {
           <div className="hero-kicker">
             <p className="micro">
               <span className="status-dot" />
-              DATA AUTOMATION / OPERATIONAL INTELLIGENCE
+              DATA ENGINEERING / AUTOMATION / APPLIED AI
             </p>
             <span className="micro">DHAKA, BANGLADESH · PORTFOLIO / 2026</span>
           </div>
@@ -247,11 +227,7 @@ export default function Portfolio() {
               <br />
               THAT MOVES WORK FORWARD
             </span>
-            <p>
-              Data automation, data engineering and analytics from Dhaka,
-              Bangladesh. I build tools that take repetitive work off people’s
-              hands.
-            </p>
+            <p>I build systems that make data useful.</p>
             <a
               className="circle-link"
               href="#work"
@@ -260,7 +236,7 @@ export default function Portfolio() {
               <span aria-hidden="true">↙</span>
             </a>
           </div>
-          <SystemExhibit />
+          <FlowExhibit paused={pause} />
         </section>
         <section
           className="impact section-wrap"
@@ -303,30 +279,19 @@ export default function Portfolio() {
               <span className="muted">More forward.</span>
             </h2>
             <p className="section-aside">
-              Extract. Compare. Resolve. Explore the systems behind the work.
+              Practical systems for messy data and repetitive work.
             </p>
           </div>
-          <div className="work-layout">
-            <aside className="work-index">
-              <span className="micro">FIELD NOTES / 01—03</span>
-              {studies.map((s) => (
-                <a href={`#${s.id}`} key={s.id}>
-                  <span>{s.number}</span>
-                  {s.name}
-                  <span aria-hidden="true">↗</span>
-                </a>
-              ))}
-              <p>
-                Employer systems are described at a high level. All diagrams use
-                synthetic records and abstracted flows.
-              </p>
-            </aside>
-            <div className="studies">
-              {studies.map((s) => (
-                <Study key={s.id} study={s} paused={pause} />
-              ))}
-            </div>
+          <div className="work-card-grid">
+            {studies.map((s) => (
+              <Study key={s.id} study={s} />
+            ))}
           </div>
+          <TubeVaultProject />
+          <p className="work-disclosure">
+            Professional work, explained with synthetic examples. Full context
+            and individual contributions in each case study.
+          </p>
         </section>
         <section className="research section-wrap" id="research">
           <div className="research-lead">
@@ -336,10 +301,7 @@ export default function Portfolio() {
               <br />
               to <em>possibilities.</em>
             </h2>
-            <p>
-              Machine learning for images and brain signals. Preparing for
-              master’s study.
-            </p>
+            <p>Exploring how machines learn from images and signals.</p>
           </div>
           <div className="research-papers">
             {projects
@@ -376,11 +338,18 @@ export default function Portfolio() {
                   <p className="micro">{p.period}</p>
                   <h3>
                     {i === 0
-                      ? "Unveiling Microorganism Diversity through Neural Network-driven Classification"
-                      : "Decoding Object Shapes from EEG Signals of the Brain"}
+                      ? "Learning from microscopic images."
+                      : "Learning from brain signals."}
                   </h3>
                   <details className="research-details">
                     <summary>Research details & my contribution</summary>
+                    <p>
+                      <strong>
+                        {p.id === "eeg"
+                          ? "Decoding Object Shapes from EEG Signals of the Brain"
+                          : "Unveiling Microorganism Diversity through Neural Network-driven Classification"}
+                      </strong>
+                    </p>
                     <p>{p.details}</p>
                   </details>
                   <a
@@ -388,9 +357,6 @@ export default function Portfolio() {
                     href={p.id === "eeg" ? "#eeg-demo" : p.href}
                     target={p.id === "eeg" ? undefined : "_blank"}
                     rel={p.id === "eeg" ? undefined : "noreferrer"}
-                    onClick={
-                      p.id === "eeg" ? () => setPlayingDemo("eeg") : undefined
-                    }
                   >
                     {p.id === "eeg" ? "Watch the EEG demo" : p.link}
                     <span aria-hidden="true">↗</span>
@@ -399,11 +365,7 @@ export default function Portfolio() {
               ))}
           </div>
         </section>
-        <ProjectArchive
-          motionPaused={paused}
-          playingDemo={playingDemo}
-          onPlaybackChange={setPlayingDemo}
-        />
+        <ProjectArchive motionPaused={pause} />
         <section className="profile section-wrap" id="about">
           <div className="profile-photo">
             <Image
@@ -427,9 +389,9 @@ export default function Portfolio() {
               Commure | Athelas.
             </p>
             <p>
-              East West University CSE graduate. I build reliable automation
-              around messy operational data, with a research interest in applied
-              AI.
+              CSE graduate from East West University, preparing for master’s
+              study. My work connects data engineering, software development,
+              and applied AI research.
             </p>
             <a
               className="text-link"
@@ -493,15 +455,7 @@ export default function Portfolio() {
         >
           <p className="micro">TOOLS IN SERVICE OF THE PROBLEM</p>
           <h2 id="expertise-title">A connected practice.</h2>
-          <div className="expertise-rows">
-            {disciplines.map((item, i) => (
-              <article key={item.title}>
-                <span>0{i + 1}</span>
-                <h3>{item.title}</h3>
-                <p>{item.detail}</p>
-              </article>
-            ))}
-          </div>
+          <PracticeCards paused={pause} />
         </section>
         <Credentials />
         <section className="cv section-wrap" id="cv">

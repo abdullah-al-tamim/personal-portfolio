@@ -1,136 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-
-const coordinates = Array.from({ length: 36 }, (_, i) => ({
-  x: 35 + ((i * 73) % 430),
-  y: 30 + ((i * 47) % 215),
-  orderedX: 570 + (i % 9) * 39,
-  orderedY: 55 + Math.floor(i / 9) * 53,
-}));
-
-export function SystemExhibit() {
-  const [ordered, setOrdered] = useState(true);
-  return (
-    <div className={`system-exhibit ${ordered ? "is-ordered" : ""}`}>
-      <div className="exhibit-top">
-        <span className="micro">FIG. 01 / FROM FRAGMENT TO FLOW</span>
-        <button
-          className="switch"
-          onClick={() => setOrdered(!ordered)}
-          aria-pressed={ordered}
-        >
-          <span className="switch-light" />
-          {ordered ? "System on" : "Raw inputs"}
-          <span aria-hidden="true">↗</span>
-        </button>
-      </div>
-      <svg
-        viewBox="0 0 1000 300"
-        preserveAspectRatio="none"
-        role="img"
-        aria-label={
-          ordered
-            ? "Scattered records converge into organized parallel rows. One exception remains separate for review."
-            : "Unstructured records are scattered across the input field."
-        }
-      >
-        <defs>
-          <pattern
-            id="fine-lines"
-            width="7"
-            height="7"
-            patternUnits="userSpaceOnUse"
-          >
-            <path d="M0 0V7" stroke="currentColor" strokeOpacity=".08" />
-          </pattern>
-        </defs>
-        <rect
-          x="510"
-          y="12"
-          width="455"
-          height="256"
-          rx="128"
-          fill="url(#fine-lines)"
-        />
-        {[0, 1, 2, 3].map((i) => (
-          <path
-            className="system-thread"
-            key={i}
-            d={`M50 ${45 + i * 60} C310 ${-20 + i * 90}, 390 ${55 + i * 53}, 570 ${55 + i * 53} H925`}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            opacity={ordered ? ".2" : ".06"}
-          />
-        ))}
-        <path
-          d="M492 20V270"
-          className="threshold"
-          stroke="currentColor"
-          strokeDasharray="2 8"
-          opacity=".25"
-        />
-        {coordinates.map((p, i) => (
-          <g
-            className="data-record"
-            key={i}
-            style={{
-              transform: `translate(${ordered ? p.orderedX : p.x}px, ${ordered ? p.orderedY : p.y}px) rotate(${ordered ? 0 : ((i % 5) - 2) * 14}deg)`,
-              transitionDelay: `${i * 9}ms`,
-            }}
-          >
-            <rect
-              width={i % 4 === 0 ? 24 : 17}
-              height="5"
-              fill={i % 7 === 0 ? "var(--accent)" : "currentColor"}
-            />
-            <rect
-              y="9"
-              width="13"
-              height="2"
-              fill="currentColor"
-              opacity=".25"
-            />
-          </g>
-        ))}
-        <g className="raw-traces" opacity={ordered ? ".16" : ".65"}>
-          {coordinates.slice(0, 20).map((p, i) => (
-            <path
-              key={i}
-              d={`M${p.x} ${p.y}h${12 + (i % 3) * 8}`}
-              stroke="currentColor"
-            />
-          ))}
-        </g>
-        <g
-          className="exception-record"
-          style={{
-            transform: `translate(${ordered ? 470 : 300}px, ${ordered ? 265 : 120}px)`,
-          }}
-        >
-          <circle r="5" fill="none" stroke="var(--accent)" strokeWidth="2" />
-          <text x="14" y="4" fill="var(--accent)" fontSize="11">
-            {ordered ? "REVIEW, NOT IGNORE" : "UNRESOLVED"}
-          </text>
-        </g>
-        <text x="40" y="292" className="svg-label">
-          INPUTS / FRAGMENTED
-        </text>
-        <text x="710" y="292" className="svg-label">
-          OUTPUT / STRUCTURED
-        </text>
-      </svg>
-      <div className="exhibit-bottom">
-        <p>
-          {ordered
-            ? "Structure the routine. Keep the exceptions visible."
-            : "Different sources. Missing context. Repeated manual work."}
-        </p>
-        <span className="micro">INTERACTIVE CONCEPT / SYNTHETIC RECORDS</span>
-      </div>
-    </div>
-  );
-}
+import Link from "next/link";
 
 function Architecture({ step }) {
   return (
@@ -320,10 +190,10 @@ function ProcessDiagram({ step, resolver }) {
       </div>
       <p className="micro">FICTIONAL EXAMPLE / NO PATIENT OR PRODUCTION DATA</p>
       {!resolver && (
-        <a className="process-related" href="#intelligence">
+        <Link className="process-related" href="/work/intelligence">
           Missing information blocked the import? See the team’s resolver
-          workflow below ↗
-        </a>
+          workflow ↗
+        </Link>
       )}
     </div>
   );

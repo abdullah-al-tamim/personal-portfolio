@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 const demos = [
   {
@@ -83,7 +84,8 @@ const certificates = [
   },
 ];
 
-function RecordedDemo({ demo, motionPaused, playing, onPlaybackChange }) {
+function RecordedDemo({ demo, motionPaused }) {
+  const [playing, setPlaying] = useState(true);
   return (
     <article
       id={`${demo.id}-demo`}
@@ -114,7 +116,7 @@ function RecordedDemo({ demo, motionPaused, playing, onPlaybackChange }) {
           aria-label={`${playing ? "Stop" : "Play"} ${demo.title} recording`}
           disabled={motionPaused}
           aria-pressed={playing && !motionPaused}
-          onClick={() => onPlaybackChange(playing ? null : demo.id)}
+          onClick={() => setPlaying(!playing)}
         >
           {motionPaused
             ? "Motion paused"
@@ -141,11 +143,7 @@ function RecordedDemo({ demo, motionPaused, playing, onPlaybackChange }) {
   );
 }
 
-export function ProjectArchive({
-  motionPaused,
-  playingDemo,
-  onPlaybackChange,
-}) {
+export function ProjectArchive({ motionPaused }) {
   return (
     <section id="archive" className="archive section-wrap">
       <div className="section-heading" data-reveal>
@@ -164,14 +162,12 @@ export function ProjectArchive({
             key={demo.src}
             demo={demo}
             motionPaused={motionPaused}
-            playing={playingDemo === demo.id}
-            onPlaybackChange={onPlaybackChange}
           />
         ))}
       </div>
       <p className="work-note">
-        Recordings play only when you choose. Use Stop on a recording or Pause
-        motion in the footer to stop playback.
+        Recordings loop automatically. Use Stop on a recording or Pause motion
+        in the footer to stop playback.
       </p>
     </section>
   );

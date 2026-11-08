@@ -21,7 +21,7 @@ export default function FlowBackground({ paused }) {
     const pointer = { x: 0, y: 0, active: false };
     const focus = { x: 0, y: 0 },
       trail = { x: 0, y: 0 };
-    const colors = ["#4667dd", "#7160ca", "#ad5288", "#d26859", "#c9a03a"];
+    const colors = ["#723bfa", "#9870ff", "#b9f500", "#723bfa", "#b9f500"];
     function draw(now = 0) {
       frame = 0;
       const moving = !paused && !reduced.matches && visible && !document.hidden;
@@ -51,7 +51,7 @@ export default function FlowBackground({ paused }) {
         ctx.fillStyle =
           a.depth > 0.09
             ? colors[Math.min(4, Math.floor(a.hue * 5))]
-            : "#87918b";
+            : "#91859f";
         ctx.save();
         ctx.translate(a.x, a.y);
         ctx.rotate(a.angle);
