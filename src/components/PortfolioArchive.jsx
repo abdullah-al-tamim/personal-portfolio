@@ -41,6 +41,7 @@ const demos = [
 ];
 
 const certificates = [
+  { title: "IELTS Academic — Overall 7.5", issuer: "IELTS", date: "19 October 2026", description: "CEFR C1. Listening 7.5 · Reading 8.5 · Writing 6.0 · Speaking 7.0." },
   { title: "Beast Award — Level 1: NESSIE", issuer: "Augmedix BD (now Commure BD)", description: "Recognised for an import-error resolver copilot enabling resolution of approximately 120,000 claims and for billable-unsubmitted workflow automation." },
   { title: "B-JET Basic and Basic Plus — completed", issuer: "North South University / University of Miyazaki", date: "June–December 2024", description: "Basic term exam: 99/100; Basic final: 95/100; Basic Plus final: 96.8/100. All Excellent. Combined scheduled instruction: 400 units of 45 minutes." },
   { title: "Giver Award", issuer: "B-JET, 14th Batch", date: "2024", description: "Selected by batchmates through student voting for sustained support to peers throughout training." },

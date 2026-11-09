@@ -125,19 +125,19 @@ export const studies = [
 
 export const experience = [
   {
-    period: "JUN — DEC 2024",
-    organization: "B-JET · North South University / University of Miyazaki",
-    role: "Basic and Basic Plus courses completed",
-    detail: "Basic: 3 June–18 October, final exam 95/100. Basic Plus: 21 October–6 December, final exam 96.8/100. Japanese language, workplace culture, etiquette and IT training, alongside EWU teaching assistance. Selected by batchmates for the Giver Award for sustained peer support.",
-    kind: "TRAINING",
-  },
-  {
     period: "FEB 2025 — PRESENT",
     organization: "Commure BD (formerly Augmedix BD)",
     role: "Senior Data Automations Analyst",
     detail:
       "Promoted to Senior in March 2026. Automation architecture, healthcare data workflows, operational reporting, and internal tools. Received the Beast Award (Level 1: NESSIE), recognising an import-error resolver copilot that enabled resolution of approximately 120,000 claims and billable-unsubmitted workflow automation.",
     kind: "PRACTICE",
+  },
+  {
+    period: "JUN — DEC 2024",
+    organization: "B-JET · North South University / University of Miyazaki",
+    role: "Basic and Basic Plus courses completed",
+    detail: "Basic: 3 June–18 October, final exam 95/100. Basic Plus: 21 October–6 December, final exam 96.8/100. Japanese language, workplace culture, etiquette and IT training, alongside EWU teaching assistance. Selected by batchmates for the Giver Award for sustained peer support.",
+    kind: "TRAINING",
   },
   {
     period: "APR 2022 — JAN 2025",
