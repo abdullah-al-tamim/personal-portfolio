@@ -6,9 +6,8 @@ export default function FlowBackground({ paused }) {
   const ref = useRef(null);
   useEffect(() => {
     const canvas = ref.current,
-      host = canvas?.parentElement,
       ctx = canvas?.getContext("2d");
-    if (!ctx || !host) return;
+    if (!ctx || !canvas) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const fine = matchMedia("(hover: hover) and (pointer: fine)");
     let width = 0,
@@ -16,7 +15,6 @@ export default function FlowBackground({ paused }) {
       frame = 0,
       last = 0,
       time = 0,
-      visible = true,
       points = [];
     const pointer = { x: 0, y: 0, active: false };
     const focus = { x: 0, y: 0 },
@@ -24,7 +22,7 @@ export default function FlowBackground({ paused }) {
     const colors = ["#723bfa", "#9870ff", "#b9f500", "#723bfa", "#b9f500"];
     function draw(now = 0) {
       frame = 0;
-      const moving = !paused && !reduced.matches && visible && !document.hidden;
+      const moving = !paused && !reduced.matches && !document.hidden;
       const dt = moving ? Math.min(now - last || 16, 32) / 1000 : 0;
       last = now;
       time += dt;
@@ -46,13 +44,13 @@ export default function FlowBackground({ paused }) {
       const radius = Math.min(width * 0.17, height * 0.15, 110);
       for (const p of points) {
         const a = surfacePoint(p.x, p.y, focus, trail, time, radius);
-        // Fade only at the hero's lower boundary; never cover sections below it.
-        const fade = Math.min(1, Math.max(0, (height - a.y) / (height * 0.18)));
-        ctx.globalAlpha = a.alpha * fade;
+        ctx.globalAlpha = a.alpha;
         ctx.fillStyle =
           a.depth > 0.09
             ? colors[Math.min(4, Math.floor(a.hue * 5))]
             : "#91859f";
+        ctx.shadowColor = ctx.fillStyle;
+        ctx.shadowBlur = a.depth > 0.09 ? 12 : 0;
         ctx.save();
         ctx.translate(a.x, a.y);
         ctx.rotate(a.angle);
@@ -77,8 +75,8 @@ export default function FlowBackground({ paused }) {
       draw();
     }
     function resize() {
-      width = host.clientWidth;
-      height = Math.min(host.clientHeight, innerHeight * 1.05);
+      width = document.documentElement.clientWidth;
+      height = window.innerHeight;
       const dpr = Math.min(devicePixelRatio || 1, 2);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
@@ -104,23 +102,16 @@ export default function FlowBackground({ paused }) {
     }
     function move(e) {
       if (paused || reduced.matches || !fine.matches) return;
-      const rect = host.getBoundingClientRect();
-      pointer.x = e.clientX - rect.left;
-      pointer.y = Math.min(height, Math.max(0, e.clientY - rect.top));
-      pointer.active = e.clientY - rect.top <= height;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.active = true;
     }
     function leave() {
       pointer.active = false;
     }
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(host);
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      refresh();
-    });
-    observer.observe(host);
-    host.addEventListener("pointermove", move, { passive: true });
-    host.addEventListener("pointerleave", leave);
+    window.addEventListener("pointermove", move, { passive: true });
+    document.documentElement.addEventListener("pointerleave", leave);
+    window.addEventListener("blur", leave);
     window.addEventListener("resize", resize);
     document.addEventListener("visibilitychange", refresh);
     reduced.addEventListener("change", refresh);
@@ -128,10 +119,9 @@ export default function FlowBackground({ paused }) {
     resize();
     return () => {
       cancelAnimationFrame(frame);
-      resizeObserver.disconnect();
-      observer.disconnect();
-      host.removeEventListener("pointermove", move);
-      host.removeEventListener("pointerleave", leave);
+      window.removeEventListener("pointermove", move);
+      document.documentElement.removeEventListener("pointerleave", leave);
+      window.removeEventListener("blur", leave);
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", refresh);
       reduced.removeEventListener("change", refresh);

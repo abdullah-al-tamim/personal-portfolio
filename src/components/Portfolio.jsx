@@ -71,6 +71,7 @@ export default function Portfolio() {
   }
   return (
     <div className={`${s.portfolio} ${pause ? "motion-paused" : ""}`}>
+      <FlowBackground paused={pause} />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -115,7 +116,6 @@ export default function Portfolio() {
       </header>
       <main id="main">
         <section id="home" className={s.hero}>
-          <FlowBackground paused={pause} />
           <div className={s.heroCopy}>
             <p className={s.eyebrow}>
               <span className={s.dot} /> A CURIOUS MIND. A PRACTICAL APPROACH.
