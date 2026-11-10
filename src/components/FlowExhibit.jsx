@@ -19,6 +19,8 @@ export default function FlowExhibit({ paused = false }) {
   const host = useRef(null);
   const [replay, setReplay] = useState(0);
   const [stopped, setStopped] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const inView = useRef(false);
 
   useEffect(() => {
     const element = host.current;
@@ -35,7 +37,12 @@ export default function FlowExhibit({ paused = false }) {
     };
     const observer = new IntersectionObserver(
       ([entry]) => {
-        visible = entry.isIntersecting;
+        visible = entry.isIntersecting && entry.intersectionRatio >= 0.2;
+        if (visible && !inView.current && !paused && !stopped && !reduced.matches) {
+          setReplay((value) => value + 1);
+          setCompleted(false);
+        }
+        inView.current = visible;
         update();
       },
       { threshold: 0.2 },
@@ -62,16 +69,17 @@ export default function FlowExhibit({ paused = false }) {
         <span className="micro">FIG. 01 / FROM FRAGMENT TO FLOW</span>
         <div className={styles.controls}>
           <button
-            disabled={paused}
+            disabled={paused || completed}
             aria-pressed={stopped || paused}
             onClick={() => setStopped(!stopped)}
           >
-            {paused ? "Motion paused" : stopped ? "Play" : "Pause"}
+            {paused ? "Motion paused" : completed ? "Complete" : stopped ? "Play" : "Pause"}
           </button>
           <button
             disabled={paused}
             onClick={() => {
-              setReplay(replay + 1);
+              setReplay((value) => value + 1);
+              setCompleted(false);
               setStopped(false);
             }}
           >
@@ -79,7 +87,9 @@ export default function FlowExhibit({ paused = false }) {
           </button>
         </div>
       </div>
-      <div key={replay} className={styles.sequence}>
+      <div key={replay} className={styles.sequence} onAnimationEnd={(event) => {
+        if (event.target.dataset.finish === "true") setCompleted(true);
+      }}>
         <svg className={styles.scene} viewBox="0 0 1000 300" aria-hidden="true">
           <g className={styles.grid}>
             {Array.from({ length: 120 }, (_, i) => (

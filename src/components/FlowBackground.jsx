@@ -44,13 +44,14 @@ export default function FlowBackground({ paused }) {
       const radius = Math.min(width * 0.17, height * 0.15, 110);
       for (const p of points) {
         const a = surfacePoint(p.x, p.y, focus, trail, time, radius);
-        ctx.globalAlpha = a.alpha;
+        const neon = p.neon;
+        ctx.globalAlpha = neon ? Math.max(0.55, a.alpha) : a.alpha;
         ctx.fillStyle =
           a.depth > 0.09
             ? colors[Math.min(4, Math.floor(a.hue * 5))]
-            : "#91859f";
+            : neon ? p.color : "#91859f";
         ctx.shadowColor = ctx.fillStyle;
-        ctx.shadowBlur = a.depth > 0.09 ? 12 : 0;
+        ctx.shadowBlur = a.depth > 0.09 ? 12 : neon ? 5 : 0;
         ctx.save();
         ctx.translate(a.x, a.y);
         ctx.rotate(a.angle);
@@ -58,8 +59,8 @@ export default function FlowBackground({ paused }) {
         ctx.ellipse(
           0,
           0,
-          a.size,
-          Math.max(0.22, a.size * 0.43),
+          neon ? Math.max(0.85, a.size) : a.size,
+          Math.max(neon ? 0.5 : 0.22, a.size * 0.43),
           0,
           0,
           Math.PI * 2,
@@ -92,6 +93,8 @@ export default function FlowBackground({ paused }) {
           const seed = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
           const jitter = seed - Math.floor(seed);
           points.push({
+            neon: jitter > 0.72,
+            color: jitter > 0.86 ? "#b9f500" : "#9870ff",
             x: x + (jitter - 0.5) * spacing * 0.65,
             y: y + Math.sin(seed) * 0.5 * spacing * 0.65,
           });
