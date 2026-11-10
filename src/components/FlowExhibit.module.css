@@ -40,7 +40,7 @@
   opacity: 0.5;
 }
 .record {
-  animation: collect 14s cubic-bezier(0.22, 0.8, 0.2, 1) 1 both;
+  animation: collect 14s cubic-bezier(0.22, 0.8, 0.2, 1) infinite both;
 }
 .card {
   fill: #2b2538;
@@ -57,17 +57,17 @@
   animation-name: separate;
 }
 .exception .mark {
-  animation: flag 14s linear 1 both;
+  animation: flag 14s linear infinite both;
 }
 .scan {
   color: var(--flow-green);
-  animation: scan 14s linear 1 both;
+  animation: scan 14s linear infinite both;
 }
 .review {
   fill: none;
   stroke: #bba1ff;
   stroke-width: 1.5;
-  animation: review 14s ease 1 both;
+  animation: review 14s ease infinite both;
 }
 .review text {
   fill: #bba1ff;
@@ -78,7 +78,7 @@
   letter-spacing: 0.08em;
 }
 .result {
-  animation: result 14s var(--ease) 1 both;
+  animation: result 14s var(--ease) infinite both;
 }
 .resultPanel {
   fill: #24212d;
@@ -119,7 +119,7 @@
   align-items: baseline;
   gap: 30px;
   opacity: 0;
-  animation: caption 14s steps(1, end) 1 both;
+  animation: caption 14s steps(1, end) infinite both;
 }
 .caption strong {
   font-size: clamp(20px, 2.2vw, 30px);
