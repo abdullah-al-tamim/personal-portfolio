@@ -190,7 +190,7 @@ export default function FlowExhibit({ paused = false }) {
         </div>
       </div>
       <figcaption className={styles.note}>
-        Illustrative pipeline: organize 18 synthetic records, flag one
+        Illustrative pipeline: organise 18 synthetic records, flag one
         exception, and prepare 17 for use.
       </figcaption>
     </figure>

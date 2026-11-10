@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 export const alt =
-  "Abdullah Al Tamim — Order from complexity. Data automation and operational intelligence.";
+  "Abdullah Al Tamim: Making data useful. Making life easier.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default function OpenGraphImage() {
@@ -11,8 +11,8 @@ export default function OpenGraphImage() {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        background: "#f0f1ed",
-        color: "#202522",
+        background: "#15131b",
+        color: "#f3f1f7",
         padding: "55px 65px",
         fontFamily: "sans-serif",
       }}
@@ -26,33 +26,33 @@ export default function OpenGraphImage() {
         }}
       >
         <span>ABDULLAH AL TAMIM</span>
-        <span>DATA AUTOMATION / SYSTEMS</span>
+        <span>DATA / AI / USEFUL SYSTEMS</span>
       </div>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          fontSize: 110,
+          fontSize: 88,
           lineHeight: 1.03,
-          letterSpacing: -6,
+          letterSpacing: -4,
           marginTop: 80,
         }}
       >
-        <span>Order from</span>
-        <span style={{ marginLeft: 170 }}>complexity.</span>
+        <span>Making data useful.</span>
+        <span style={{ marginLeft: 0 }}>Making life easier.</span>
       </div>
       <div
         style={{
           display: "flex",
           marginTop: 45,
-          borderTop: "1px solid #aab2a6",
+          borderTop: "1px solid #51445f",
           paddingTop: 28,
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
         <span style={{ fontSize: 20 }}>
-          Engineering that moves work forward.
+          Research, code, and the people it helps.
         </span>
         <div style={{ display: "flex", gap: 8 }}>
           {Array.from({ length: 14 }, (_, i) => (
@@ -61,7 +61,7 @@ export default function OpenGraphImage() {
               style={{
                 height: 8,
                 width: 20,
-                background: i % 4 === 0 ? "#c63920" : "#202522",
+                background: i % 4 === 0 ? "#b9f500" : "#f3f1f7",
                 transform: `translateY(${i < 7 ? ((i % 3) - 1) * 13 : 0}px)`,
               }}
             />

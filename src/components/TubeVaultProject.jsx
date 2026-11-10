@@ -2,11 +2,11 @@ export default function TubeVaultProject() {
   return (
     <article className="tubevault-project" id="tubevault">
       <div className="tubevault-copy">
-        <p className="micro">04 / PERSONAL SOFTWARE PROJECT</p>
+        <p className="micro">PERSONAL SOFTWARE / IN DEVELOPMENT</p>
         <h3>
           TubeVault<span className="accent">.</span>
         </h3>
-        <p className="tubevault-tagline">Your footage. An organized flow.</p>
+        <p className="tubevault-tagline">Your footage. An organised flow.</p>
         <p>
           A Windows video archive that discovers files, skips duplicates, and
           manages resumable YouTube uploads through a React dashboard.

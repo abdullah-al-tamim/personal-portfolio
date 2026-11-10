@@ -48,10 +48,7 @@ export default function ContactForm() {
           Tell me what
           <br /> you have in mind.
         </h3>
-        <p>
-          A technical challenge, a research question, or a conversation worth
-          starting.
-        </p>
+        <p>Research, graduate study, software, or a shared interest.</p>
       </div>
       <form
         onSubmit={submit}
