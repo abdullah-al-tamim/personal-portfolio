@@ -14,9 +14,9 @@ const mono = localFont({
 });
 export const metadata = {
   metadataBase: new URL("https://abdullah-al-tamim.vercel.app"),
-  title: "Abdullah Al Tamim | Data Automation & Analytics, Bangladesh",
+  title: "Abdullah Al Tamim | Data, AI & Useful Systems",
   description:
-    "Abdullah Al Tamim, Senior Data Automations Analyst in Dhaka, Bangladesh. Python automation, SQL data engineering, Retool workflows and applied AI research.",
+    "Abdullah Al Tamim: computer science graduate, builder and published research co-author. Exploring data science, AI and data engineering through research and useful software.",
   authors: [
     { name: "Abdullah Al Tamim", url: "https://abdullah-al-tamim.vercel.app" },
   ],
@@ -25,9 +25,9 @@ export const metadata = {
   verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined },
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Abdullah Al Tamim | Data Automation & Analytics, Bangladesh",
+    title: "Abdullah Al Tamim | Data, AI & Useful Systems",
     description:
-      "Explore Abdullah Al Tamim’s automation engineering, data analytics and applied AI work from Dhaka, Bangladesh.",
+      "Research, useful software and the person behind the work. Explore Abdullah Al Tamim’s interests in data, AI and engineering.",
     url: "/",
     type: "website",
     locale: "en_BD",
@@ -35,7 +35,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abdullah Al Tamim | Data Automation & Analytics, Bangladesh",
+    title: "Abdullah Al Tamim | Data, AI & Useful Systems",
     description: "Automation, analytics, and research.",
     images: ["/opengraph-image"],
   },

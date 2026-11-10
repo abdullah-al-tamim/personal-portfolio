@@ -14,7 +14,7 @@ export const profileSchema = {
       "@type": "ProfilePage",
       "@id": origin + "/#profile",
       url: origin,
-      name: "Abdullah Al Tamim — Data Automation & Analytics in Bangladesh",
+      name: "Abdullah Al Tamim: Data, AI & Useful Systems",
       isPartOf: { "@id": origin + "/#website" },
       mainEntity: { "@id": origin + "/#person" },
     },
@@ -26,7 +26,7 @@ export const profileSchema = {
       image: origin + "/images/abdullah-al-tamim.png",
       jobTitle: "Senior Data Automations Analyst",
       description:
-        "Data automation, operational analytics and workflow engineering professional based in Dhaka, Bangladesh.",
+        "Computer science graduate based in Dhaka, exploring data, AI and software through research and practical systems.",
       homeLocation: { "@type": "Place", name: "Dhaka, Bangladesh" },
       alumniOf: {
         "@type": "CollegeOrUniversity",

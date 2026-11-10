@@ -42,7 +42,8 @@ export default function FlowBackground({ paused }) {
       trail.x += (focus.x - trail.x) * lag;
       trail.y += (focus.y - trail.y) * lag;
       ctx.clearRect(0, 0, width, height);
-      const radius = Math.min(width * 0.34, height * 0.3);
+      // Keep the breathing bubble compact around the pointer.
+      const radius = Math.min(width * 0.17, height * 0.15, 110);
       for (const p of points) {
         const a = surfacePoint(p.x, p.y, focus, trail, time, radius);
         // Fade only at the hero's lower boundary; never cover sections below it.

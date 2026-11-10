@@ -5,8 +5,8 @@ export default function Home() {
     <>
       <noscript>
         <nav className="no-js-nav" aria-label="Navigation without JavaScript">
-          <a href="#work">Work</a>
           <a href="#research">Research</a>
+          <a href="#work">Projects</a>
           <a href="#about">Profile</a>
           <a href="#cv">CV downloads</a>
           <a href="#contact">Contact</a>

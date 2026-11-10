@@ -70,7 +70,7 @@ export default async function CaseStudy({ params }) {
         </section>
       ))}
       <p className="case-note">
-        An anonymized account of professional work. No patient data, proprietary
+        An anonymised account of professional work. No patient data, proprietary
         code or internal links are published.
       </p>
       <Link className="text-link" href={"/#" + slug}>
