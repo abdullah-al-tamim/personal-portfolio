@@ -37,7 +37,7 @@ The original CV URLs redirect to current PDFs. Downloads use local PDF files and
 
 ## Content rules
 
-Career content was reconciled against the CV review and direct confirmations on 12 October 2026. Employment began February 2025; Senior promotion was March 2026. Graduation was June 2024. Teaching assistance ran April 2022–May 2024.
+Career content was reconciled against the CV review and direct confirmations on 12 October 2026. Employment began February 2025; Senior promotion was March 2026. Graduation was June 2024. Teaching assistance ran April 2022–January 2025.
 
 Keep the 2025 period attached to impact metrics. Approximately 70 team hours/week is an estimate. $10M+ refers to tracked claims value supported, not revenue recovered. Preserve shared ownership of the eClinicalWorks project. The EEG thesis is unpublished; do not restore the earlier accuracy claim. Publication contribution is preprocessing, training, and writing.
 
@@ -51,7 +51,7 @@ The October 2026 Systems Atlas redesign replaces the previous portrait-led hero 
 
 ## Original media archive
 
-The project archive reuses the existing EEG, face attendance, and railway reservation GIF recordings with explicit play/stop controls. They are not downloaded or animated before a visitor chooses to play. The global motion control stops them too. The credentials gallery retains six original certificate images, including the time-series course that previously existed only as an unused asset. Titles and dates were checked against the certificate images. Original portrait/sticker and stock assets remain in Git history; none is used in the redesigned page.
+The project archive reuses the existing EEG, face attendance, and railway reservation GIF recordings with explicit play/stop controls. They are not downloaded or animated before a visitor chooses to play. The global motion control stops them too. The credentials gallery includes the verified 16 November 2026 HackerRank SQL (Advanced) certificate (ID 32A7B6D22633) and Microsoft Learn *Integrate MCP Tools with Azure AI Agents* achievement, plus previous certificates. New credential metadata is published without uploading the original PDFs or inventing public verification URLs. Titles and dates were checked against the certificate images. Original portrait/sticker and stock assets remain in Git history; none is used in the redesigned page.
 
 ## Contact form configuration
 
@@ -81,3 +81,8 @@ changing the public portfolio. It requires Supabase configuration and an approve
 owner account; it contains no demo/private data and no autonomous external actions.
 See [Study Hub documentation](docs/study-hub/README.md) for architecture, migrations,
 setup, capability limits and validation.
+
+
+## November 2026 certification updates
+
+The portfolio credentials gallery and skills copy include HackerRank SQL (Advanced), earned 16 November 2026 (credential ID `32A7B6D22633`), and Microsoft Learn *Integrate MCP Tools with Azure AI Agents*, completed 16 November 2026. Microsoft Learn completion is distinct from a Microsoft role-based certification. Existing public CV PDFs remain snapshots until the updated private resume-repository RenderCV outputs are generated and synchronized.
