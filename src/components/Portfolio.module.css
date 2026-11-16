@@ -82,7 +82,7 @@
   padding: 10px 0;
 }
 .portfolio :is(section, article)[id] {
-  scroll-margin-top: 110px;
+  scroll-margin-top: 0;
 }
 .header {
   display: flex;
@@ -102,6 +102,7 @@
   z-index: 30;
 }
 .wordmark {
+  min-height: 44px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -122,10 +123,9 @@
 .nav a {
   padding: 10px 14px;
   border-radius: 14px;
-  transition: background 0.2s;
 }
 .nav a:hover {
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--accent);
 }
 .cvButton {
   font-size: 12px;
@@ -1285,3 +1285,32 @@
     scroll-behavior: auto !important;
   }
 }
+
+.background p.institution, .credentialsWrap :global(.issuer-row) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.credentialsWrap :global(.more-credentials li) > span[aria-hidden] { margin-inline-end: 5px; }
+.identityCard > svg { width: 28px; height: 28px; }
+.current svg { margin-inline-end: 5px; }
+.documentLink > span:first-child { display: flex; align-items: center; gap: 10px; }
+.contactLinks button { min-width: 44px; min-height: 44px; }
+
+.nav a { display: inline-flex; align-items: center; gap: .4em; }
+.nav a[aria-current="location"] {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: .4em;
+}
+.foundation strong svg, .interests h3 svg, .impact span svg {
+  width: 1.1em;
+  height: 1.1em;
+  margin-inline-end: .2em;
+}
+
+.aboutTitle { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 24px !important; }
+.personalNote > p:nth-child(2) { font-size: 18px; margin: 10px 0 0; letter-spacing: normal; }
+.outcomes { padding-inline-start: 1.25em; color: var(--muted); }
+.outcomes li + li { margin-top: .5em; }
+.outcomes strong { color: var(--ink); }

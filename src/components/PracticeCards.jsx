@@ -92,7 +92,7 @@ function PracticeCard({ practice, paused }) {
   const host = useRef(null);
   const canvas = useRef(null);
   const savedProgress = useRef(0);
-  const elapsed = useRef(0);
+
   useEffect(() => {
     const anchor = host.current,
       surface = canvas.current,
@@ -106,18 +106,13 @@ function PracticeCard({ practice, paused }) {
       frame = 0,
       last = 0,
       progress = savedProgress.current,
-      hovered = anchor.matches(":hover"),
-      focused = document.activeElement === anchor,
       visible = false;
     let pointer = null;
-    const desired = () =>
-      reduced.matches || hovered || focused || elapsed.current % 8 < 5 ? 1 : 0;
     function draw(now = 0) {
       frame = 0;
-      const dt = Math.min((now - last || 16) / 1000, 0.04);
+      const dt = last && now ? Math.min(Math.max(0, now - last) / 1000, 0.04) : 0;
       last = now;
-      if (!paused && !reduced.matches) elapsed.current += dt;
-      const target = desired();
+      const target = 1;
       if (reduced.matches) progress = 1;
       else if (!paused)
         progress += (target - progress) * (1 - Math.exp(-5 * dt));
@@ -146,7 +141,7 @@ function PracticeCard({ practice, paused }) {
         ctx.arc(x, y, (0.7 + 0.55 * progress) * scale, 0, Math.PI * 2);
         ctx.fill();
       });
-      if (visible && !document.hidden && !paused && !reduced.matches)
+      if (progress < 1 && visible && !document.hidden && !paused && !reduced.matches)
         frame = requestAnimationFrame(draw);
     }
     function refresh() {
@@ -164,32 +159,30 @@ function PracticeCard({ practice, paused }) {
       refresh();
     }
     const enter = () => {
-      hovered = true;
+      if (visible && fine.matches && !paused && !reduced.matches) progress = 0;
       refresh();
     };
     const leave = () => {
-      hovered = false;
       pointer = null;
       refresh();
     };
     const focus = () => {
-      focused = true;
+      if (visible && !paused && !reduced.matches) progress = 0;
       refresh();
     };
     const blur = () => {
-      focused = false;
       refresh();
     };
     const move = (event) => {
       if (!fine.matches || paused || reduced.matches) return;
       const r = surface.getBoundingClientRect();
       pointer = { x: event.clientX - r.left, y: event.clientY - r.top };
-      refresh();
+      if (!frame && visible && !document.hidden) draw(performance.now());
     };
     const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
+      visible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
       refresh();
-    });
+    }, { threshold: 0.25 });
     observer.observe(anchor);
     const resizer = new ResizeObserver(resize);
     resizer.observe(surface);

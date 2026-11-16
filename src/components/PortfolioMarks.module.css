@@ -1,0 +1,28 @@
+.icon {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: -0.2em;
+  color: var(--accent);
+  flex: none;
+}
+.mark {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: #24212b;
+  vertical-align: middle;
+  flex: none;
+}
+.mark[data-file="ewu.png"] img {
+  filter: brightness(0) invert(.88);
+}
+.mark img {
+  display: block;
+  width: 34px;
+  height: 26px;
+  object-fit: contain;
+}

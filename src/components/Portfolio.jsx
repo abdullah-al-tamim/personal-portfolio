@@ -12,7 +12,7 @@ import FlowBackground from "@/components/FlowBackground";
 import FlowExhibit from "@/components/FlowExhibit";
 import PracticeCards from "@/components/PracticeCards";
 import TubeVaultProject from "@/components/TubeVaultProject";
-import Monogram from "@/components/Monogram";
+import { Icon, OrganizationMark } from "./PortfolioMarks";
 const nav = [
   ["research", "Research"],
   ["work", "Projects"],
@@ -47,6 +47,33 @@ export default function Portfolio() {
   const [reduced, setReduced] = useState(false);
   const [copied, setCopied] = useState("");
   const menuButton = useRef(null);
+  const [activeSection, setActiveSection] = useState("");
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll("[data-nav-section]"));
+    let frame = 0;
+    function update() {
+      frame = 0;
+      const line = (menuButton.current?.closest("header")?.getBoundingClientRect().bottom ?? 80) + 32;
+      let current = "";
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top > line) break;
+        current = section.dataset.navSection;
+      }
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) current = "contact";
+      setActiveSection(current);
+    }
+    function schedule() {
+      if (!frame) frame = requestAnimationFrame(update);
+    }
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
   const pause = paused || reduced;
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -81,8 +108,7 @@ export default function Portfolio() {
           className={s.wordmark}
           aria-label="Abdullah Al Tamim: home"
         >
-          <Monogram />
-          <span>Abdullah Al Tamim</span>
+          Abdullah Al Tamim
         </a>
         <nav
           id="main-navigation"
@@ -96,7 +122,8 @@ export default function Portfolio() {
           }}
         >
           {nav.map(([id, label]) => (
-            <a key={id} href={`#${id}`} onClick={() => setMenu(false)}>
+            <a key={id} href={`#${id}`} aria-current={activeSection === id ? "location" : undefined} onClick={() => setMenu(false)}>
+                <Icon name={id === "work" ? "projects" : id} />
               {label}
             </a>
           ))}
@@ -117,9 +144,6 @@ export default function Portfolio() {
       <main id="main">
         <section id="home" className={s.hero}>
           <div className={s.heroCopy}>
-            <p className={s.eyebrow}>
-              <span className={s.dot} /> A CURIOUS MIND. A PRACTICAL APPROACH.
-            </p>
             <p className={s.introduction}>Hello, I’m Tamim.</p>
             <h1>
               Making data useful.
@@ -128,8 +152,7 @@ export default function Portfolio() {
             </h1>
             <p className={s.heroDescription}>
               I love building systems that solve real problems and that people
-              enjoy using. My work and curiosity meet across data, AI, and
-              software development.
+              enjoy using.
             </p>
             <div className={s.actions}>
               <a className={s.primaryButton} href="#research">
@@ -140,10 +163,10 @@ export default function Portfolio() {
               </a>
             </div>
             <p className={s.current}>
-              <span>Currently</span> Senior Data Automations Analyst at Commure
+              <Icon name="work" /> Senior Data Automations Analyst at Commure
               BD.
               <br />
-              <span>Next</span> Preparing for master’s study in data and AI.
+              <Icon name="study" /> Preparing for master’s study in data and AI.
             </p>
           </div>
           <figure className={s.portrait}>
@@ -158,18 +181,12 @@ export default function Portfolio() {
               />
             </div>
             <figcaption>
-              <span>DHAKA, BANGLADESH</span>
-              <span>
-                Always learning <Arrow />
-              </span>
+              <span><Icon name="pin" /> Dhaka, Bangladesh</span>
             </figcaption>
           </figure>
           <aside className={s.heroAside}>
             <a className={s.identityCard} href="#research">
-              <span className={s.cardGlyph} aria-hidden="true">
-                ⌁
-              </span>
-              <p className={s.eyebrow}>RESEARCH & CURIOSITY</p>
+              <Icon name="signal" />
               <h2>
                 Images. Signals.
                 <br />
@@ -184,7 +201,7 @@ export default function Portfolio() {
               </span>
             </a>
             <a className={s.identityCard} href="#about">
-              <p className={s.eyebrow}>BASED IN DHAKA / LOOKING AHEAD</p>
+              <Icon name="study" />
               <h2>
                 Always
                 <br />
@@ -204,27 +221,27 @@ export default function Portfolio() {
           <FlowExhibit paused={pause} />
         </div>
         <div
-          className={s.foundation}
+          className={s.foundation} data-nav-section="research"
           aria-label="Academic and teaching background"
         >
           <div>
-            <strong>Computer Science</strong>
+            <strong><Icon name="study" /> Computer Science</strong>
             <span>BSc, East West University</span>
           </div>
           <div>
-            <strong>3.88 / 4.00</strong>
+            <strong><Icon name="award" /> 3.88 / 4.00</strong>
             <span>Magna Cum Laude</span>
           </div>
           <div>
-            <strong>IEEE COMPAS 2024</strong>
+            <strong><Icon name="paper" /> IEEE COMPAS 2024</strong>
             <span>Co-authored conference paper</span>
           </div>
           <div>
-            <strong>Teaching & peer support</strong>
+            <strong><Icon name="teach" /> Teaching & peer support</strong>
             <span>Teaching assistance across six courses</span>
           </div>
         </div>
-        <section id="research" className={s.section}>
+        <section id="research" data-nav-section="research" className={s.section}>
           <SectionTitle
             number="01"
             label="RESEARCH & DIRECTION"
@@ -255,22 +272,14 @@ export default function Portfolio() {
                   </div>
                   <h3>
                     {i === 0
-                      ? "Recognising microorganisms in images"
-                      : "Exploring touch through brain signals"}
+                      ? "Unveiling Microorganism Diversity through Neural Network-driven Classification"
+                      : "Decoding Object Shapes from EEG Signals of the Brain"}
                   </h3>
                   <p className={s.paperQuestion}>{p.description}</p>
                   <div className={s.paperBody}>
                     <p className={s.eyebrow}>MY CONTRIBUTION & CONTEXT</p>
                     <p>{p.details}</p>
                   </div>
-                  <details className={s.details}>
-                    <summary>Full research title</summary>
-                    <p>
-                      {i === 0
-                        ? "Unveiling Microorganism Diversity through Neural Network-driven Classification"
-                        : "Decoding Object Shapes from EEG Signals of the Brain"}
-                    </p>
-                  </details>
                   <a
                     className={s.inlineLink}
                     href={p.href}
@@ -286,21 +295,21 @@ export default function Portfolio() {
           <div className={s.interests}>
             <p className={s.eyebrow}>WHAT I WANT TO EXPLORE NEXT</p>
             <div>
-              <h3>Learning from data</h3>
+              <h3><Icon name="chart" /> Learning from data</h3>
               <p>
                 Data science, artificial intelligence, analysis and business
                 intelligence.
               </p>
             </div>
             <div>
-              <h3>Building with data</h3>
+              <h3><Icon name="database" /> Building with data</h3>
               <p>
                 Data engineering and big data: the foundations behind useful
                 applications.
               </p>
             </div>
             <div>
-              <h3>Putting it to work</h3>
+              <h3><Icon name="workflow" /> Putting it to work</h3>
               <p>
                 Software development and workflow automation that solve everyday
                 problems.
@@ -308,7 +317,7 @@ export default function Portfolio() {
             </div>
           </div>
         </section>
-        <section id="work" className={`${s.section} ${s.workSection}`}>
+        <section id="work" data-nav-section="work" className={`${s.section} ${s.workSection}`}>
           <SectionTitle
             number="02"
             label="SELECTED PROJECTS"
@@ -320,18 +329,13 @@ export default function Portfolio() {
               </>
             }
           >
-            From healthcare data workflows to personal software. A selection of
-            problems I’ve worked on, with the decisions and contributions behind
-            them.
+            Personal software and tools I’ve built with healthcare operations teams.
           </SectionTitle>
           <TubeVaultProject />
           <div className={s.workIntro}>
             <p className={s.eyebrow}>PROFESSIONAL PRACTICE / COMMURE BD</p>
             <p>
-              In healthcare operations, records from electronic health record
-              systems need to reach downstream billing workflows accurately. My
-              work helps teams find gaps, investigate errors and reduce repeated
-              manual work.
+              I help billing teams find missing records and investigate import errors.
             </p>
           </div>
           <div className={s.workGrid}>
@@ -364,15 +368,15 @@ export default function Portfolio() {
             <p className={s.eyebrow}>2025 / REPORTED IMPACT</p>
             <div>
               <strong>20+</strong>
-              <span>Workflows built</span>
+              <span><Icon name="workflow" /> Workflows built</span>
             </div>
             <div>
               <strong>~70 h</strong>
-              <span>Estimated team time saved / week</span>
+              <span><Icon name="clock" /> Estimated team time saved / week</span>
             </div>
             <div>
               <strong>$10M+</strong>
-              <span>Tracked claims value supported</span>
+              <span><Icon name="ledger" /> Tracked claims value supported</span>
             </div>
             <p className={s.note}>
               Time saving is an estimate, not a measured time study. Claims
@@ -382,37 +386,14 @@ export default function Portfolio() {
             </p>
           </div>
         </section>
-        <section id="about" className={s.section}>
-          <SectionTitle
-            number="03"
-            label="A LITTLE ABOUT ME"
-            title={
-              <>
-                The problem matters.
-                <br />
-                <em>So do the people.</em>
-              </>
-            }
-          />
+        <section id="about" data-nav-section="about" className={s.section}>
+          <h2 className={s.aboutTitle}>About me</h2>
           <div className={s.aboutGrid}>
             <div className={s.personalCopy}>
               <p>
-                I’m Abdullah Al Tamim, a computer science graduate from East
-                West University, based in Dhaka. I enjoy the whole process of
-                building: understanding a problem, working with the data, and
-                developing something people find useful.
-              </p>
-              <p>
-                That interest isn’t limited to large projects. I wrote a small
-                script to automate the weekly food-ordering task at work and
-                added colleagues who wanted to use it. Their appreciation is
-                part of what I enjoy about making things.
-              </p>
-              <p>
-                I’m preparing for master’s study, with interests spanning data
-                science and AI, data engineering, analytics and business
-                intelligence. I want to keep developing the knowledge behind the
-                systems I build.
+                I’m a computer science graduate in Dhaka. I like building tools
+                people choose to use. A small example is the script I wrote for
+                our weekly food orders at work. Colleagues asked to use it too.
               </p>
               <a
                 className={s.inlineLink}
@@ -424,12 +405,9 @@ export default function Portfolio() {
               </a>
             </div>
             <aside className={s.personalNote}>
-              <p className={s.eyebrow}>A THREAD THROUGH MY WORK</p>
-              <p>
-                I love building systems that solve real-life problems and that
-                people enjoy using.
-              </p>
-              <span>From research questions to small, useful scripts.</span>
+              <p className={s.eyebrow}>Graduate study</p>
+              <p>I want to study how to build reliable data pipelines and use
+                their output for analysis and machine learning.</p>
             </aside>
           </div>
           <div className={s.background}>
@@ -446,6 +424,7 @@ export default function Portfolio() {
                       : item.role}
                   </h4>
                   <p className={s.institution}>
+                    <OrganizationMark file={item.kind === "TRAINING" ? "bjet.png" : "ewu.png"} />
                     {item.role === "East West University"
                       ? item.role
                       : item.organization}
@@ -459,48 +438,37 @@ export default function Portfolio() {
               <article>
                 <p className={s.eyebrow}>FEB 2025 – PRESENT</p>
                 <h4>{experience[0].role}</h4>
-                <p className={s.institution}>{experience[0].organization}</p>
-                <p>{experience[0].detail}</p>
-                <p className={s.note}>
-                  Third among 163 contributors to an internal Retool workflow
-                  repository. Repository-specific GitHub snapshot, October 2026;
-                  private source.
-                </p>
+                <p className={s.institution}><OrganizationMark file="commure.png" />{experience[0].organization}</p>
+                <p>Promoted to senior analyst in March 2026.</p>
+                <ul className={s.outcomes}>
+                  <li>An import-error copilot helped the team resolve approximately <strong>120,000 claims</strong>.</li>
+                  <li>Received the Beast Award for the copilot and for automating work on billable claims awaiting submission.</li>
+                </ul>
               </article>
               <article>
-                <p className={s.eyebrow}>TOOLS & METHODS I’VE WORKED WITH</p>
-                <h4>From data to working software</h4>
-                <p>
-                  Python, JavaScript, SQL, PostgreSQL, StarRocks, Retool, APIs,
-                  Playwright and Selenium.
-                </p>
-                <p>
-                  Research experience with computer vision, neural networks, EEG
-                  signal processing, CWT / FFT, YOLOv8 and Random Forest.
-                </p>
+                <h4>How I work with data</h4>
+                <p>I use Python to extract EHR reports and SQL to find missing
+                  encounters. Retool brings those checks into the team’s workflow.</p>
               </article>
             </div>
           </div>
         </section>
-        <div className={s.archiveWrap}>
+        <div className={s.archiveWrap} data-nav-section="work">
           <ProjectArchive motionPaused={pause} />
         </div>
         <section
           className={`${s.section} ${s.practice}`}
           aria-labelledby="practice-title"
         >
-          <p className={s.eyebrow}>TOOLS IN SERVICE OF THE PROBLEM</p>
           <h2 id="practice-title">A connected practice.</h2>
           <PracticeCards paused={pause} />
         </section>
-        <div className={s.credentialsWrap}>
+        <div className={s.credentialsWrap} data-nav-section="about">
           <Credentials />
         </div>
         <section className={`${s.section} ${s.documents}`} id="cv">
           <div>
-            <p className={s.eyebrow}>THE DETAILS, TO TAKE WITH YOU</p>
-            <h2>Continue reading.</h2>
-            <p>Academic background, research and professional experience.</p>
+            <h2>CVs</h2>
           </div>
           <div>
             {[cvs[2], cvs[0]].map((cv, i) => (
@@ -510,11 +478,7 @@ export default function Portfolio() {
                 className={s.documentLink}
               >
                 <span>
-                  <small>
-                    {i === 0
-                      ? "FOR RESEARCH & HIGHER STUDY"
-                      : "FOR PROFESSIONAL CONTEXT"}
-                  </small>
+                  <Icon name={i === 0 ? "study" : "work"} />
                   <strong>
                     {i === 0 ? "Academic CV" : "Data automation CV"}
                   </strong>
@@ -524,7 +488,7 @@ export default function Portfolio() {
             ))}
           </div>
         </section>
-        <section id="contact" className={`${s.section} ${s.contact}`}>
+        <section id="contact" data-nav-section="contact" className={`${s.section} ${s.contact}`}>
           <p className={s.eyebrow}>04 / KEEP IN TOUCH</p>
           <div className={s.contactHeading}>
             <h2>
@@ -541,13 +505,12 @@ export default function Portfolio() {
             <a href="mailto:alltamim.abdullah@gmail.com">
               alltamim.abdullah@gmail.com <Arrow />
             </a>
-            <button onClick={copyEmail}>Copy email</button>
+            <button onClick={copyEmail} aria-label="Copy email address" title="Copy email address"><Icon name="copy" /></button>
             <span role="status">{copied}</span>
           </div>
-          <details className={s.contactDetails}>
-            <summary>Prefer to leave a message here?</summary>
+          <div className={s.contactDetails}>
             <ContactForm />
-          </details>
+          </div>
           <div className={s.socials}>
             <a
               href="https://github.com/abdullah-al-tamim"

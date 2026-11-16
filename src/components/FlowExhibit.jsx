@@ -18,6 +18,7 @@ const stages = [
 export default function FlowExhibit({ paused = false }) {
   const host = useRef(null);
   const [replay, setReplay] = useState(0);
+  const [finished, setFinished] = useState(false);
   const [stopped, setStopped] = useState(false);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function FlowExhibit({ paused = false }) {
     };
     const observer = new IntersectionObserver(
       ([entry]) => {
-        visible = entry.isIntersecting;
+        visible = entry.isIntersecting && entry.intersectionRatio >= 0.2;
         update();
       },
       { threshold: 0.2 },
@@ -62,16 +63,17 @@ export default function FlowExhibit({ paused = false }) {
         <span className="micro">FIG. 01 / FROM FRAGMENT TO FLOW</span>
         <div className={styles.controls}>
           <button
-            disabled={paused}
+            disabled={paused || finished}
             aria-pressed={stopped || paused}
             onClick={() => setStopped(!stopped)}
           >
-            {paused ? "Motion paused" : stopped ? "Play" : "Pause"}
+            {paused ? "Motion paused" : finished ? "Complete" : stopped ? "Play" : "Pause"}
           </button>
           <button
             disabled={paused}
             onClick={() => {
               setReplay(replay + 1);
+              setFinished(false);
               setStopped(false);
             }}
           >
@@ -134,7 +136,7 @@ export default function FlowExhibit({ paused = false }) {
               REVIEW
             </text>
           </g>
-          <g className={styles.result} data-finish="true">
+          <g className={styles.result} data-finish="true" onAnimationEnd={() => setFinished(true)}>
             <rect
               x="225"
               y="38"
