@@ -48,6 +48,33 @@ export default function Portfolio() {
   const [reduced, setReduced] = useState(false);
   const [copied, setCopied] = useState("");
   const menuButton = useRef(null);
+  const [activeSection, setActiveSection] = useState("");
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll("[data-nav-section]"));
+    let frame = 0;
+    function update() {
+      frame = 0;
+      const line = (menuButton.current?.closest("header")?.getBoundingClientRect().bottom ?? 80) + 32;
+      let current = "";
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top > line) break;
+        current = section.dataset.navSection;
+      }
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) current = "contact";
+      setActiveSection(current);
+    }
+    function schedule() {
+      if (!frame) frame = requestAnimationFrame(update);
+    }
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
   const pause = paused || reduced;
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -97,7 +124,8 @@ export default function Portfolio() {
           }}
         >
           {nav.map(([id, label]) => (
-            <a key={id} href={`#${id}`} onClick={() => setMenu(false)}>
+            <a key={id} href={`#${id}`} aria-current={activeSection === id ? "location" : undefined} onClick={() => setMenu(false)}>
+                <Icon name={id === "work" ? "projects" : id} />
               {label}
             </a>
           ))}
@@ -195,27 +223,27 @@ export default function Portfolio() {
           <FlowExhibit paused={pause} />
         </div>
         <div
-          className={s.foundation}
+          className={s.foundation} data-nav-section="research"
           aria-label="Academic and teaching background"
         >
           <div>
-            <strong>Computer Science</strong>
+            <strong><Icon name="study" /> Computer Science</strong>
             <span>BSc, East West University</span>
           </div>
           <div>
-            <strong>3.88 / 4.00</strong>
+            <strong><Icon name="award" /> 3.88 / 4.00</strong>
             <span>Magna Cum Laude</span>
           </div>
           <div>
-            <strong>IEEE COMPAS 2024</strong>
+            <strong><Icon name="paper" /> IEEE COMPAS 2024</strong>
             <span>Co-authored conference paper</span>
           </div>
           <div>
-            <strong>Teaching & peer support</strong>
+            <strong><Icon name="teach" /> Teaching & peer support</strong>
             <span>Teaching assistance across six courses</span>
           </div>
         </div>
-        <section id="research" className={s.section}>
+        <section id="research" data-nav-section="research" className={s.section}>
           <SectionTitle
             number="01"
             label="RESEARCH & DIRECTION"
@@ -246,22 +274,14 @@ export default function Portfolio() {
                   </div>
                   <h3>
                     {i === 0
-                      ? "Recognising microorganisms in images"
-                      : "Exploring touch through brain signals"}
+                      ? "Unveiling Microorganism Diversity through Neural Network-driven Classification"
+                      : "Decoding Object Shapes from EEG Signals of the Brain"}
                   </h3>
                   <p className={s.paperQuestion}>{p.description}</p>
                   <div className={s.paperBody}>
                     <p className={s.eyebrow}>MY CONTRIBUTION & CONTEXT</p>
                     <p>{p.details}</p>
                   </div>
-                  <details className={s.details}>
-                    <summary>Full research title</summary>
-                    <p>
-                      {i === 0
-                        ? "Unveiling Microorganism Diversity through Neural Network-driven Classification"
-                        : "Decoding Object Shapes from EEG Signals of the Brain"}
-                    </p>
-                  </details>
                   <a
                     className={s.inlineLink}
                     href={p.href}
@@ -277,21 +297,21 @@ export default function Portfolio() {
           <div className={s.interests}>
             <p className={s.eyebrow}>WHAT I WANT TO EXPLORE NEXT</p>
             <div>
-              <h3>Learning from data</h3>
+              <h3><Icon name="chart" /> Learning from data</h3>
               <p>
                 Data science, artificial intelligence, analysis and business
                 intelligence.
               </p>
             </div>
             <div>
-              <h3>Building with data</h3>
+              <h3><Icon name="database" /> Building with data</h3>
               <p>
                 Data engineering and big data: the foundations behind useful
                 applications.
               </p>
             </div>
             <div>
-              <h3>Putting it to work</h3>
+              <h3><Icon name="workflow" /> Putting it to work</h3>
               <p>
                 Software development and workflow automation that solve everyday
                 problems.
@@ -299,7 +319,7 @@ export default function Portfolio() {
             </div>
           </div>
         </section>
-        <section id="work" className={`${s.section} ${s.workSection}`}>
+        <section id="work" data-nav-section="work" className={`${s.section} ${s.workSection}`}>
           <SectionTitle
             number="02"
             label="SELECTED PROJECTS"
@@ -355,15 +375,15 @@ export default function Portfolio() {
             <p className={s.eyebrow}>2025 / REPORTED IMPACT</p>
             <div>
               <strong>20+</strong>
-              <span>Workflows built</span>
+              <span><Icon name="workflow" /> Workflows built</span>
             </div>
             <div>
               <strong>~70 h</strong>
-              <span>Estimated team time saved / week</span>
+              <span><Icon name="clock" /> Estimated team time saved / week</span>
             </div>
             <div>
               <strong>$10M+</strong>
-              <span>Tracked claims value supported</span>
+              <span><Icon name="ledger" /> Tracked claims value supported</span>
             </div>
             <p className={s.note}>
               Time saving is an estimate, not a measured time study. Claims
@@ -373,7 +393,7 @@ export default function Portfolio() {
             </p>
           </div>
         </section>
-        <section id="about" className={s.section}>
+        <section id="about" data-nav-section="about" className={s.section}>
           <SectionTitle
             number="03"
             label="A LITTLE ABOUT ME"
@@ -473,7 +493,7 @@ export default function Portfolio() {
             </div>
           </div>
         </section>
-        <div className={s.archiveWrap}>
+        <div className={s.archiveWrap} data-nav-section="work">
           <ProjectArchive motionPaused={pause} />
         </div>
         <section
@@ -483,7 +503,7 @@ export default function Portfolio() {
           <h2 id="practice-title">A connected practice.</h2>
           <PracticeCards paused={pause} />
         </section>
-        <div className={s.credentialsWrap}>
+        <div className={s.credentialsWrap} data-nav-section="about">
           <Credentials />
         </div>
         <section className={`${s.section} ${s.documents}`} id="cv">
@@ -508,7 +528,7 @@ export default function Portfolio() {
             ))}
           </div>
         </section>
-        <section id="contact" className={`${s.section} ${s.contact}`}>
+        <section id="contact" data-nav-section="contact" className={`${s.section} ${s.contact}`}>
           <p className={s.eyebrow}>04 / KEEP IN TOUCH</p>
           <div className={s.contactHeading}>
             <h2>
@@ -528,10 +548,9 @@ export default function Portfolio() {
             <button onClick={copyEmail} aria-label="Copy email address" title="Copy email address"><Icon name="copy" /></button>
             <span role="status">{copied}</span>
           </div>
-          <details className={s.contactDetails}>
-            <summary>Prefer to leave a message here?</summary>
+          <div className={s.contactDetails}>
             <ContactForm />
-          </details>
+          </div>
           <div className={s.socials}>
             <a
               href="https://github.com/abdullah-al-tamim"

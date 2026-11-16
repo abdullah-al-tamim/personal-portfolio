@@ -44,6 +44,7 @@ const demos = [
 const certificates = [
   {
     title: "SQL (Advanced)",
+    href: "https://www.hackerrank.com/certificates/32a7b6d22633",
     issuer: "HackerRank",
     mark: "hackerrank.svg",
     date: "16 November 2026",
@@ -52,12 +53,14 @@ const certificates = [
   },
   {
     title: "Integrate MCP Tools with Azure AI Agents",
+    href: "https://drive.google.com/file/d/1efImAZ9Daf7zA-eVQo7VnEUPNdhVKW2t/view?usp=sharing",
     issuer: "Microsoft Learn",
     mark: "microsoft.png",
     date: "16 November 2026",
   },
   {
     title: "IELTS Academic — Overall 7.5",
+    href: "https://drive.google.com/file/d/1Y_pkmS2e2NOl5CzKzsZyenSIRE669R9Y/view?usp=sharing",
     issuer: "IELTS",
     mark: "ielts.png",
     date: "19 October 2026",
