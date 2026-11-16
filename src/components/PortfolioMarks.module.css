@@ -17,8 +17,8 @@
   vertical-align: middle;
   flex: none;
 }
-.mark[data-file="ewu.png"] {
-  background: #e9e9f1;
+.mark[data-file="ewu.png"] img {
+  filter: brightness(0) invert(.88);
 }
 .mark img {
   display: block;
