@@ -42,6 +42,20 @@ const demos = [
 
 const certificates = [
   {
+    title: "SQL (Advanced)",
+    issuer: "HackerRank",
+    date: "16 November 2026",
+    description:
+      "Passed the SQL (Advanced) skill certification test. Credential ID: 32A7B6D22633.",
+  },
+  {
+    title: "Integrate MCP Tools with Azure AI Agents",
+    issuer: "Microsoft Learn",
+    date: "16 November 2026",
+    description:
+      "Completed Microsoft's learning achievement on integrating Model Context Protocol (MCP) tools with Azure AI agents.",
+  },
+  {
     title: "IELTS Academic — Overall 7.5",
     issuer: "IELTS",
     date: "19 October 2026",
