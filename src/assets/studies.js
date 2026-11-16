@@ -164,12 +164,12 @@ export const disciplines = [
   {
     title: "Data & operations",
     detail:
-      "Advanced SQL, PostgreSQL, StarRocks, reconciliation, data validation, operational dashboards & healthcare revenue cycle automation.",
+      "Advanced SQL (HackerRank certified, November 2026), PostgreSQL, StarRocks, reconciliation, data validation, operational dashboards & healthcare revenue cycle automation.",
   },
   {
     title: "Applied intelligence",
     detail:
-      "Machine learning, computer vision, EEG signal processing, model training & AI-assisted engineering.",
+      "Machine learning, computer vision, EEG signal processing, model training, AI agents & Model Context Protocol (Microsoft Learn achievement, November 2026).",
   },
 ];
 
