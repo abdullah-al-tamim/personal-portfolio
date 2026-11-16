@@ -12,6 +12,7 @@ import FlowBackground from "@/components/FlowBackground";
 import FlowExhibit from "@/components/FlowExhibit";
 import PracticeCards from "@/components/PracticeCards";
 import TubeVaultProject from "@/components/TubeVaultProject";
+import { Icon, OrganizationMark } from "./PortfolioMarks";
 import Monogram from "@/components/Monogram";
 const nav = [
   ["research", "Research"],
@@ -117,9 +118,6 @@ export default function Portfolio() {
       <main id="main">
         <section id="home" className={s.hero}>
           <div className={s.heroCopy}>
-            <p className={s.eyebrow}>
-              <span className={s.dot} /> A CURIOUS MIND. A PRACTICAL APPROACH.
-            </p>
             <p className={s.introduction}>Hello, I’m Tamim.</p>
             <h1>
               Making data useful.
@@ -128,8 +126,7 @@ export default function Portfolio() {
             </h1>
             <p className={s.heroDescription}>
               I love building systems that solve real problems and that people
-              enjoy using. My work and curiosity meet across data, AI, and
-              software development.
+              enjoy using.
             </p>
             <div className={s.actions}>
               <a className={s.primaryButton} href="#research">
@@ -140,10 +137,10 @@ export default function Portfolio() {
               </a>
             </div>
             <p className={s.current}>
-              <span>Currently</span> Senior Data Automations Analyst at Commure
+              <Icon name="work" /> Senior Data Automations Analyst at Commure
               BD.
               <br />
-              <span>Next</span> Preparing for master’s study in data and AI.
+              <Icon name="study" /> Preparing for master’s study in data and AI.
             </p>
           </div>
           <figure className={s.portrait}>
@@ -158,18 +155,12 @@ export default function Portfolio() {
               />
             </div>
             <figcaption>
-              <span>DHAKA, BANGLADESH</span>
-              <span>
-                Always learning <Arrow />
-              </span>
+              <span><Icon name="pin" /> Dhaka, Bangladesh</span>
             </figcaption>
           </figure>
           <aside className={s.heroAside}>
             <a className={s.identityCard} href="#research">
-              <span className={s.cardGlyph} aria-hidden="true">
-                ⌁
-              </span>
-              <p className={s.eyebrow}>RESEARCH & CURIOSITY</p>
+              <Icon name="signal" />
               <h2>
                 Images. Signals.
                 <br />
@@ -184,7 +175,7 @@ export default function Portfolio() {
               </span>
             </a>
             <a className={s.identityCard} href="#about">
-              <p className={s.eyebrow}>BASED IN DHAKA / LOOKING AHEAD</p>
+              <Icon name="study" />
               <h2>
                 Always
                 <br />
@@ -446,6 +437,7 @@ export default function Portfolio() {
                       : item.role}
                   </h4>
                   <p className={s.institution}>
+                    <OrganizationMark file={item.kind === "TRAINING" ? "bjet.png" : "ewu.png"} />
                     {item.role === "East West University"
                       ? item.role
                       : item.organization}
@@ -459,7 +451,7 @@ export default function Portfolio() {
               <article>
                 <p className={s.eyebrow}>FEB 2025 – PRESENT</p>
                 <h4>{experience[0].role}</h4>
-                <p className={s.institution}>{experience[0].organization}</p>
+                <p className={s.institution}><OrganizationMark file="commure.png" />{experience[0].organization}</p>
                 <p>{experience[0].detail}</p>
                 <p className={s.note}>
                   Third among 163 contributors to an internal Retool workflow
@@ -468,7 +460,6 @@ export default function Portfolio() {
                 </p>
               </article>
               <article>
-                <p className={s.eyebrow}>TOOLS & METHODS I’VE WORKED WITH</p>
                 <h4>From data to working software</h4>
                 <p>
                   Python, JavaScript, SQL, PostgreSQL, StarRocks, Retool, APIs,
@@ -489,7 +480,6 @@ export default function Portfolio() {
           className={`${s.section} ${s.practice}`}
           aria-labelledby="practice-title"
         >
-          <p className={s.eyebrow}>TOOLS IN SERVICE OF THE PROBLEM</p>
           <h2 id="practice-title">A connected practice.</h2>
           <PracticeCards paused={pause} />
         </section>
@@ -498,9 +488,7 @@ export default function Portfolio() {
         </div>
         <section className={`${s.section} ${s.documents}`} id="cv">
           <div>
-            <p className={s.eyebrow}>THE DETAILS, TO TAKE WITH YOU</p>
-            <h2>Continue reading.</h2>
-            <p>Academic background, research and professional experience.</p>
+            <h2>CVs</h2>
           </div>
           <div>
             {[cvs[2], cvs[0]].map((cv, i) => (
@@ -510,11 +498,7 @@ export default function Portfolio() {
                 className={s.documentLink}
               >
                 <span>
-                  <small>
-                    {i === 0
-                      ? "FOR RESEARCH & HIGHER STUDY"
-                      : "FOR PROFESSIONAL CONTEXT"}
-                  </small>
+                  <Icon name={i === 0 ? "study" : "work"} />
                   <strong>
                     {i === 0 ? "Academic CV" : "Data automation CV"}
                   </strong>
@@ -541,7 +525,7 @@ export default function Portfolio() {
             <a href="mailto:alltamim.abdullah@gmail.com">
               alltamim.abdullah@gmail.com <Arrow />
             </a>
-            <button onClick={copyEmail}>Copy email</button>
+            <button onClick={copyEmail} aria-label="Copy email address" title="Copy email address"><Icon name="copy" /></button>
             <span role="status">{copied}</span>
           </div>
           <details className={s.contactDetails}>

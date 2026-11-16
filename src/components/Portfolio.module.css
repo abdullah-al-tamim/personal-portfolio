@@ -1285,3 +1285,14 @@
     scroll-behavior: auto !important;
   }
 }
+
+.background p.institution, .credentialsWrap :global(.issuer-row) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.credentialsWrap :global(.more-credentials li) > span[aria-hidden] { margin-inline-end: 5px; }
+.identityCard > svg { width: 28px; height: 28px; }
+.current svg { margin-inline-end: 5px; }
+.documentLink > span:first-child { display: flex; align-items: center; gap: 10px; }
+.contactLinks button { min-width: 44px; min-height: 44px; }

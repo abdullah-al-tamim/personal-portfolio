@@ -1,5 +1,6 @@
 "use client";
 
+import { OrganizationMark } from "./PortfolioMarks";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -44,20 +45,21 @@ const certificates = [
   {
     title: "SQL (Advanced)",
     issuer: "HackerRank",
+    mark: "hackerrank.svg",
     date: "16 November 2026",
     description:
-      "Passed the SQL (Advanced) skill certification test. Credential ID: 32A7B6D22633.",
+      "Credential ID: 32A7B6D22633.",
   },
   {
     title: "Integrate MCP Tools with Azure AI Agents",
     issuer: "Microsoft Learn",
+    mark: "microsoft.png",
     date: "16 November 2026",
-    description:
-      "Completed Microsoft's learning achievement on integrating Model Context Protocol (MCP) tools with Azure AI agents.",
   },
   {
     title: "IELTS Academic — Overall 7.5",
     issuer: "IELTS",
+    mark: "ielts.png",
     date: "19 October 2026",
     description:
       "CEFR C1. Listening 7.5 · Reading 8.5 · Writing 6.0 · Speaking 7.0.",
@@ -65,12 +67,14 @@ const certificates = [
   {
     title: "Beast Award — Level 1: NESSIE",
     issuer: "Augmedix BD (now Commure BD)",
+    mark: "commure.png",
     description:
       "Recognised for an import-error resolver copilot enabling resolution of approximately 120,000 claims and for billable-unsubmitted workflow automation.",
   },
   {
     title: "B-JET Basic and Basic Plus — completed",
     issuer: "North South University / University of Miyazaki",
+    mark: "bjet.png",
     date: "June–December 2024",
     description:
       "Basic term exam: 99/100; Basic final: 95/100; Basic Plus final: 96.8/100. All Excellent. Combined scheduled instruction: 400 units of 45 minutes.",
@@ -78,6 +82,7 @@ const certificates = [
   {
     title: "Giver Award",
     issuer: "B-JET, 14th Batch",
+    mark: "bjet.png",
     date: "2024",
     description:
       "Selected by batchmates through student voting for sustained support to peers throughout training.",
@@ -85,6 +90,7 @@ const certificates = [
   {
     title: "Microsoft Azure Administration workshop",
     issuer: "East West University Robotics Club",
+    mark: "ewurc.png",
     date: "13 May 2023",
     description:
       "Successfully completed the workshop on Microsoft Azure Administration.",
@@ -92,6 +98,7 @@ const certificates = [
   {
     title: "SQL (Intermediate)",
     issuer: "HackerRank",
+    mark: "hackerrank.svg",
     date: "December 2023",
     image: "/awards/hackerrankSQL.png",
     href: "https://www.hackerrank.com/certificates/712f0a16295e",
@@ -99,6 +106,7 @@ const certificates = [
   {
     title: "100% Merit Scholarship",
     issuer: "East West University",
+    mark: "ewu.png",
     date: "Spring 2022",
     image: "/awards/Merit.png",
     href: "https://drive.google.com/file/d/1Ofq4ntMErU7w6Ths2Kqbw0j4xLywVHPW/view",
@@ -106,6 +114,7 @@ const certificates = [
   {
     title: "Machine Learning with Tree-Based Models in Python",
     issuer: "DataCamp",
+    mark: "datacamp.svg",
     date: "March 2023",
     image: "/awards/ML2.png",
     href: "https://www.datacamp.com/statement-of-accomplishment/course/8c1e67429eede2afb0a67a660170e22b855920c8",
@@ -113,6 +122,7 @@ const certificates = [
   {
     title: "Cleaning Data in Python",
     issuer: "DataCamp",
+    mark: "datacamp.svg",
     date: "February 2023",
     image: "/awards/DC.png",
     href: "https://www.datacamp.com/statement-of-accomplishment/course/6f1434f5c3e35cb54cfe3d09966a1d489544be31",
@@ -120,6 +130,7 @@ const certificates = [
   {
     title: "Feature Engineering for Machine Learning in Python",
     issuer: "DataCamp",
+    mark: "datacamp.svg",
     date: "February 2023",
     image: "/awards/FE.png",
     href: "https://www.datacamp.com/statement-of-accomplishment/course/7ed2195647fe513806dec24c15508b59031219ef",
@@ -127,6 +138,7 @@ const certificates = [
   {
     title: "Machine Learning for Time Series Data in Python",
     issuer: "DataCamp",
+    mark: "datacamp.svg",
     date: "March 2023",
     image: "/awards/ML.png",
   },
@@ -229,12 +241,8 @@ export function Credentials() {
     >
       <div className="section-heading" data-reveal>
         <div>
-          <p className="eyebrow">CREDENTIALS & RECOGNITION</p>
-          <h2>Selected recognition.</h2>
+          <h2>Credentials & recognition</h2>
         </div>
-        <p className="section-aside">
-          Academic preparation, professional recognition and continued learning.
-        </p>
       </div>
       <div className="credential-grid">
         {certificates.slice(0, 3).map((certificate) => (
@@ -261,9 +269,10 @@ export function Credentials() {
               </a>
             )}
             <div className="credential-copy">
-              <p className="eyebrow">
-                {certificate.issuer}
-                {certificate.date ? ` · ${certificate.date}` : ""}
+              <p className="eyebrow issuer-row">
+                <OrganizationMark file={certificate.mark} />
+                <span>{certificate.issuer}
+                {certificate.date ? ` · ${certificate.date}` : ""}</span>
               </p>
               <h3>{certificate.title}</h3>
               {certificate.description && <p>{certificate.description}</p>}
@@ -295,7 +304,7 @@ export function Credentials() {
         <ul>
           {certificates.slice(3).map((item) => (
             <li key={item.title}>
-              <strong>{item.title}</strong>{" "}
+              <OrganizationMark file={item.mark} /> <strong>{item.title}</strong>{" "}
               <span>
                 {item.issuer}
                 {item.date ? ` · ${item.date}` : ""}
