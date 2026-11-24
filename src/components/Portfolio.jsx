@@ -13,6 +13,7 @@ import FlowExhibit from "@/components/FlowExhibit";
 import PracticeCards from "@/components/PracticeCards";
 import TubeVaultProject from "@/components/TubeVaultProject";
 import { Icon, OrganizationMark } from "./PortfolioMarks";
+import Monogram from "@/components/Monogram";
 const nav = [
   ["research", "Research"],
   ["work", "Projects"],
@@ -108,7 +109,8 @@ export default function Portfolio() {
           className={s.wordmark}
           aria-label="Abdullah Al Tamim: home"
         >
-          Abdullah Al Tamim
+          <Monogram />
+          <span>Abdullah Al Tamim</span>
         </a>
         <nav
           id="main-navigation"
@@ -329,13 +331,18 @@ export default function Portfolio() {
               </>
             }
           >
-            Personal software and tools I’ve built with healthcare operations teams.
+            From healthcare data workflows to personal software. A selection of
+            problems I’ve worked on, with the decisions and contributions behind
+            them.
           </SectionTitle>
           <TubeVaultProject />
           <div className={s.workIntro}>
             <p className={s.eyebrow}>PROFESSIONAL PRACTICE / COMMURE BD</p>
             <p>
-              I help billing teams find missing records and investigate import errors.
+              In healthcare operations, records from electronic health record
+              systems need to reach downstream billing workflows accurately. My
+              work helps teams find gaps, investigate errors and reduce repeated
+              manual work.
             </p>
           </div>
           <div className={s.workGrid}>
@@ -387,13 +394,36 @@ export default function Portfolio() {
           </div>
         </section>
         <section id="about" data-nav-section="about" className={s.section}>
-          <h2 className={s.aboutTitle}>About me</h2>
+          <SectionTitle
+            number="03"
+            label="A LITTLE ABOUT ME"
+            title={
+              <>
+                The problem matters.
+                <br />
+                <em>So do the people.</em>
+              </>
+            }
+          />
           <div className={s.aboutGrid}>
             <div className={s.personalCopy}>
               <p>
-                I’m a computer science graduate in Dhaka. I like building tools
-                people choose to use. A small example is the script I wrote for
-                our weekly food orders at work. Colleagues asked to use it too.
+                I’m Abdullah Al Tamim, a computer science graduate from East
+                West University, based in Dhaka. I enjoy the whole process of
+                building: understanding a problem, working with the data, and
+                developing something people find useful.
+              </p>
+              <p>
+                That interest isn’t limited to large projects. I wrote a small
+                script to automate the weekly food-ordering task at work and
+                added colleagues who wanted to use it. Their appreciation is
+                part of what I enjoy about making things.
+              </p>
+              <p>
+                I’m preparing for master’s study, with interests spanning data
+                science and AI, data engineering, analytics and business
+                intelligence. I want to keep developing the knowledge behind the
+                systems I build.
               </p>
               <a
                 className={s.inlineLink}
@@ -405,9 +435,12 @@ export default function Portfolio() {
               </a>
             </div>
             <aside className={s.personalNote}>
-              <p className={s.eyebrow}>Graduate study</p>
-              <p>I want to study how to build reliable data pipelines and use
-                their output for analysis and machine learning.</p>
+              <p className={s.eyebrow}>A THREAD THROUGH MY WORK</p>
+              <p>
+                I love building systems that solve real-life problems and that
+                people enjoy using.
+              </p>
+              <span>From research questions to small, useful scripts.</span>
             </aside>
           </div>
           <div className={s.background}>
@@ -439,16 +472,23 @@ export default function Portfolio() {
                 <p className={s.eyebrow}>FEB 2025 – PRESENT</p>
                 <h4>{experience[0].role}</h4>
                 <p className={s.institution}><OrganizationMark file="commure.png" />{experience[0].organization}</p>
-                <p>Promoted to senior analyst in March 2026.</p>
-                <ul className={s.outcomes}>
-                  <li>An import-error copilot helped the team resolve approximately <strong>120,000 claims</strong>.</li>
-                  <li>Received the Beast Award for the copilot and for automating work on billable claims awaiting submission.</li>
-                </ul>
+                <p>{experience[0].detail}</p>
+                <p className={s.note}>
+                  Third among 163 contributors to an internal Retool workflow
+                  repository. Repository-specific GitHub snapshot, October 2026;
+                  private source.
+                </p>
               </article>
               <article>
-                <h4>How I work with data</h4>
-                <p>I use Python to extract EHR reports and SQL to find missing
-                  encounters. Retool brings those checks into the team’s workflow.</p>
+                <h4>From data to working software</h4>
+                <p>
+                  Python, JavaScript, SQL, PostgreSQL, StarRocks, Retool, APIs,
+                  Playwright and Selenium.
+                </p>
+                <p>
+                  Research experience with computer vision, neural networks, EEG
+                  signal processing, CWT / FFT, YOLOv8 and Random Forest.
+                </p>
               </article>
             </div>
           </div>
