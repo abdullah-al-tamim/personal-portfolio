@@ -136,7 +136,7 @@ export const experience = [
     period: "JUN — DEC 2024",
     organization: "B-JET · North South University / University of Miyazaki",
     role: "Basic and Basic Plus courses completed",
-    detail: "Studied Japanese, workplace culture and IT. Scored 95/100 in Basic and 96.8/100 in Basic Plus. Classmates chose me for the Giver Award for peer support.",
+    detail: "Basic: 3 June–18 October, final exam 95/100. Basic Plus: 21 October–6 December, final exam 96.8/100. Japanese language, workplace culture, etiquette and IT training, alongside EWU teaching assistance. Selected by batchmates for the Giver Award for sustained peer support.",
     kind: "TRAINING",
   },
   {
@@ -144,7 +144,7 @@ export const experience = [
     organization: "East West University",
     role: "Undergraduate & Graduate Teaching Assistant",
     detail:
-      "Tutored students and reviewed projects across six courses, including algorithms, databases and AI.",
+      "Tutoring, project support, and assessment across six courses, including Algorithms, Database Systems, and Artificial Intelligence.",
     kind: "TEACHING",
   },
   {

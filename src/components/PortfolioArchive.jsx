@@ -43,6 +43,14 @@ const demos = [
 
 const certificates = [
   {
+    title: "Microsoft Applied Skills: Integrate model context protocol tools with agents in Microsoft Foundry",
+    issuer: "Microsoft",
+    mark: "microsoft.png",
+    date: "25 November 2026",
+    description: "Passed all credential requirements. Credential ID: EF2C8521E8D9925E.",
+    href: "/awards/Microsoft_Applied_Skills_MCP_Foundry.pdf",
+  },
+  {
     title: "SQL (Advanced)",
     href: "https://www.hackerrank.com/certificates/32a7b6d22633",
     issuer: "HackerRank",
